@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 export async function POST(request: NextRequest) {
   try {

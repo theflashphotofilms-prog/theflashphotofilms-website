@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Dynamically import Resend to avoid build-time initialization
 
 // Simple rate limiting using a Map (in production, use Redis or similar)
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
@@ -126,6 +125,10 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Dynamically import Resend to avoid build-time initialization
+    const { Resend } = await import('resend');
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     // Check rate limit
     if (isRateLimited(ip)) {
