@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Simple rate limiting using a Map (in production, use Redis or similar)
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
@@ -23,6 +26,18 @@ const validateAndSanitizeInput = (data: any) => {
     throw new Error('Subject must be a string.');
   }
   
+  if (typeof data.phone !== 'string' && data.phone !== undefined) {
+    throw new Error('Phone must be a string.');
+  }
+  
+  if (typeof data.date !== 'string' && data.date !== undefined) {
+    throw new Error('Date must be a string.');
+  }
+  
+  if (typeof data.serviceType !== 'string' && data.serviceType !== undefined) {
+    throw new Error('Service type must be a string.');
+  }
+  
   if (typeof data.message !== 'string') {
     throw new Error('Message must be a string.');
   }
@@ -40,6 +55,14 @@ const validateAndSanitizeInput = (data: any) => {
     throw new Error('Subject must be 200 characters or less.');
   }
   
+  if (data.phone && data.phone.length > 20) {
+    throw new Error('Phone number must be 20 characters or less.');
+  }
+  
+  if (data.serviceType && data.serviceType.length > 50) {
+    throw new Error('Service type must be 50 characters or less.');
+  }
+  
   if (data.message.trim().length > 1000) {
     throw new Error('Message must be 1000 characters or less.');
   }
@@ -49,6 +72,9 @@ const validateAndSanitizeInput = (data: any) => {
     name: data.name.replace(/[<>]/g, '').trim().substring(0, 100),
     email: data.email.replace(/[<>]/g, '').trim().substring(0, 100),
     subject: data.subject ? data.subject.replace(/[<>]/g, '').trim().substring(0, 200) : '',
+    phone: data.phone ? data.phone.replace(/[<>]/g, '').trim().substring(0, 20) : '',
+    date: data.date ? data.date.replace(/[<>]/g, '').trim().substring(0, 20) : '',
+    serviceType: data.serviceType ? data.serviceType.replace(/[<>]/g, '').trim().substring(0, 50) : 'wedding',
     message: data.message.replace(/[<>]/g, '').trim().substring(0, 1000),
   };
 
@@ -80,19 +106,27 @@ const isRateLimited = (ip: string): boolean => {
 export async function POST(request: NextRequest) {
   try {
     // Get client IP for rate limiting
-  const ip =
-  request.headers.get('x-forwarded-for') ||
-  request.headers.get('x-real-ip') ||
-  'unknown';
-  
-  request.headers.get('x-forwarded-for') ||
-  request.headers.get('x-real-ip') ||
-  'unknown';
-  request.headers.get('x-forwarded-for') ||
-  request.headers.get('x-real-ip') ||
-  'unknown';
+    const ip = request.headers.get('x-forwarded-for') || 
+               request.headers.get('x-real-ip') || 
+               'unknown';
 
-    
+    // Check if required environment variables are present
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Missing RESEND_API_KEY environment variable');
+      return NextResponse.json(
+        { error: 'Server configuration error. Please try again later.' },
+        { status: 500 }
+      );
+    }
+
+    if (!process.env.CONTACT_EMAIL) {
+      console.error('Missing CONTACT_EMAIL environment variable');
+      return NextResponse.json(
+        { error: 'Server configuration error. Please try again later.' },
+        { status: 500 }
+      );
+    }
+
     // Check rate limit
     if (isRateLimited(ip)) {
       return NextResponse.json(
@@ -114,29 +148,67 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // In a real application, you would send the email here using a service like:
-    // - Resend
-    // - Nodemailer
-    // - SendGrid
-    // - AWS SES
-    // For now, we'll just log it securely
-    
-    console.log('Contact form submission received from IP:', ip);
-    console.log('Submission data:', {
-      name: validatedData.name,
-      email: validatedData.email,
-      subject: validatedData.subject,
-      message: validatedData.message.substring(0, 100) + '...', // Truncate for security
-      timestamp: new Date().toISOString()
-    });
+    // Create HTML email content
+    const htmlContent = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #5A1020;">New Contact Form Submission</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${validatedData.name}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${validatedData.email}</td>
+          </tr>
+          ${validatedData.phone ? `
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${validatedData.phone}</td>
+          </tr>` : ''}
+          ${validatedData.date ? `
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Date:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${validatedData.date}</td>
+          </tr>` : ''}
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Service Type:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${validatedData.serviceType}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; vertical-align: top;"><strong>Message:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${validatedData.message.replace(/\n/g, '<br>')}</td>
+          </tr>
+        </table>
+        <p style="margin-top: 20px;">Sent from: ${ip} at ${new Date().toISOString()}</p>
+      </div>
+    `;
 
-    // In a real application, you would send the email here
-    // await sendEmail({
-    //   to: process.env.CONTACT_EMAIL || 'info@flashphotofilms.com',
-    //   from: validatedData.email,
-    //   subject: validatedData.subject || `New message from ${validatedData.name}`,
-    //   text: validatedData.message
-    // });
+    try {
+      // Send email via Resend
+      const { data, error } = await resend.emails.send({
+        from: process.env.CONTACT_EMAIL,
+        to: process.env.CONTACT_EMAIL,
+        subject: validatedData.subject || `New Inquiry from ${validatedData.name}`,
+        html: htmlContent,
+      });
+
+      if (error) {
+        console.error('Error sending email:', error);
+        return NextResponse.json(
+          { error: 'Failed to send message. Please try again.' },
+          { status: 500 }
+        );
+      }
+
+      console.log('Contact form submission processed successfully:', data?.id);
+    } catch (emailError) {
+      console.error('Error sending email:', emailError);
+      return NextResponse.json(
+        { error: 'Failed to send message. Please try again.' },
+        { status: 500 }
+      );
+    }
 
     // Success response
     return NextResponse.json(

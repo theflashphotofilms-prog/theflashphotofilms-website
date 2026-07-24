@@ -1,17 +1,20 @@
-# Flash Photo Films Website
+# The Flash Photofilms Website
 
-Welcome to the official website for Flash Photo Films - a professional photography and videography service.
+Welcome to the official website for The Flash Photofilms - a professional photography and videography service.
 
-## Project Overview
+## Overview
 
-This is a [Next.js](https://nextjs.org/) project built with the App Router architecture, featuring:
+This is a Next.js application that serves as the official website for The Flash Photofilms. The website showcases their photography portfolio, services, and provides a way for potential clients to get in touch.
 
-- Modern, responsive design with Tailwind CSS
-- Professional portfolio gallery showcasing photography work
-- Contact form with API integration
-- Full SEO optimization
-- Performance-focused image handling
-- Mobile-first approach
+## Features
+
+- Modern, responsive design
+- Portfolio gallery showcasing photography work
+- Services overview
+- Contact form with email integration
+- SEO optimized
+- Fast loading times
+- Mobile-friendly
 
 ## Tech Stack
 

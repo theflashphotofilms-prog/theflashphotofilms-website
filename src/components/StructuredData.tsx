@@ -8,84 +8,83 @@ interface StructuredDataType {
   [key: string]: any;
 }
 
-const StructuredData = ({ data }: { data: StructuredDataType }) => {
-  useEffect(() => {
-    // Ensure script is only added on client side
-  }, []);
-
+const StructuredData = () => {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "PhotographyService",
+          "name": "The Flash Photofilms",
+          "image": "/images/logo.jpg",
+          "telephone": "+91 79849 41331",
+          "email": process.env.CONTACT_EMAIL || "info@theflashphotofilms.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "202, Block-3, Ashwini Height, Near Golden Point, GIDC Ankleshwar",
+            "addressLocality": "Bharuch",
+            "addressRegion": "Gujarat",
+            "postalCode": "393002",
+            "addressCountry": "IN"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Bharuch",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Gujarat"
+            }
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "description": "Professional wedding, event, and commercial photography & videography services by Mohit Panchal",
+          "provider": {
+            "@type": "Person",
+            "name": "Mohit Panchal"
+          },
+          "offers": {
+            "@type": "OfferCatalog",
+            "name": "Photography Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Wedding Photography"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Wedding Videography"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Pre-Wedding Shoot"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Portrait Session"
+                }
+              }
+            ]
+          }
+        })
+      }}
     />
   );
 };
 
 export default StructuredData;
-
-// Example usage for local business schema
-export const LocalBusinessSchema = () => {
-  const localBusinessData = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'Flash Photo Films',
-    image: 'https://flashphotofilms.com/logo.png',
-    '@id': 'https://flashphotofilms.com',
-    url: 'https://flashphotofilms.com',
-    telephone: '+1-123-456-7890',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '123 Main Street',
-      addressLocality: 'San Francisco',
-      addressRegion: 'CA',
-      postalCode: '94105',
-      addressCountry: 'US'
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 37.7749,
-      longitude: -122.4194
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '09:00',
-        closes: '18:00'
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Saturday',
-        opens: '10:00',
-        closes: '16:00'
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Sunday',
-        opens: 'Closed'
-      }
-    ],
-    areaServed: [
-      {
-        '@type': 'City',
-        name: 'San Francisco'
-      },
-      {
-        '@type': 'City',
-        name: 'Oakland'
-      },
-      {
-        '@type': 'City',
-        name: 'Berkeley'
-      }
-    ],
-    priceRange: '$$$',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '120'
-    }
-  };
-
-  return <StructuredData data={localBusinessData} />;
-};

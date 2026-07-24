@@ -9,14 +9,16 @@ interface GalleryItem {
   alt: string;
   title?: string;
   description?: string;
+  category?: string;
 }
 
 interface GalleryProps {
   items: GalleryItem[];
   columns?: number;
+  filterCategory?: string; // Optional prop to filter items by category
 }
 
-const Gallery = ({ items, columns = 3 }: GalleryProps) => {
+const Gallery = ({ items, columns = 3, filterCategory = 'all' }: GalleryProps) => {
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
   const openLightbox = (item: GalleryItem) => {
@@ -30,27 +32,37 @@ const Gallery = ({ items, columns = 3 }: GalleryProps) => {
   const navigateImage = (direction: 'prev' | 'next') => {
     if (!selectedImage) return;
 
-    const currentIndex = items.findIndex(item => item.id === selectedImage.id);
+    // Filter items based on category if specified
+    const filteredItems = filterCategory === 'all' 
+      ? items 
+      : items.filter(item => item.category === filterCategory);
+
+    const currentIndex = filteredItems.findIndex(item => item.id === selectedImage.id);
     let newIndex;
 
     if (direction === 'next') {
-      newIndex = (currentIndex + 1) % items.length;
+      newIndex = (currentIndex + 1) % filteredItems.length;
     } else {
-      newIndex = currentIndex === 0 ? items.length - 1 : currentIndex - 1;
+      newIndex = currentIndex === 0 ? filteredItems.length - 1 : currentIndex - 1;
     }
 
-    setSelectedImage(items[newIndex]);
+    setSelectedImage(filteredItems[newIndex]);
   };
+
+  // Filter items based on category if specified
+  const filteredItems = filterCategory === 'all' 
+    ? items 
+    : items.filter(item => item.category === filterCategory);
 
   return (
     <div>
       <div 
-        className={`grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} lg:grid-cols-${Math.min(columns, 4)}`}
+        className={`grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-${columns} lg:grid-cols-${Math.min(columns, 4)}`}
       >
-        {items.map((item) => (
+        {filteredItems.map((item) => (
           <div 
             key={item.id} 
-            className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            className="overflow-hidden rounded-xl cursor-pointer"
             onClick={() => openLightbox(item)}
           >
             <OptimizedImage
@@ -58,13 +70,14 @@ const Gallery = ({ items, columns = 3 }: GalleryProps) => {
               alt={item.alt}
               width={400}
               height={300}
-              className="object-cover w-full h-64 transition-transform duration-300 hover:scale-105"
+              className="object-cover w-full h-64"
+              loading="lazy" // Lazy load gallery images
             />
             {item.title && (
-              <div className="p-3 bg-white">
-                <h3 className="font-medium text-gray-900">{item.title}</h3>
+              <div className="p-5 bg-white">
+                <h3 className="font-bold text-lg text-dark-maroon">{item.title}</h3>
                 {item.description && (
-                  <p className="text-sm text-gray-600 truncate">{item.description}</p>
+                  <p className="text-medium-gray text-sm mt-1">{item.description}</p>
                 )}
               </div>
             )}
@@ -75,7 +88,7 @@ const Gallery = ({ items, columns = 3 }: GalleryProps) => {
       {/* Lightbox */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center p-4"
           onClick={closeLightbox}
         >
           <div 
@@ -83,21 +96,21 @@ const Gallery = ({ items, columns = 3 }: GalleryProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-75"
+              className="absolute top-4 right-4 text-white bg-dark-maroon bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
               onClick={closeLightbox}
             >
               ✕
             </button>
             
             <button
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-75"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-dark-maroon bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
               onClick={() => navigateImage('prev')}
             >
               ‹
             </button>
             
             <button
-              className="absolute right-14 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-75"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-dark-maroon bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
               onClick={() => navigateImage('next')}
             >
               ›
@@ -109,13 +122,14 @@ const Gallery = ({ items, columns = 3 }: GalleryProps) => {
                 alt={selectedImage.alt}
                 width={1200}
                 height={800}
-                className="max-h-[80vh] object-contain"
+                className="max-h-[80vh] object-contain rounded-lg"
+                priority={true} // Load the selected image with priority
               />
               {selectedImage.title && (
-                <h3 className="text-xl font-bold text-white mt-4">{selectedImage.title}</h3>
+                <h3 className="text-2xl font-bold text-white mt-6 text-center">{selectedImage.title}</h3>
               )}
               {selectedImage.description && (
-                <p className="text-gray-200 mt-2 text-center max-w-2xl">{selectedImage.description}</p>
+                <p className="text-gray-200 mt-3 text-center max-w-2xl text-center">{selectedImage.description}</p>
               )}
             </div>
           </div>

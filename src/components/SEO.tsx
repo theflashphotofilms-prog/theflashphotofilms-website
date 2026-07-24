@@ -3,53 +3,49 @@
 import Head from 'next/head';
 
 interface SEOProps {
-  title: string;
+  title?: string;
   description?: string;
-  keywords?: string[];
-  canonicalUrl?: string;
-  ogImage?: string;
-  ogType?: string;
-  twitterCard?: string;
-  noIndex?: boolean;
+  keywords?: string;
+  url?: string;
+  image?: string;
 }
 
 const SEO = ({
-  title,
-  description = 'Professional photography and videography services for capturing life\'s precious moments',
-  keywords = ['photography', 'videography', 'wedding', 'portrait', 'events'],
-  canonicalUrl,
-  ogImage = '/og-image.jpg',
-  ogType = 'website',
-  twitterCard = 'summary_large_image',
-  noIndex = false,
+  title = 'The Flash Photofilms - Professional Photography & Videography Services',
+  description = 'Premium wedding, event, and commercial photography & videography services by Mohit Panchal. Capturing memories with artistic excellence.',
+  keywords = 'photography, videography, wedding photography, event photography, commercial photography, portrait, Ahmedabad, Gujarat',
+  url = typeof window !== 'undefined' ? window.location.href : 'https://www.theflashphotofilms.com',
+  image = '/og-image.jpg',
 }: SEOProps) => {
-  const siteName = 'Flash Photo Films';
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://flashphotofilms.com';
-  const fullCanonicalUrl = canonicalUrl || baseUrl;
+  const siteName = 'The Flash Photofilms';
+  const twitterHandle = '@flashphotofilms'; // Placeholder - replace with actual Twitter handle
 
   return (
     <Head>
-      <title>{title} - {siteName}</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={keywords.join(', ')} />
-      {noIndex && <meta name="robots" content="noindex" />}
+      <meta name="keywords" content={keywords} />
+      <meta name="author" content={siteName} />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       
-      {/* Open Graph */}
-      <meta property="og:title" content={`${title} - ${siteName}`} />
+      {/* Open Graph / Facebook Meta Tags */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={url} />
+      <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:type" content={ogType} />
-      <meta property="og:url" content={fullCanonicalUrl} />
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={image} />
       <meta property="og:site_name" content={siteName} />
+      <meta property="og:locale" content="en_US" />
       
-      {/* Twitter Card */}
-      <meta name="twitter:card" content={twitterCard} />
-      <meta name="twitter:title" content={`${title} - ${siteName}`} />
+      {/* Twitter Meta Tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image" content={image} />
+      <meta name="twitter:site" content={twitterHandle} />
       
       {/* Canonical URL */}
-      <link rel="canonical" href={fullCanonicalUrl} />
+      <link rel="canonical" href={url} />
       
       {/* Favicon */}
       <link rel="icon" href="/favicon.ico" />

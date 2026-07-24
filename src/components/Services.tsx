@@ -3,7 +3,7 @@ const Services = () => {
     {
       title: 'Wedding Photography',
       description: 'Capture every precious moment of your special day with our professional wedding photography services.',
-      icon: '📷',
+      icon: '📸',
     },
     {
       title: 'Portrait Sessions',
@@ -13,7 +13,7 @@ const Services = () => {
     {
       title: 'Event Coverage',
       description: 'Comprehensive event coverage for corporate events, parties, and celebrations.',
-      icon: '🎉',
+      icon: '🎬',
     },
     {
       title: 'Video Production',
@@ -23,29 +23,29 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-base font-semibold text-blue-600 tracking-wide uppercase">Services</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            Our Photography & Videography Services
+        <div className="text-center mb-16">
+          <h2 className="text-base font-semibold text-gold tracking-wide uppercase">Our Expertise</h2>
+          <p className="mt-4 text-4xl leading-10 font-bold text-dark-maroon sm:text-5xl">
+            Premium Photography & Videography Services
           </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            We offer a wide range of professional photography and videography services tailored to your needs.
+          <p className="mt-6 max-w-2xl text-xl text-medium-gray lg:mx-auto">
+            We offer a wide range of professional photography and videography services tailored to your unique needs.
           </p>
         </div>
 
         <div className="mt-16">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
             {services.map((service, index) => (
               <div 
                 key={index} 
-                className="bg-white overflow-hidden shadow rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                className="bg-white overflow-hidden rounded-xl border border-gray-100"
               >
-                <div className="px-6 py-8">
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-lg font-medium text-gray-900">{service.title}</h3>
-                  <p className="mt-2 text-base text-gray-500">
+                <div className="p-8">
+                  <div className="text-5xl mb-6 text-center">{service.icon}</div>
+                  <h3 className="text-xl font-bold text-dark-maroon text-center mb-4">{service.title}</h3>
+                  <p className="text-medium-gray text-center">
                     {service.description}
                   </p>
                 </div>

@@ -1,21 +1,34 @@
-// Conversion tracking library for The Flash Photo Films
+// Conversion tracking library for The Flash Photofilms
 
-/**
- * Track contact form lead submission
- */
-export const trackContactLead = (formData: {
-  name: string;
-  email: string;
-  subject?: string;
-  phone?: string;
-  date?: string;
-  message: string;
-  serviceType?: string;
-}) => {
-  // Implementation for tracking contact form leads
-  console.log('Contact lead tracked:', formData);
-  
-  // In a real implementation, this would call analytics services like:
-  // gtag('event', 'contact_form_submit', {...})
-  // fbq('track', 'Contact', {...})
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
+export const trackEvent = (action: string, category: string, label?: string, value?: number) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', action, {
+      event_category: category,
+      event_label: label,
+      value: value,
+    });
+  }
+};
+
+export const trackPageView = (pagePath: string, pageTitle?: string) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '', {
+      page_path: pagePath,
+      page_title: pageTitle,
+    });
+  }
+};
+
+export const trackConversion = () => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'conversion', {
+      send_to: process.env.NEXT_PUBLIC_ADWORDS_CONVERSION_ID,
+    });
+  }
 };

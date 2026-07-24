@@ -1,100 +1,112 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
+import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { LocalBusinessSchema } from '@/components/StructuredData';
-import './globals.css';
+import WhatsAppCTA from '@/components/WhatsAppCTA';
 
-const inter = Inter({ subsets: ['latin'] });
+const geistSans = localFont({
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+  weight: '100 900',
+});
+const geistMono = localFont({
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+  weight: '100 900',
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://flashphotofilms.com'),
-  title: {
-    default: 'Flash Photo Films - Professional Photography & Videography',
-    template: '%s | Flash Photo Films',
-  },
-  description: 'Professional photography and videography services for capturing life\'s precious moments',
-  keywords: ['photography', 'videography', 'wedding', 'portrait', 'events', 'professional'],
-  authors: [{ name: 'Flash Photo Films' }],
-  creator: 'Flash Photo Films',
-  publisher: 'Flash Photo Films',
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://flashphotofilms.com',
-    title: 'Flash Photo Films - Professional Photography & Videography',
-    description: 'Professional photography and videography services for capturing life\'s precious moments',
-    siteName: 'Flash Photo Films',
-    images: [
-      {
-        url: '/opengraph-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Flash Photo Films - Professional Photography & Videography',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Flash Photo Films - Professional Photography & Videography',
-    description: 'Professional photography and videography services for capturing life\'s precious moments',
-    images: ['/opengraph-image.jpg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'your-google-site-verification-code',
-  },
+  title: 'The Flash Photofilms - Professional Photography & Videography Services',
+  description: 'Premium wedding, event, and commercial photography & videography services by Mohit Panchal. Capturing memories with artistic excellence.',
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Preconnect to Google Fonts for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
-        
-        {/* Preload critical resources */}
-        <link rel="preload" href="/api/placeholder/1200/630" as="image" />
-        
-        {/* Analytics script - replace with your analytics provider */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" />
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Navbar />
+        {children}
+        <Footer />
+        <WhatsAppCTA />
         <script
+          type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX');
-            `,
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "PhotographyService",
+              "name": "The Flash Photofilms",
+              "image": "/images/logo.jpg",
+              "telephone": "+91 79849 41331",
+              "email": process.env.CONTACT_EMAIL || "info@theflashphotofilms.com",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "202, Block-3, Ashwini Height, Near Golden Point, GIDC Ankleshwar",
+                "addressLocality": "Bharuch",
+                "addressRegion": "Gujarat",
+                "postalCode": "393002",
+                "addressCountry": "IN"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Bharuch",
+                "containedInPlace": {
+                  "@type": "State",
+                  "name": "Gujarat"
+                }
+              },
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                "opens": "09:00",
+                "closes": "18:00"
+              },
+              "description": "Professional wedding, event, and commercial photography & videography services by Mohit Panchal",
+              "provider": {
+                "@type": "Person",
+                "name": "Mohit Panchal"
+              },
+              "offers": {
+                "@type": "OfferCatalog",
+                "name": "Photography Services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Wedding Photography"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Wedding Videography"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Pre-Wedding Shoot"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Portrait Session"
+                    }
+                  }
+                ]
+              }
+            })
           }}
         />
-      </head>
-      <body className={inter.className}>
-        <LocalBusinessSchema />
-        <Navbar />
-        <main>
-          {children}
-        </main>
-        <Footer />
       </body>
     </html>
   );
