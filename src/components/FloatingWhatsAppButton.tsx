@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 
-const WhatsAppCTA = () => {
+const FloatingWhatsAppButton = () => {
   const [isVisible, setIsVisible] = useState(true);
   const phoneNumber = '7984941331'; // Without country code prefix for WhatsApp
-  const whatsappMessage = encodeURIComponent('Hello! I\'m interested in your photography services.');
   
   // Show button after scrolling down a bit to avoid overlapping with content
   useEffect(() => {
@@ -25,7 +24,7 @@ const WhatsAppCTA = () => {
     <>
       {isVisible && (
         <a
-          href={`https://wa.me/${phoneNumber}?text=${whatsappMessage}`}
+          href={`https://wa.me/${phoneNumber}`}
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-6 right-6 z-50 bg-[#D2A97F] hover:bg-[#3A5A40] text-[#3A5A40] hover:text-[#D2A97F] p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 hover:shadow-xl"
@@ -47,4 +46,4 @@ const WhatsAppCTA = () => {
   );
 };
 
-export default WhatsAppCTA;
+export default FloatingWhatsAppButton;

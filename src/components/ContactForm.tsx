@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useRef, FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 
 const ContactForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,7 +15,6 @@ const ContactForm = () => {
     discountInterest: false, // New field to track interest in discount
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -97,23 +98,8 @@ const ContactForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        setSubmitSuccess(true);
-        
-        // Reset form data
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          service: 'wedding',
-          date: '',
-          message: '',
-          discountInterest: false
-        });
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          setSubmitSuccess(false);
-        }, 5000);
+        // Redirect to thank you page after successful submission
+        router.push('/thank-you');
       } else {
         throw new Error(result.error || 'Failed to submit form');
       }
@@ -262,12 +248,6 @@ const ContactForm = () => {
       {submitError && (
         <div className="p-3 bg-red-50 text-red-700 rounded-lg">
           {submitError}
-        </div>
-      )}
-
-      {submitSuccess && (
-        <div className="p-3 bg-green-50 text-green-700 rounded-lg">
-          Thank you for your message! We&apos;ll get back to you soon.
         </div>
       )}
 
