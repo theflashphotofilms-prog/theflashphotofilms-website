@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,10 +18,9 @@ const Footer = () => {
               <Image
                 src="/logo.png"
                 alt="The Flash Photofilms Logo"
-                width={120}
-                height={45}
-                className="h-12 sm:h-12 md:h-12 lg:h-12 xl:h-12 object-contain transition-all duration-300"
-                priority
+                width={140}
+                height={70}
+                className="h-16 sm:h-16 md:h-16 lg:h-16 xl:h-16 object-contain transition-all duration-300"
               />
             </Link>
           </div>
