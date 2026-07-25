@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'dark-maroon': '#3A5A40', // Forest Green
-        'gold': '#D2A97F', // Soft Gold
+        'dark-maroon': '#3A5A40', // Forest Green (was old maroon)
+        'gold': '#D2A97F', // Soft Gold (was old gold)
         'medium-gray': '#555555',
         // Extended brand colors for states
         'dark-maroon-hover': '#2a4a30', // Darker Forest Green

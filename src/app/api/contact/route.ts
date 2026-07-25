@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
     // Create HTML email content
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #5A1020;">New Contact Form Submission</h2>
+        <h2 style="color: #3A5A40;">New Contact Form Submission</h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
           <tr>
             <td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td>
