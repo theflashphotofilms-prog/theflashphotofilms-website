@@ -31,7 +31,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "PhotographyService",
               "name": "The Flash Photofilms",
-              "image": "/logo.png", // Placeholder - will be updated when logo is available
+              "image": "/logo.png", // Updated to use the actual logo path
               "telephone": "+91 79849 41331",
               "email": process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@theflashphotofilms.com",
               "address": {

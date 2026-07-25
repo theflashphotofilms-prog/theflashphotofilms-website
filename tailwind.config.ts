@@ -9,18 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'dark-maroon': '#5A1020',
-        'gold': '#D4AF37',
-        'medium-gray': '#777777',
+        'dark-maroon': '#3A5A40', // Forest Green
+        'gold': '#D2A97F', // Soft Gold
+        'medium-gray': '#555555',
         // Extended brand colors for states
-        'dark-maroon-hover': '#4A0E1A',
-        'gold-light': '#E6C555',
-        'gold-dark': '#B8972C',
+        'dark-maroon-hover': '#2a4a30', // Darker Forest Green
+        'gold-light': '#e2c99f', // Lighter Soft Gold
+        'gold-dark': '#c2996f', // Darker Soft Gold
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'velvet-texture': 'linear-gradient(135deg, #3A5A40 0%, #4a6a50 50%, #3A5A40 100%)',
       },
     },
   },

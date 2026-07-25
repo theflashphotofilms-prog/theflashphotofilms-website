@@ -7,8 +7,8 @@
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
   /* Brand colors */
-  --color-dark-maroon: #5A1020;
-  --color-gold: #D4AF37;
+  --color-dark-maroon: #3A5A40; /* Forest Green */
+  --color-gold: #D2A97F; /* Soft Gold */
   --color-medium-gray: #555555; /* Improved contrast from #777777 */
 }
 
@@ -22,10 +22,11 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  background: linear-gradient(135deg, #3A5A40 0%, #4a6a50 50%, #3A5A40 100%);
+  background-attachment: fixed;
 }
 
-/* Brand form styling - Maroon and Gold theme */
+/* Brand form styling - Forest Green and Soft Gold theme */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -57,11 +58,11 @@ select {
 
 /* Brand button styling */
 .brand-button {
-  @apply bg-dark-maroon text-white font-medium rounded-md px-4 py-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50;
+  @apply bg-gold text-dark-maroon font-medium rounded-md px-4 py-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50;
 }
 
 .brand-button:hover:not(:disabled) {
-  @apply bg-gold text-dark-maroon;
+  @apply bg-dark-maroon text-gold;
 }
 
 .brand-button:disabled {
@@ -116,7 +117,7 @@ a {
 
 /* Dropdown menu styling */
 .dropdown {
-  @apply border-gold text-dark-maroon focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
+  @apply border-gold text-dark-maroon placeholder:text-medium-gray focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
 }
 
 /* Date picker styling */
@@ -151,7 +152,7 @@ a {
 
 /* Focus-visible styling for accessibility */
 *:focus-visible {
-  outline: 2px solid #D4AF37;
+  outline: 2px solid #D2A97F;
   outline-offset: 2px;
 }
 
@@ -167,12 +168,12 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D4AF37;
+  background: #D2A97F;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5A1020;
+  background: #3A5A40;
 }
 
 /* Fix for autofill text color visibility */
@@ -180,16 +181,16 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-text-fill-color: #5A1020 !important;
+  -webkit-text-fill-color: #3A5A40 !important;
   -webkit-box-shadow: 0 0 0 30px white inset !important;
   box-shadow: 0 0 0 30px white inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 input[type="email"] {
-  -webkit-text-fill-color: #5A1020 !important;
+  -webkit-text-fill-color: #3A5A40 !important;
 }
 
 input[type="email"]:focus {
-  -webkit-text-fill-color: #5A1020 !important;
+  -webkit-text-fill-color: #3A5A40 !important;
 }
