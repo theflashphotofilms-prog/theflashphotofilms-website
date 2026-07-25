@@ -31,9 +31,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "PhotographyService",
               "name": "The Flash Photofilms",
-              "image": "/images/logo.jpg",
+              "image": "/logo.png", // Placeholder - will be updated when logo is available
               "telephone": "+91 79849 41331",
-              "email": process.env.CONTACT_EMAIL || "info@theflashphotofilms.com",
+              "email": process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@theflashphotofilms.com",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "202, Block-3, Ashwini Height, Near Golden Point, GIDC Ankleshwar",
