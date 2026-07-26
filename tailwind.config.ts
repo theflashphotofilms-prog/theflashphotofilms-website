@@ -18,6 +18,10 @@ const config: Config = {
         'light-gray': '#f8fafc',
         'medium-gray': '#64748b',
         'dark-gray': '#334155',
+        // Adding the legacy color names that are used in JSX
+        'dark-maroon': '#3A5A40', // Map to forest green
+        'gold': '#D2A97F', // Map to soft gold
+        'dark-gold': '#c2996f', // Map to soft gold dark
       },
     },
   },
