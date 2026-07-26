@@ -14,35 +14,45 @@ const DiscountPopup = () => {
   const [error, setError] = useState('');
   const [couponCode, setCouponCode] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const [mounted, setMounted] = useState(false); // Add mounted state to prevent SSR issues
+  const [mounted, setMounted] = useState(false);
 
-  // Set mounted to true on client side to prevent hydration issues
+  // Initialize on client side only
   useEffect(() => {
-    setMounted(true);
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      setMounted(true);
+      
+      // Show popup after 3 seconds on mount (only on client)
+      const timer = setTimeout(() => {
+        try {
+          // Check if user has already seen the popup (using localStorage)
+          const hasSeenPopup = localStorage.getItem('hasSeenDiscountPopup');
+          if (!hasSeenPopup) {
+            setShowPopup(true);
+            setIsVisible(true);
+          }
+        } catch (e) {
+          // Handle cases where localStorage is not available
+          console.warn('Could not access localStorage, skipping discount popup');
+        }
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
-
-  // Show popup after 3 seconds on mount
-  useEffect(() => {
-    if (!mounted) return; // Only run on client side
-    
-    const timer = setTimeout(() => {
-      // Check if user has already seen the popup (using localStorage)
-      const hasSeenPopup = localStorage.getItem('hasSeenDiscountPopup');
-      if (!hasSeenPopup) {
-        setShowPopup(true);
-        setIsVisible(true);
-      }
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [mounted]);
 
   const handleClose = () => {
     setIsVisible(false);
     setTimeout(() => {
       setShowPopup(false);
-      // Mark as seen so it doesn't appear again
-      localStorage.setItem('hasSeenDiscountPopup', 'true');
+      try {
+        // Mark as seen so it doesn't appear again
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('hasSeenDiscountPopup', 'true');
+        }
+      } catch (e) {
+        console.warn('Could not set localStorage item');
+      }
     }, 300);
   };
 
@@ -112,20 +122,22 @@ const DiscountPopup = () => {
     }
   };
 
-  // Don't render anything during SSR or until mounted
-  if (!mounted || !showPopup) return null;
+  // Only render when fully mounted AND showPopup is true AND isVisible is true
+  // This ensures no DOM elements exist until the popup is actually needed and ready to show
+  if (!mounted || !showPopup || !isVisible) return null;
 
+  // Only render the overlay and modal when all conditions are met
   return (
     <>
-      {/* Overlay */}
+      {/* Overlay - only render when all conditions are met */}
       <div 
-        className={`fixed inset-0 bg-black bg-opacity-50 z-40 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}
+        className="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-100 transition-opacity duration-300"
         onClick={handleClose}
       />
 
-      {/* Popup Modal */}
+      {/* Popup Modal - only render when all conditions are met */}
       <div 
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${isVisible ? 'opacity-100' : 'opacity-0 scale-95'} transition-all duration-300`}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-100 transition-all duration-300"
       >
         <div 
           className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
