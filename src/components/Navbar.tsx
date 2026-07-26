@@ -130,7 +130,7 @@ const Navbar = () => {
               href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
               className={`hidden lg:flex items-center space-x-1 font-medium transition-colors hover:text-[#D2A97F] ${scrolled ? 'text-[#D2A97F]' : 'text-[#3A5A40]'}`}
             >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style={{ flexShrink: 0 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               <span>{phoneNumber}</span>
@@ -150,7 +150,7 @@ const Navbar = () => {
               href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
               className={`mr-4 ${scrolled ? 'text-[#D2A97F]' : 'text-[#3A5A40]'}`}
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style={{ flexShrink: 0 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
             </a>
@@ -161,11 +161,11 @@ const Navbar = () => {
               aria-label="Toggle navigation menu"
             >
               {isMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style={{ flexShrink: 0 }}>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style={{ flexShrink: 0 }}>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
@@ -174,9 +174,9 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - moved outside the main container to prevent height issues */}
       {isMenuOpen && (
-        <div className="md:hidden bg-[#3A5A40] dark:bg-[#3A5A40] shadow-lg rounded-lg mt-2 py-4 absolute left-0 right-0 mx-4">
+        <div className="md:hidden bg-[#3A5A40] dark:bg-[#3A5A40] shadow-lg rounded-lg mt-2 py-4 absolute left-0 right-0 mx-4 z-40 max-h-[calc(100vh-80px)] overflow-y-auto">
           <div className="flex flex-col space-y-4 px-4">
             <Link 
               href="/" 
@@ -267,7 +267,7 @@ const Navbar = () => {
               className="font-medium py-2 px-4 rounded hover:bg-[#D2A97F]/10 hover:text-[#D2A97F] text-[#D2A97F] flex items-center"
               onClick={closeMobileMenu}
             >
-              <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style={{ flexShrink: 0 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               {phoneNumber}
