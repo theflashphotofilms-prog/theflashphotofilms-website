@@ -20,6 +20,37 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+/* Temporary override to ensure content visibility */
+body {
+  background: white !important;
+  color: black !important;
+}
+
+/* Also target specific problematic classes */
+.text-dark-maroon {
+  color: #3A5A40 !important; /* forest-green */
+}
+
+.text-gold {
+  color: #D2A97F !important; /* soft-gold */
+}
+
+.text-medium-gray {
+  color: #64748b !important; /* medium-gray from tailwind config */
+}
+
+.bg-dark-maroon {
+  background-color: #3A5A40 !important; /* forest-green */
+}
+
+.bg-gold {
+  background-color: #D2A97F !important; /* soft-gold */
+}
+
+.bg-light-gray {
+  background-color: #f8fafc !important; /* light-gray from tailwind config */
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
