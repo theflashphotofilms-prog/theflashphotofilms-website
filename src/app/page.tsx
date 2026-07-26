@@ -22,9 +22,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Test heading to verify visibility */}
-      <h1 style={{color:"red", fontSize:"40px", zIndex: 1000, position: "relative"}}>TEST VISIBILITY</h1>
-      
       <SEO 
         title="The Flash Photofilms - Professional Photography & Videography Services" 
         description="Professional photography and videography services for weddings, events, and commercial projects. Capture your special moments with our expert team."
