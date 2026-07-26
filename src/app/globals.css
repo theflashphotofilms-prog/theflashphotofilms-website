@@ -3,194 +3,95 @@
 @tailwind utilities;
 
 :root {
+  --color-forest-green: #3A5A40; /* Forest Green */
+  --color-soft-gold: #D2A97F; /* Soft Gold */
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
+  --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  /* Brand colors */
-  --color-dark-maroon: #3A5A40; /* Forest Green */
-  --color-gold: #D2A97F; /* Soft Gold */
-  --color-medium-gray: #555555; /* Improved contrast from #777777 */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: #1a1a1a;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(135deg, #3A5A40 0%, #4a6a50 50%, #3A5A40 100%);
-  background-attachment: fixed;
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
-/* Brand form styling - Forest Green and Soft Gold theme */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"],
-input[type="password"],
-input[type="search"],
-input[type="number"],
-input[type="url"],
-input[type="month"],
-input[type="week"],
-input[type="time"],
-input[type="datetime-local"],
-input[type="color"],
-input[type="file"],
-textarea,
-select {
-  @apply border-gold text-dark-maroon placeholder:text-medium-gray focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-/* Specific styling for form labels */
-.form-label {
-  @apply text-dark-maroon font-medium;
-}
-
-/* Required field indicator styling */
-.required-indicator {
-  @apply text-gold;
-}
-
-/* Brand button styling */
-.brand-button {
-  @apply bg-gold text-dark-maroon font-medium rounded-md px-4 py-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50;
-}
-
-.brand-button:hover:not(:disabled) {
-  @apply bg-dark-maroon text-gold;
-}
-
-.brand-button:disabled {
-  @apply opacity-70 cursor-not-allowed;
-}
-
-/* Checkbox and radio button styling */
-input[type="checkbox"],
-input[type="radio"] {
-  @apply border-gold text-dark-maroon focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:ring-offset-2 focus:outline-none;
-}
-
-/* Form validation states */
-.form-error {
-  @apply text-red-600 border-red-600;
-}
-
-.form-success {
-  @apply text-green-600 border-green-600;
-}
-
-.form-warning {
-  @apply text-yellow-600 border-yellow-600;
-}
-
-/* Link styling */
-a {
-  @apply text-dark-maroon underline hover:text-gold transition-colors duration-200;
-}
-
-/* Form message styling */
-.form-message {
-  @apply text-dark-maroon;
-}
-
-.form-message.error {
-  @apply text-red-600;
-}
-
-.form-message.success {
-  @apply text-green-600;
-}
-
-.form-message.warning {
-  @apply text-yellow-600;
-}
-
-/* Search bar styling */
-.search-bar {
-  @apply border-gold text-dark-maroon placeholder:text-medium-gray focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
-}
-
-/* Dropdown menu styling */
-.dropdown {
-  @apply border-gold text-dark-maroon placeholder:text-medium-gray focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
-}
-
-/* Date picker styling */
-.date-picker {
-  @apply border-gold text-dark-maroon placeholder:text-medium-gray focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
-}
-
-/* Newsletter subscription form styling */
-.newsletter-form input,
-.newsletter-subscription input {
-  @apply border-gold text-dark-maroon placeholder:text-medium-gray focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
-}
-
-/* Login and registration form styling */
-.login-form input,
-.registration-form input {
-  @apply border-gold text-dark-maroon placeholder:text-medium-gray focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none rounded-md;
-}
-
-/* Interactive states */
-.focusable-element:focus {
-  @apply focus:ring-gold focus:ring-2 focus:ring-opacity-50 focus:border-dark-maroon focus:outline-none;
-}
-
-.hoverable-element:hover {
-  @apply border-gold;
-}
-
-.active-element:active {
-  @apply border-dark-maroon;
-}
-
-/* Focus-visible styling for accessibility */
-*:focus-visible {
-  outline: 2px solid #D2A97F;
-  outline-offset: 2px;
-}
-
-/* Custom scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #D2A97F;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3A5A40;
-}
-
-/* Fix for autofill text color visibility */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-text-fill-color: #3A5A40 !important;
-  -webkit-box-shadow: 0 0 0 30px white inset !important;
-  box-shadow: 0 0 0 30px white inset !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-input[type="email"] {
-  -webkit-text-fill-color: #3A5A40 !important;
-}
-
-input[type="email"]:focus {
-  -webkit-text-fill-color: #3A5A40 !important;
+@layer components {
+  .input-field {
+    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+  }
+  
+  .btn-text {
+    @apply text-[#3A5A40] font-medium;
+  }
+  
+  .gold-text {
+    @apply text-[#D2A97F];
+  }
+  
+  .btn-primary {
+    @apply bg-[#D2A97F] text-[#3A5A40] font-medium rounded-md px-4 py-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#D2A97F] focus:ring-opacity-50;
+  }
+  
+  .btn-secondary {
+    @apply bg-[#3A5A40] text-[#D2A97F];
+  }
+  
+  .link-style {
+    @apply border-[#D2A97F] text-[#3A5A40] focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:ring-offset-2 focus:outline-none;
+  }
+  
+  .underline-link {
+    @apply text-[#3A5A40] underline hover:text-[#D2A97F] transition-colors duration-200;
+  }
+  
+  .text-dark {
+    @apply text-[#3A5A40];
+  }
+  
+  .input-contact {
+    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+  }
+  
+  .input-contact-full {
+    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+  }
+  
+  .input-contact-select {
+    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+  }
+  
+  .input-contact-message {
+    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+  }
+  
+  .input-focus {
+    @apply focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none;
+  }
+  
+  .border-gold {
+    @apply border-[#D2A97F];
+  }
+  
+  .border-dark-maroon {
+    @apply border-[#3A5A40];
+  }
 }

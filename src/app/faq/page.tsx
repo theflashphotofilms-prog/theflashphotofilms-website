@@ -102,7 +102,7 @@ const FAQPage = () => {
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-dark-maroon sm:text-5xl">
+          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
             Frequently Asked Questions
           </h1>
           <p className="mt-6 text-xl text-medium-gray">
@@ -122,9 +122,9 @@ const FAQPage = () => {
                   onClick={() => toggleAccordion(index)}
                   aria-expanded={openIndex === index}
                 >
-                  <h3 className="text-lg font-bold text-dark-maroon">{faq.question}</h3>
+                  <h3 className="text-lg font-bold text-[#D2A97F]">{faq.question}</h3>
                   <svg 
-                    className={`h-5 w-5 text-gold transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
+                    className={`h-5 w-5 text-[#D2A97F] transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor"
@@ -142,7 +142,7 @@ const FAQPage = () => {
           </div>
         </div>
 
-        <div className="mt-16 bg-gradient-to-r from-dark-maroon to-black rounded-2xl p-8 md:p-12 text-white text-center">
+        <div className="mt-16 bg-gradient-to-r from-[#3A5A40] to-black rounded-2xl p-8 md:p-12 text-white text-center">
           <h2 className="text-2xl font-bold mb-4">Still Have Questions?</h2>
           <p className="text-medium-gray max-w-2xl mx-auto mb-8">
             We are happy to help you plan your special event and choose the perfect package.
@@ -155,13 +155,13 @@ const FAQPage = () => {
               href="https://wa.me/+917984941331" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-block bg-gold text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-dark-maroon transition-colors"
+              className="inline-block bg-[#D2A97F] text-[#3A5A40] px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors"
             >
               WhatsApp Us
             </Link>
             <Link 
               href="/contact" 
-              className="inline-block bg-transparent border-2 border-gold text-gold px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+              className="inline-block bg-transparent border-2 border-[#D2A97F] text-[#D2A97F] px-8 py-4 rounded-xl font-bold hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
             >
               Contact Us
             </Link>

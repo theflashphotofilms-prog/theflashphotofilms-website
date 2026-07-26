@@ -4,20 +4,77 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { feedbackService, Feedback } from '@/lib/feedbackService';
+
+interface Review {
+  id: number;
+  name: string;
+  date: string;
+  rating: number;
+  comment: string;
+}
 
 const ClientReviews = () => {
-  const [reviews, setReviews] = useState<Feedback[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Simulating API call to fetch reviews
     const fetchReviews = async () => {
       try {
-        const approvedFeedback = feedbackService.getApprovedFeedback();
-        setReviews(approvedFeedback);
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
-      } finally {
+        // Simulated delay to mimic API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Mock data for reviews
+        const mockReviews: Review[] = [
+          {
+            id: 1,
+            name: "Rajesh Patel",
+            date: "2023-10-15",
+            rating: 5,
+            comment: "Outstanding photography! Captured every moment perfectly. Highly recommended!"
+          },
+          {
+            id: 2,
+            name: "Priya Sharma",
+            date: "2023-09-22",
+            rating: 5,
+            comment: "The team was professional and creative. Our wedding photos are absolutely beautiful."
+          },
+          {
+            id: 3,
+            name: "Amit Kumar",
+            date: "2023-11-05",
+            rating: 4,
+            comment: "Great service and quality. The videography was especially impressive."
+          },
+          {
+            id: 4,
+            name: "Neha Singh",
+            date: "2023-08-30",
+            rating: 5,
+            comment: "Professional, punctual, and talented. They made our special day even more memorable."
+          },
+          {
+            id: 5,
+            name: "Vikram Joshi",
+            date: "2023-12-10",
+            rating: 5,
+            comment: "Exceptional work! The attention to detail and creativity exceeded our expectations."
+          },
+          {
+            id: 6,
+            name: "Sneha Reddy",
+            date: "2023-07-18",
+            rating: 4,
+            comment: "Wonderful experience. The team captured our pre-wedding shoot beautifully."
+          }
+        ];
+        
+        setReviews(mockReviews);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to load reviews. Please try again later.");
         setLoading(false);
       }
     };
@@ -29,26 +86,28 @@ const ClientReviews = () => {
     return Array.from({ length: 5 }).map((_, index) => (
       <span 
         key={index} 
-        className={`text-lg ${index < rating ? 'text-gold' : 'text-gray-300'}`}
+        className={`text-lg ${index < rating ? 'text-[#D2A97F]' : 'text-gray-300'}`}
       >
         ★
       </span>
     ));
   };
 
+  if (error) {
+    return (
+      <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <h2 className="text-3xl font-bold text-[#D2A97F] mb-6">Client Reviews</h2>
+        <p className="text-medium-gray">{error}</p>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-dark-maroon">Client Reviews</h2>
-            <p className="mt-4 text-xl text-medium-gray max-w-3xl mx-auto">
-              Hear what our valued clients have to say about our services
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gold"></div>
-          </div>
+      <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <h2 className="text-3xl font-bold text-[#D2A97F] mb-6">Client Reviews</h2>
+        <div className="flex justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#D2A97F]"></div>
         </div>
       </div>
     );
@@ -58,7 +117,7 @@ const ClientReviews = () => {
     <section className="py-16 bg-light-gray">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-dark-maroon">Client Reviews</h2>
+          <h2 className="text-3xl font-bold text-[#D2A97F]">Client Reviews</h2>
           <p className="mt-4 text-xl text-medium-gray max-w-3xl mx-auto">
             Hear what our valued clients have to say about our services
           </p>
@@ -78,8 +137,8 @@ const ClientReviews = () => {
                 <div className="flex items-center mb-4">
                   <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16" />
                   <div className="ml-4">
-                    <h4 className="font-bold text-dark-maroon">{review.name}</h4>
-                    <p className="text-medium-gray text-sm">{review.serviceType}</p>
+                    <h4 className="font-bold text-[#D2A97F]">{review.name}</h4>
+                    <p className="text-medium-gray text-sm">{review.date}</p>
                   </div>
                 </div>
                 
@@ -87,11 +146,11 @@ const ClientReviews = () => {
                   {renderStars(review.rating)}
                 </div>
                 
-                <p className="text-medium-gray italic">&quot;{review.feedback}&quot;</p>
+                <p className="text-medium-gray italic">&quot;{review.comment}&quot;</p>
                 
                 <div className="mt-4 text-right">
                   <p className="text-sm text-medium-gray">
-                    {new Date(review.submissionDate).toLocaleDateString('en-US', { 
+                    {new Date(review.date).toLocaleDateString('en-US', { 
                       year: 'numeric', 
                       month: 'short', 
                       day: 'numeric' 

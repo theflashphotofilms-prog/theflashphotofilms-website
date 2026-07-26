@@ -115,7 +115,7 @@ const ContactForm = () => {
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="name" className="block text-medium-gray mb-2 font-medium">
-          Full Name <span className="text-gold">*</span>
+          Full Name <span className="text-[#D2A97F]">*</span>
         </label>
         <input
           type="text"
@@ -123,7 +123,7 @@ const ContactForm = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors ${
             errors.name ? 'border-red-500' : 'border-gray-300'
           }`}
           placeholder="Enter your full name"
@@ -133,7 +133,7 @@ const ContactForm = () => {
 
       <div>
         <label htmlFor="email" className="block text-medium-gray mb-2 font-medium">
-          Email Address <span className="text-gold">*</span>
+          Email Address <span className="text-[#D2A97F]">*</span>
         </label>
         <input
           type="email"
@@ -141,7 +141,7 @@ const ContactForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors ${
             errors.email ? 'border-red-500' : 'border-gray-300'
           }`}
           placeholder="Enter your email address"
@@ -151,7 +151,7 @@ const ContactForm = () => {
 
       <div>
         <label htmlFor="phone" className="block text-medium-gray mb-2 font-medium">
-          Phone Number <span className="text-gold">*</span>
+          Phone Number <span className="text-[#D2A97F]">*</span>
         </label>
         <input
           type="tel"
@@ -159,7 +159,7 @@ const ContactForm = () => {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors ${
             errors.phone ? 'border-red-500' : 'border-gray-300'
           }`}
           placeholder="Enter your phone number"
@@ -169,14 +169,14 @@ const ContactForm = () => {
 
       <div>
         <label htmlFor="service" className="block text-medium-gray mb-2 font-medium">
-          Service Interested In <span className="text-gold">*</span>
+          Service Interested In <span className="text-[#D2A97F]">*</span>
         </label>
         <select
           id="service"
           name="service"
           value={formData.service}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors ${
             errors.service ? 'border-red-500' : 'border-gray-300'
           }`}
         >
@@ -196,7 +196,7 @@ const ContactForm = () => {
       {showDateField && (
         <div>
           <label htmlFor="date" className="block text-medium-gray mb-2 font-medium">
-            Wedding Date <span className="text-gold">*</span>
+            Wedding Date <span className="text-[#D2A97F]">*</span>
           </label>
           <input
             type="date"
@@ -204,7 +204,7 @@ const ContactForm = () => {
             name="date"
             value={formData.date}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors ${
               errors.date ? 'border-red-500' : 'border-gray-300'
             }`}
           />
@@ -222,7 +222,7 @@ const ContactForm = () => {
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors"
           placeholder="Tell us about your project, requirements, and timeline&hellip;"
         ></textarea>
       </div>
@@ -235,7 +235,7 @@ const ContactForm = () => {
             type="checkbox"
             checked={formData.discountInterest}
             onChange={handleChange}
-            className="focus:ring-gold h-4 w-4 text-dark-maroon border-gray-300 rounded"
+            className="focus:ring-[#D2A97F] h-4 w-4 text-[#3A5A40] border-gray-300 rounded"
           />
         </div>
         <div className="ml-3 text-sm">
@@ -258,7 +258,7 @@ const ContactForm = () => {
           className={`w-full py-4 px-4 rounded-xl font-bold text-white transition-colors duration-300 ${
             isSubmitting 
               ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-dark-maroon hover:bg-gold hover:text-dark-maroon'
+              : 'bg-[#3A5A40] hover:bg-[#D2A97F] hover:text-[#3A5A40]'
           }`}
         >
           {isSubmitting ? 'Sending...' : 'Send Message'}
