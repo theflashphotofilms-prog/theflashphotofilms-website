@@ -20,44 +20,6 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-/* Luxury Wedding Theme for Specific Components */
-.navbar-themed {
-  background-color: #3A5A40;
-  color: #D2A97F;
-}
-
-.hero-themed {
-  background-color: #3A5A40;
-  color: #D2A97F;
-}
-
-.footer-themed {
-  background-color: #3A5A40;
-  color: #D2A97F;
-}
-
-.cta-themed {
-  background-color: #3A5A40;
-  color: #D2A97F;
-}
-
-.btn-luxury {
-  background-color: #D2A97F;
-  color: #3A5A40;
-  border: 1px solid #D2A97F;
-}
-
-.btn-luxury:hover {
-  background-color: #3A5A40;
-  color: #D2A97F;
-}
-
-.package-card-themed {
-  background-color: #3A5A40;
-  color: #D2A97F;
-  border: 1px solid #D2A97F;
-}
-
 /* Standard text color definitions */
 .text-dark-maroon {
   color: #3A5A40;

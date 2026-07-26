@@ -26,7 +26,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 navbar-themed shadow-md transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md transition-all duration-300">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center">
@@ -44,21 +44,21 @@ const Navbar = () => {
           <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
             <Link 
               href="/" 
-              className={`font-medium transition-colors hover:text-[#D2A97F] ${pathname === '/' ? 'text-[#D2A97F]' : scrolled ? 'text-[#D2A97F]' : 'text-[#D2A97F]'}`}
+              className={`font-medium transition-colors hover:text-[#D2A97F] ${pathname === '/' ? 'text-[#D2A97F]' : scrolled ? 'text-[#D2A97F]' : 'text-[#3A5A40]'}`}
               onClick={closeMobileMenu}
             >
               Home
             </Link>
             <Link 
               href="/about" 
-              className={`font-medium transition-colors hover:text-[#D2A97F] ${pathname === '/about' ? 'text-[#D2A97F]' : scrolled ? 'text-[#D2A97F]' : 'text-[#D2A97F]'}`}
+              className={`font-medium transition-colors hover:text-[#D2A97F] ${pathname === '/about' ? 'text-[#D2A97F]' : scrolled ? 'text-[#D2A97F]' : 'text-[#3A5A40]'}`}
               onClick={closeMobileMenu}
             >
               About
             </Link>
             <Link 
               href="/services" 
-              className={`font-medium transition-colors hover:text-[#D2A97F] ${pathname === '/services' ? 'text-[#D2A97F]' : scrolled ? 'text-[#D2A97F]' : 'text-[#D2A97F]'}`}
+              className={`font-medium transition-colors hover:text-[#D2A97F] ${pathname === '/services' ? 'text-[#D2A97F]' : scrolled ? 'text-[#D2A97F]' : 'text-[#3A5A40]'}`}
               onClick={closeMobileMenu}
             >
               Services

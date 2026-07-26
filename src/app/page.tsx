@@ -27,24 +27,24 @@ export default function Home() {
         description="Professional photography and videography services for weddings, events, and commercial projects. Capture your special moments with our expert team."
         url="https://www.theflashphotofilms.com/"
       />
-      <div className="relative hero-themed overflow-hidden bg-[#1A1A1A]">
+      <div className="relative bg-white overflow-hidden">
         {/* Hero Section */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
             <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-                  <span className="block text-white">The Flash Photofilms</span>
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                  <span className="block text-dark-maroon">The Flash Photofilms</span>
                   <span className="block text-gold mt-2">Capturing Life's Precious Moments</span>
                 </h1>
-                <p className="mt-3 text-base text-white sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                <p className="mt-3 text-base text-medium-gray sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                   Professional photography and videography services that preserve your most cherished memories with artistry and passion.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     <Link
                       href="/contact"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-[#3A5A40] bg-[#D2A97F] hover:bg-[#3A5A40] hover:text-[#D2A97F] md:py-4 md:text-lg md:px-10"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gold hover:bg-dark-maroon md:py-4 md:text-lg md:px-10"
                     >
                       Book a Session
                     </Link>
@@ -52,7 +52,7 @@ export default function Home() {
                   <div className="mt-3 sm:mt-0 sm:ml-3">
                     <Link
                       href="/portfolio"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-[#D2A97F] text-base font-medium rounded-md text-[#D2A97F] bg-[#3A5A40]/20 hover:bg-[#D2A97F]/30 md:py-4 md:text-lg md:px-10"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-dark-maroon bg-gold/20 hover:bg-gold/30 md:py-4 md:text-lg md:px-10"
                     >
                       View Our Work
                     </Link>
@@ -99,17 +99,22 @@ export default function Home() {
                   title: 'Commercial Photography',
                   description: 'High-quality images for your business and marketing needs.',
                 },
-              ].map((feature) => (
-                <div key={feature.title} className="relative lg:flex lg:items-center">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-gold text-white">
-                      <svg className="h-6 w-6 text-dark-maroon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
+              ].map((feature, index) => (
+                <div key={index} className="relative">
+                  <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div className="w-full border-t border-gray-300" />
+                  </div>
+                  <div className="relative flex items-start">
+                    <div className="flex-shrink-0">
+                      <div className="flex items-center justify-center h-12 w-12 rounded-md bg-gold text-white">
+                        <svg className="h-6 w-6 text-dark-maroon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                        </svg>
+                      </div>
                     </div>
-                    <div className="mt-5">
-                      <h3 className="text-lg font-medium text-dark-maroon">{feature.title}</h3>
-                      <p className="mt-2 text-medium-gray">
+                    <div className="ml-4">
+                      <h3 className="text-lg font-medium text-gray-900">{feature.title}</h3>
+                      <p className="mt-2 text-base text-medium-gray">
                         {feature.description}
                       </p>
                     </div>
@@ -121,30 +126,85 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Call to Action Section */}
-      <div className="bg-gradient-to-r from-[#3A5A40] to-[#4A6A50] py-16">
+      {/* Testimonials */}
+      <div className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-              Ready to Capture Your Story?
-            </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-[#D2A97F]">
-              Contact us today to book your session and receive a personalized quote.
+          <div className="lg:text-center">
+            <h2 className="text-base font-semibold tracking-wide text-gold uppercase">Testimonials</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-dark-maroon sm:text-4xl">
+              What Our Clients Say
             </p>
-            <div className="mt-8">
-              <Link
-                href="/contact"
-                className="inline-block cta-themed px-8 py-4 font-bold rounded-lg hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
-              >
-                Get in Touch
-              </Link>
+          </div>
+
+          <div className="mt-10">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  quote: 'The Flash Photofilms captured our wedding day perfectly. Every moment was preserved with such artistry.',
+                  author: 'Priya & Rahul',
+                  role: 'Wedding Client',
+                },
+                {
+                  quote: 'Professional, creative, and incredibly talented. They brought our vision to life through stunning photographs.',
+                  author: 'Ankit Sharma',
+                  role: 'Portrait Client',
+                },
+                {
+                  quote: 'Exceptional quality and service. We couldn\'t be happier with our photos and would recommend them to anyone.',
+                  author: 'The Gupta Family',
+                  role: 'Family Portrait Client',
+                },
+              ].map((testimonial, index) => (
+                <div key={index} className="bg-light-gray p-6 rounded-lg shadow">
+                  <p className="text-medium-gray italic">"{testimonial.quote}"</p>
+                  <div className="mt-4">
+                    <p className="text-dark-maroon font-bold">{testimonial.author}</p>
+                    <p className="text-medium-gray text-sm">{testimonial.role}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Discount Popup Modal - This will appear automatically after 3 seconds as implemented in the component */}
+      {/* CTA Section */}
+      <div className="bg-gradient-to-r from-dark-maroon to-gold py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white sm:text-4xl">
+              Ready to capture your special moments?
+            </h2>
+            <p className="mt-4 text-xl text-gold">
+              Contact us today to discuss your photography needs
+            </p>
+            <div className="mt-10">
+              <Link
+                href="/contact"
+                className="inline-block bg-white text-dark-maroon px-10 py-4 rounded-xl font-bold text-lg hover:bg-gold hover:text-white transition-colors duration-300 mr-4 mb-4"
+              >
+                Book Your Session
+              </Link>
+              <button
+                onClick={() => {
+                  // Since DiscountPopup manages its own state, we can trigger a global event or just let the popup appear automatically
+                  // Or we can show an alert to inform the user that the popup will appear
+                  alert('A discount popup will appear shortly. If it doesn\'t, it may have been shown before.');
+                }}
+                className="inline-block bg-transparent text-white border-2 border-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-dark-maroon transition-colors duration-300"
+              >
+                Claim Launch Discount
+              </button>
+            </div>
+            <p className="mt-6 text-medium-gray">
+              Limited time offer - Save 10% on your first booking
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Discount Popup */}
       <DiscountPopup />
     </div>
   );
-}
+};
