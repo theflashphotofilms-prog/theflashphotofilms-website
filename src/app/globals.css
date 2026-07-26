@@ -30,11 +30,11 @@ body {
 }
 
 .text-medium-gray {
-  @apply text-gray-500;
+  color: #64748b; /* Using gray-500 equivalent */
 }
 
 .text-white {
-  @apply text-white;
+  color: white;
 }
 
 /* Background color definitions */
@@ -47,7 +47,7 @@ body {
 }
 
 .bg-light-gray {
-  @apply bg-gray-50;
+  background-color: #f8fafc; /* Using gray-50 equivalent */
 }
 
 @layer utilities {
@@ -58,62 +58,164 @@ body {
 
 @layer components {
   .input-field {
-    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+    border-color: #D2A97F;
+    color: #3A5A40;
+  }
+  
+  .input-field::placeholder {
+    color: #64748b; /* gray-500 equivalent */
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: #3A5A40;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Soft gold with opacity
+  }
+  
+  .input-field {
+    border-radius: 0.375rem; /* rounded-md equivalent */
   }
   
   .btn-text {
-    @apply text-[#3A5A40] font-medium;
+    color: #3A5A40;
+    font-weight: 500; /* font-medium equivalent */
   }
   
   .gold-text {
-    @apply text-[#D2A97F];
+    color: #D2A97F;
   }
   
   .btn-primary {
-    @apply bg-[#D2A97F] text-[#3A5A40] font-medium rounded-md px-4 py-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#D2A97F] focus:ring-opacity-50;
+    background-color: #D2A97F; /* Soft gold */
+    color: #3A5A40; /* Forest green */
+    font-weight: 500; /* font-medium */
+    border-radius: 0.375rem; /* rounded-md */
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    transition: background-color 200ms ease-in-out;
+  }
+  
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
   }
   
   .btn-secondary {
-    @apply bg-[#3A5A40] text-[#D2A97F];
+    background-color: #3A5A40; /* Forest green */
+    color: #D2A97F; /* Soft gold */
   }
   
   .link-style {
-    @apply border-[#D2A97F] text-[#3A5A40] focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:ring-offset-2 focus:outline-none;
+    border-color: #D2A97F;
+    color: #3A5A40;
+  }
+  
+  .link-style:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+    margin: 2px; /* focus:ring-offset-2 equivalent */
   }
   
   .underline-link {
-    @apply text-[#3A5A40] underline hover:text-[#D2A97F] transition-colors duration-200;
+    color: #3A5A40;
+    text-decoration: underline;
+  }
+  
+  .underline-link:hover {
+    color: #D2A97F;
+    transition: color 200ms ease-in-out;
   }
   
   .text-dark {
-    @apply text-[#3A5A40];
+    color: #3A5A40;
   }
   
   .input-contact {
-    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+    border-color: #D2A97F;
+    color: #3A5A40;
+  }
+  
+  .input-contact::placeholder {
+    color: #64748b; /* gray-500 equivalent */
+  }
+  
+  .input-contact:focus {
+    outline: none;
+    border-color: #3A5A40;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+  }
+  
+  .input-contact {
+    border-radius: 0.375rem; /* rounded-md */
   }
   
   .input-contact-full {
-    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+    border-color: #D2A97F;
+    color: #3A5A40;
+  }
+  
+  .input-contact-full::placeholder {
+    color: #64748b; /* gray-500 equivalent */
+  }
+  
+  .input-contact-full:focus {
+    outline: none;
+    border-color: #3A5A40;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+  }
+  
+  .input-contact-full {
+    border-radius: 0.375rem; /* rounded-md */
   }
   
   .input-contact-select {
-    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+    border-color: #D2A97F;
+    color: #3A5A40;
+  }
+  
+  .input-contact-select::placeholder {
+    color: #64748b; /* gray-500 equivalent */
+  }
+  
+  .input-contact-select:focus {
+    outline: none;
+    border-color: #3A5A40;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+  }
+  
+  .input-contact-select {
+    border-radius: 0.375rem; /* rounded-md */
   }
   
   .input-contact-message {
-    @apply border-[#D2A97F] text-[#3A5A40] placeholder:text-medium-gray focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none rounded-md;
+    border-color: #D2A97F;
+    color: #3A5A40;
   }
   
-  .input-focus {
-    @apply focus:ring-[#D2A97F] focus:ring-2 focus:ring-opacity-50 focus:border-[#3A5A40] focus:outline-none;
+  .input-contact-message::placeholder {
+    color: #64748b; /* gray-500 equivalent */
+  }
+  
+  .input-contact-message:focus {
+    outline: none;
+    border-color: #3A5A40;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+  }
+  
+  .input-contact-message {
+    border-radius: 0.375rem; /* rounded-md */
+  }
+  
+  .input-focus:focus {
+    outline: none;
+    border-color: #3A5A40;
+    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
   }
   
   .border-gold {
-    @apply border-[#D2A97F];
+    border-color: #D2A97F;
   }
   
   .border-dark-maroon {
-    @apply border-[#3A5A40];
+    border-color: #3A5A40;
   }
 }
