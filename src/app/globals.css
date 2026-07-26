@@ -22,36 +22,49 @@ body {
 
 /* Luxury Wedding Theme for Specific Components */
 .navbar-themed {
-  @apply bg-[#3A5A40] text-[#D2A97F];
+  background-color: #3A5A40;
+  color: #D2A97F;
 }
 
 .hero-themed {
-  @apply bg-[#3A5A40] text-[#D2A97F];
+  background-color: #3A5A40;
+  color: #D2A97F;
 }
 
 .footer-themed {
-  @apply bg-[#3A5A40] text-[#D2A97F];
+  background-color: #3A5A40;
+  color: #D2A97F;
 }
 
 .cta-themed {
-  @apply bg-[#3A5A40] text-[#D2A97F];
+  background-color: #3A5A40;
+  color: #D2A97F;
 }
 
 .btn-luxury {
-  @apply bg-[#D2A97F] text-[#3A5A40] hover:bg-[#3A5A40] hover:text-[#D2A97F] border border-[#D2A97F];
+  background-color: #D2A97F;
+  color: #3A5A40;
+  border: 1px solid #D2A97F;
+}
+
+.btn-luxury:hover {
+  background-color: #3A5A40;
+  color: #D2A97F;
 }
 
 .package-card-themed {
-  @apply bg-[#3A5A40] text-[#D2A97F] border border-[#D2A97F];
+  background-color: #3A5A40;
+  color: #D2A97F;
+  border: 1px solid #D2A97F;
 }
 
 /* Standard text color definitions */
 .text-dark-maroon {
-  @apply text-[#3A5A40];
+  color: #3A5A40;
 }
 
 .text-gold {
-  @apply text-[#D2A97F];
+  color: #D2A97F;
 }
 
 .text-medium-gray {
@@ -64,11 +77,11 @@ body {
 
 /* Background color definitions */
 .bg-dark-maroon {
-  @apply bg-[#3A5A40];
+  background-color: #3A5A40;
 }
 
 .bg-gold {
-  @apply bg-[#D2A97F];
+  background-color: #D2A97F;
 }
 
 .bg-light-gray {
