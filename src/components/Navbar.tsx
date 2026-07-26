@@ -44,91 +44,91 @@ const Navbar = () => {
           <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
             <Link 
               href="/" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-dark-maroon'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/' ? 'text-gold' : scrolled ? 'text-gold' : 'text-dark-maroon'}`}
               onClick={closeMobileMenu}
             >
               Home
             </Link>
             <Link 
               href="/about" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/about' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-dark-maroon'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/about' ? 'text-gold' : scrolled ? 'text-gold' : 'text-dark-maroon'}`}
               onClick={closeMobileMenu}
             >
               About
             </Link>
             <Link 
               href="/services" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/services' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-dark-maroon'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/services' ? 'text-gold' : scrolled ? 'text-gold' : 'text-dark-maroon'}`}
               onClick={closeMobileMenu}
             >
               Services
             </Link>
             <Link 
               href="/packages" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/packages' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/packages' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Wedding Packages
             </Link>
             <Link 
               href="/pre-wedding-packages" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/pre-wedding-packages' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/pre-wedding-packages' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Pre-Wedding Packages
             </Link>
             <Link 
               href="/engagement-babyshower-packages" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/engagement-babyshower-packages' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/engagement-babyshower-packages' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Engagement & Baby Shower
             </Link>
             <Link 
               href="/portfolio" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/portfolio' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/portfolio' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Portfolio
             </Link>
             <Link 
               href="/feedback" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/feedback' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/feedback' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Reviews
             </Link>
             <Link 
               href="/faq" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/faq' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/faq' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               FAQ
             </Link>
             <Link 
               href="/contact" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/contact' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/contact' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Contact
             </Link>
             <Link 
               href="/disclaimer" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/disclaimer' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/disclaimer' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Disclaimer
             </Link>
             <Link 
               href="/other-services" 
-              className={`font-medium transition-colors hover:text-soft-gold ${pathname === '/other-services' ? 'text-soft-gold' : scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium transition-colors hover:text-gold ${pathname === '/other-services' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Other Services
             </Link>
             <a 
               href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
-              className={`hidden lg:flex items-center space-x-1 font-medium transition-colors hover:text-soft-gold ${scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`hidden lg:flex items-center space-x-1 font-medium transition-colors hover:text-gold ${scrolled ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style={{ flexShrink: 0 }}>
@@ -138,7 +138,7 @@ const Navbar = () => {
             </a>
             <Link 
               href="/contact" 
-              className={`hidden lg:flex items-center bg-soft-gold text-dark-maroon px-6 py-2 rounded-lg font-bold hover:bg-white hover:text-dark-maroon transition-colors`}
+              className={`hidden lg:flex items-center bg-gold text-dark-maroon px-6 py-2 rounded-lg font-bold hover:bg-white hover:text-dark-maroon transition-colors`}
               onClick={closeMobileMenu}
             >
               Book Now
@@ -149,7 +149,7 @@ const Navbar = () => {
           <div className="flex items-center md:hidden">
             <a 
               href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
-              className={`mr-4 ${scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`mr-4 ${scrolled ? 'text-gold' : 'text-gold'}`}
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style={{ flexShrink: 0 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -157,7 +157,7 @@ const Navbar = () => {
             </a>
             <button
               onClick={toggleMenu}
-              className={`p-2 rounded-md ${scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`p-2 rounded-md ${scrolled ? 'text-gold' : 'text-gold'}`}
               aria-expanded={isMenuOpen}
               aria-label="Toggle navigation menu"
             >
@@ -181,91 +181,91 @@ const Navbar = () => {
           <div className="flex flex-col space-y-4 px-4">
             <Link 
               href="/" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Home
             </Link>
             <Link 
               href="/about" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/about' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/about' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               About
             </Link>
             <Link 
               href="/services" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/services' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/services' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Services
             </Link>
             <Link 
               href="/packages" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/packages' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/packages' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Wedding Packages
             </Link>
             <Link 
               href="/pre-wedding-packages" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/pre-wedding-packages' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/pre-wedding-packages' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Pre-Wedding Packages
             </Link>
             <Link 
               href="/engagement-babyshower-packages" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/engagement-babyshower-packages' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/engagement-babyshower-packages' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Engagement & Baby Shower
             </Link>
             <Link 
               href="/portfolio" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/portfolio' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/portfolio' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Portfolio
             </Link>
             <Link 
               href="/feedback" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/feedback' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/feedback' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Reviews
             </Link>
             <Link 
               href="/faq" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/faq' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/faq' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               FAQ
             </Link>
             <Link 
               href="/contact" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/contact' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/contact' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Contact
             </Link>
             <Link 
               href="/disclaimer" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/disclaimer' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/disclaimer' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Disclaimer
             </Link>
             <Link 
               href="/other-services" 
-              className={`font-medium py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${pathname === '/other-services' ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/other-services' ? 'text-gold' : 'text-gold'}`}
               onClick={closeMobileMenu}
             >
               Other Services
             </Link>
             <a 
               href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
-              className={`py-2 px-4 rounded hover:bg-soft-gold/10 hover:text-soft-gold ${scrolled ? 'text-soft-gold' : 'text-soft-gold'}`}
+              className={`py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${scrolled ? 'text-gold' : 'text-gold'}`}
             >
               <div className="flex items-center space-x-2">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style={{ flexShrink: 0 }}>
@@ -276,7 +276,7 @@ const Navbar = () => {
             </a>
             <Link 
               href="/contact" 
-              className={`w-full text-center bg-soft-gold text-dark-maroon px-6 py-2 rounded-lg font-bold hover:bg-white hover:text-dark-maroon transition-colors`}
+              className={`w-full text-center bg-gold text-dark-maroon px-6 py-2 rounded-lg font-bold hover:bg-white hover:text-dark-maroon transition-colors`}
               onClick={closeMobileMenu}
             >
               Book Now
