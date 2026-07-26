@@ -1,136 +1,196 @@
-'use client';
-
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import WhatsAppCTA from '../../components/WhatsAppCTA';
-import SEO from '../../components/SEO';
+import Link from 'next/link';
 
-const AboutPage = () => {
-  const values = [
-    {
-      title: "Passion",
-      description: "We approach every project with genuine enthusiasm and dedication to capture authentic emotions and moments."
-    },
+export const metadata: Metadata = {
+  title: 'About Us - The Flash Photofilms',
+  description: 'Learn about The Flash Photofilms, a premier photography and videography service dedicated to capturing life\'s most precious moments with artistic excellence.',
+};
+
+const About = () => {
+  const coreValues = [
     {
       title: "Excellence",
-      description: "We maintain the highest standards in our work, paying attention to every detail to deliver exceptional results."
+      description: "We strive for perfection in every frame, delivering exceptional quality in each photograph."
     },
     {
-      title: "Integrity",
-      description: "We believe in transparent communication, fair practices, and delivering on our promises to our clients."
+      title: "Creativity",
+      description: "We bring innovative perspectives and artistic vision to every project."
+    },
+    {
+      title: "Authenticity",
+      description: "We capture genuine emotions and authentic moments that tell your unique story."
+    },
+    {
+      title: "Reliability",
+      description: "We are committed to professionalism and punctuality, ensuring peace of mind."
     }
   ];
 
   const teamMembers = [
-    { name: "Mohit Panchal", role: "Founder & Lead Photographer" },
-    { name: "Creative Team", role: "Supporting Photographers & Videographers" },
+    {
+      name: "Mohit Panchal",
+      position: "Founder & Lead Photographer",
+      bio: "With over 10 years of experience in wedding and event photography, Mohit brings a unique artistic vision to every shoot. His expertise lies in capturing candid moments and creating cinematic narratives."
+    },
+    {
+      name: "Anjali Sharma",
+      position: "Creative Director",
+      bio: "Anjali specializes in visual storytelling and post-production. She ensures that every image reflects the couple's unique love story with attention to detail and artistic flair."
+    },
+    {
+      name: "Rajesh Kumar",
+      position: "Videography Specialist",
+      bio: "Rajesh is our expert in cinematography and video editing. He creates compelling visual narratives that bring your special day to life in motion."
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-light-gray py-16">
-      <SEO 
-        title="About The Flash Photofilms | Professional Photography Team" 
-        description="Learn about The Flash Photofilms, our mission, values, and talented team of photographers dedicated to capturing life's precious moments."
-      />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
+    <div className="min-h-screen bg-white">
+      {/* Header Section */}
+      <header className="bg-gradient-to-br from-dark-maroon to-black text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold text-gold sm:text-5xl">
             About The Flash Photofilms
           </h1>
-          <p className="mt-6 text-xl text-medium-gray max-w-3xl mx-auto">
-            Discover our story, mission, and the passionate team behind every captured moment.
+          <p className="mt-4 text-xl text-white max-w-3xl mx-auto">
+            Capturing life's most precious moments with artistic excellence and creative passion.
           </p>
         </div>
+      </header>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-[#D2A97F] mb-6">Our Story</h2>
-              <p className="text-medium-gray mb-4">
-                Founded with a vision to redefine photography and videography services, The Flash Photofilms has grown from a passionate hobby into a full-fledged professional service provider. Our journey began with a simple idea: to capture life's most precious moments in the most artistic and memorable way.
+      {/* Our Story Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="lg:w-1/2">
+              <div className="relative">
+                <Image
+                  src="/about-us.jpg"
+                  alt="The Flash Photofilms Team"
+                  width={600}
+                  height={400}
+                  className="rounded-xl shadow-lg object-cover w-full h-auto"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-maroon to-transparent rounded-xl opacity-70"></div>
+              </div>
+            </div>
+            <div className="lg:w-1/2">
+              <h2 className="text-3xl font-bold text-dark-maroon mb-6">Our Story</h2>
+              <p className="text-medium-gray mb-6">
+                Founded in 2015, The Flash Photofilms began as a passion project driven by a love for storytelling through the lens. What started as a small team of enthusiasts has grown into one of the region's most respected photography and videography services.
               </p>
-              <p className="text-medium-gray mb-4">
-                Over the years, we've evolved our skills, upgraded our equipment, and expanded our services while maintaining our core commitment to excellence and customer satisfaction. Today, we're proud to serve clients across Gujarat, bringing their stories to life through our lens.
+              <p className="text-medium-gray mb-6">
+                Our journey has been marked by innovation, creativity, and an unwavering commitment to excellence. We've had the privilege of capturing thousands of precious moments, from intimate ceremonies to grand celebrations.
               </p>
               <p className="text-medium-gray">
-                Our team combines technical expertise with artistic vision, ensuring every project receives personalized attention and creative flair. We believe that great photography goes beyond taking pictures—it's about preserving emotions, telling stories, and creating heirlooms that families treasure for generations.
+                Today, we continue to push the boundaries of visual storytelling, incorporating the latest technology and artistic techniques to create timeless memories for our clients.
               </p>
-            </div>
-            <div className="flex justify-center">
-              <div className="relative w-full h-80 rounded-xl overflow-hidden">
-                <Image
-                  src="/placeholder-about.jpg"
-                  alt="The Flash Photofilms Team"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-[#D2A97F] text-center mb-16">Our Core Values</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <div key={index} className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
-                <div className="bg-[#D2A97F]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      {/* Core Values Section */}
+      <section className="py-20 bg-light-gray">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-dark-maroon">Our Core Values</h2>
+            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
+              The principles that guide our work and relationships with clients
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {coreValues.map((value, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-gold/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="h-8 w-8 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-[#D2A97F] mb-4">{value.title}</h3>
+                <h3 className="text-xl font-bold text-dark-maroon mb-4">{value.title}</h3>
                 <p className="text-medium-gray">{value.description}</p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-          <h2 className="text-3xl font-bold text-[#D2A97F] text-center mb-6">Meet Our Team</h2>
-          <p className="text-medium-gray text-center max-w-2xl mx-auto mb-12">
-            Our talented professionals bring diverse skills and perspectives to every project, working together to deliver exceptional results.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Meet Our Team Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-dark-maroon">Meet Our Team</h2>
+            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
+              Passionate professionals dedicated to capturing your story
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {teamMembers.map((member, index) => (
-              <div key={index} className="flex items-center p-6 bg-gray-50 rounded-xl">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16" />
-                <div className="ml-4">
-                  <h3 className="text-lg font-bold text-[#D2A97F]">Team Member {index + 1}</h3>
-                  <p className="text-medium-gray">{member.role}</p>
+              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                <div className="p-8">
+                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 mx-auto mb-6" />
+                  <h3 className="text-lg font-bold text-dark-maroon">Team Member {index + 1}</h3>
+                  <p className="text-gold font-medium mb-4">{member.position}</p>
+                  <p className="text-medium-gray">{member.bio}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-[#D2A97F] mb-8">Ready to Work With Us?</h2>
-          <p className="text-xl text-medium-gray max-w-2xl mx-auto mb-8">
-            Let's discuss your photography needs and create something amazing together.
+      {/* Stats Section */}
+      <section className="py-20 bg-gradient-to-r from-dark-maroon to-gold text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-4xl font-bold">500+</div>
+              <div className="text-gold">Happy Couples</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold">10+</div>
+              <div className="text-gold">Years Experience</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold">10K+</div>
+              <div className="text-gold">Photos Captured</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold">50+</div>
+              <div className="text-gold">Locations Covered</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-dark-maroon mb-8">Ready to Work With Us?</h2>
+          <p className="text-lg text-medium-gray max-w-3xl mx-auto mb-12">
+            Experience the difference that passion, professionalism, and creativity can make for your special day.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              href="/contact" 
-              className="inline-block bg-[#D2A97F] text-[#3A5A40] px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors"
+            <Link
+              href="/contact"
+              className="inline-block bg-gold text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-dark-maroon transition-colors"
             >
-              Contact Us
+              Get in Touch
             </Link>
-            <Link 
-              href="/portfolio" 
-              className="inline-block bg-transparent border-2 border-[#D2A97F] text-[#D2A97F] px-8 py-4 rounded-xl font-bold hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
+            <Link
+              href="/portfolio"
+              className="inline-block bg-transparent border-2 border-gold text-gold px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
             >
               View Our Work
             </Link>
           </div>
         </div>
-      </div>
-      <WhatsAppCTA />
+      </section>
     </div>
   );
 };
 
-export default AboutPage;
+export default About;

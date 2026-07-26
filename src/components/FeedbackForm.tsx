@@ -1,208 +1,250 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { FaStar, FaCheck } from 'react-icons/fa';
 
 const FeedbackForm = () => {
-  const [rating, setRating] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    mobile: '',
+    phone: '',
     serviceType: '',
+    rating: 0,
     feedback: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+  const serviceTypes = [
+    'Wedding Photography',
+    'Wedding Videography',
+    'Pre-Wedding Shoot',
+    'Engagement Shoot',
+    'Event Coverage',
+    'Portrait Session',
+    'Commercial Photography',
+    'Other'
+  ];
+
+  const validateField = (name: string, value: string | number) => {
+    switch (name) {
+      case 'name':
+        return value ? '' : 'Full Name is required';
+      case 'phone':
+        return value && /^\d{10}$/.test(value.toString()) ? '' : 'Valid 10-digit phone number is required';
+      case 'serviceType':
+        return value ? '' : 'Service Type is required';
+      case 'rating':
+        return (typeof value === 'number' && value > 0) ? '' : 'Rating is required';
+      case 'feedback':
+        return value ? '' : 'Your Feedback is required';
+      default:
+        return '';
     }
-    
-    if (!formData.mobile.trim()) {
-      newErrors.mobile = 'Mobile number is required';
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = 'Invalid mobile number';
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'rating' ? parseInt(value) : value
+    }));
+
+    if (touched[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: validateField(name, formData[name as keyof typeof formData])
+      }));
     }
-    
-    if (!formData.serviceType.trim()) {
-      newErrors.serviceType = 'Service type is required';
-    }
-    
-    if (rating === 0) {
-      newErrors.rating = 'Please select a rating';
-    }
-    
-    if (!formData.feedback.trim()) {
-      newErrors.feedback = 'Feedback is required';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    setErrors(prev => ({
+      ...prev,
+      [name]: validateField(name, formData[name as keyof typeof formData])
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validate()) return;
-    
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Reset form
-      setFormData({
-        name: '',
-        mobile: '',
-        serviceType: '',
-        feedback: ''
-      });
-      setRating(0);
-      setSubmitSuccess(true);
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-    } finally {
-      setIsSubmitting(false);
+
+    // Validate all fields
+    const newErrors: Record<string, string> = {};
+    Object.keys(formData).forEach(key => {
+      const value = formData[key as keyof typeof formData];
+      newErrors[key] = validateField(key, value);
+    });
+
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).every(error => error === '')) {
+      // Submit form
+      try {
+        const response = await fetch('/api/feedback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          setIsSubmitted(true);
+          // Reset form after submission
+          setFormData({
+            name: '',
+            phone: '',
+            serviceType: '',
+            rating: 0,
+            feedback: ''
+          });
+        } else {
+          console.error('Error submitting feedback');
+        }
+      } catch (error) {
+        console.error('Error submitting feedback:', error);
+      }
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
-  };
-
-  if (submitSuccess) {
+  if (isSubmitted) {
     return (
-      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl mx-auto text-center">
-        <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#D2A97F]/10">
-          <svg className="h-10 w-10 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full">
+        <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10">
+          <FaCheck className="h-10 w-10 text-gold" />
         </div>
-        <h3 className="text-2xl font-bold text-[#D2A97F] mt-4">Thank You!</h3>
+        <h3 className="text-2xl font-bold text-dark-maroon mt-4">Thank You!</h3>
         <p className="mt-2 text-medium-gray">
-          Your feedback has been received. We appreciate your input!
+          Your feedback has been received. We appreciate your valuable input.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl mx-auto">
-      <h3 className="text-2xl font-bold text-[#D2A97F] mb-6">Share Your Experience</h3>
+    <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full">
+      <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10">
+        <FaStar className="h-10 w-10 text-gold" />
+      </div>
+      <h3 className="text-2xl font-bold text-dark-maroon mt-4">Share Your Experience</h3>
+      <p className="mt-2 text-medium-gray">
+        Help us improve our services by sharing your feedback
+      </p>
       
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="mt-6 space-y-6">
         <div>
-          <label htmlFor="name" className="block text-medium-gray mb-1">
-            Full Name <span className="text-[#D2A97F]">*</span>
+          <label htmlFor="name" className="block text-medium-gray mb-2">
+            Full Name <span className="text-gold">*</span>
           </label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors"
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+              errors.name ? 'border-red-500' : 'border-gray-300'
+            }`}
             placeholder="Enter your full name"
           />
-          {errors.name && <p className="mt-1 text-red-600 text-sm">{errors.name}</p>}
+          {errors.name && <p className="mt-1 text-red-500 text-sm">{errors.name}</p>}
         </div>
         
         <div>
-          <label htmlFor="mobile" className="block text-medium-gray mb-1">
-            Mobile Number <span className="text-[#D2A97F]">*</span>
+          <label htmlFor="phone" className="block text-medium-gray mb-2">
+            Mobile Number <span className="text-gold">*</span>
           </label>
           <input
             type="tel"
-            id="mobile"
-            name="mobile"
-            value={formData.mobile}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors"
-            placeholder="Enter your mobile number"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+              errors.phone ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder="Enter your 10-digit mobile number"
           />
-          {errors.mobile && <p className="mt-1 text-red-600 text-sm">{errors.mobile}</p>}
+          {errors.phone && <p className="mt-1 text-red-500 text-sm">{errors.phone}</p>}
         </div>
         
         <div>
-          <label htmlFor="serviceType" className="block text-medium-gray mb-1">
-            Service Type <span className="text-[#D2A97F]">*</span>
+          <label htmlFor="serviceType" className="block text-medium-gray mb-2">
+            Service Type <span className="text-gold">*</span>
           </label>
-          <input
-            type="text"
+          <select
             id="serviceType"
             name="serviceType"
             value={formData.serviceType}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors"
-            placeholder="Which service did you use?"
-          />
-          {errors.serviceType && <p className="mt-1 text-red-600 text-sm">{errors.serviceType}</p>}
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+              errors.serviceType ? 'border-red-500' : 'border-gray-300'
+            }`}
+          >
+            <option value="">Select a service type</option>
+            {serviceTypes.map(type => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
+          {errors.serviceType && <p className="mt-1 text-red-500 text-sm">{errors.serviceType}</p>}
         </div>
         
         <div>
-          <label className="block text-medium-gray mb-1">
-            Rating <span className="text-[#D2A97F]">*</span>
+          <label className="block text-medium-gray mb-2">
+            Rating <span className="text-gold">*</span>
           </label>
-          <div className="flex space-x-2">
-            {[1, 2, 3, 4, 5].map((star) => (
+          <div className="flex space-x-1">
+            {[1, 2, 3, 4, 5].map(star => (
               <button
                 key={star}
                 type="button"
-                onClick={() => setRating(star)}
-                className={`text-3xl focus:outline-none ${star <= rating ? 'text-[#D2A97F]' : 'text-gray-300'}`}
+                onClick={() => setFormData({...formData, rating: star})}
+                className={`text-3xl focus:outline-none ${
+                  star <= formData.rating ? 'text-gold' : 'text-gray-300'
+                }`}
+                aria-label={`Rate ${star} star${star !== 1 ? 's' : ''}`}
               >
-                ★
+                <FaStar />
               </button>
             ))}
           </div>
-          {errors.rating && <p className="mt-1 text-red-600 text-sm">{errors.rating}</p>}
+          {errors.rating && <p className="mt-1 text-red-500 text-sm">{errors.rating}</p>}
         </div>
         
         <div>
-          <label htmlFor="feedback" className="block text-medium-gray mb-1">
-            Your Feedback <span className="text-[#D2A97F]">*</span>
+          <label htmlFor="feedback" className="block text-medium-gray mb-2">
+            Your Feedback <span className="text-gold">*</span>
           </label>
           <textarea
             id="feedback"
             name="feedback"
             value={formData.feedback}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            onBlur={handleBlur}
             rows={4}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors"
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+              errors.feedback ? 'border-red-500' : 'border-gray-300'
+            }`}
             placeholder="Share your experience with our services..."
           ></textarea>
-          {errors.feedback && <p className="mt-1 text-red-600 text-sm">{errors.feedback}</p>}
+          {errors.feedback && <p className="mt-1 text-red-500 text-sm">{errors.feedback}</p>}
         </div>
         
         <button
           type="submit"
-          disabled={isSubmitting}
-          className={`w-full py-3 px-4 rounded-xl font-bold text-white transition-colors duration-300 ${
-            isSubmitting 
-              ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-[#3A5A40] hover:bg-[#D2A97F] hover:text-[#3A5A40]'
+          className={`w-full py-3 px-4 rounded-lg font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+            formData.rating > 0
+              ? 'bg-dark-maroon hover:bg-gold hover:text-dark-maroon focus:ring-gold'
+              : 'bg-gray-400 cursor-not-allowed'
           }`}
+          disabled={formData.rating === 0}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+          Submit Feedback
         </button>
       </form>
     </div>

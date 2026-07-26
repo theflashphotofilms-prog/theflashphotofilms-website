@@ -2,231 +2,416 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import SEO from '../../components/SEO';
-import CouponInput from '../../components/CouponInput';
-import WhatsAppCTA from '../../components/WhatsAppCTA';
+import { FaCamera, FaVideo, FaClock, FaStar, FaMapMarkerAlt, FaUserFriends, FaRupeeSign } from 'react-icons/fa';
 
-const EngagementBabyShowerPackagesPage = () => {
+const EngagementBabyShowerPackages = () => {
+  const [activeTab, setActiveTab] = useState('engagement');
+  const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState(false);
   const [discountPercentage, setDiscountPercentage] = useState(0);
 
-  // Calculate discounted price
-  const calculateDiscountedPrice = (originalPrice: string) => {
-    if (discountPercentage === 0) return originalPrice;
-    
-    // Extract numeric value from price (remove ₹ and -/)
-    const numericValue = parseInt(originalPrice.replace(/[^\d]/g, ''), 10);
-    const discountAmount = (numericValue * discountPercentage) / 100;
-    const discountedValue = numericValue - discountAmount;
-    
-    // Format back to original format
-    return `₹${discountedValue.toLocaleString('en-IN')}/-`;
-  };
-
-  const packages = [
+  const engagementPackages = [
     {
-      name: "Basic Package",
-      price: "₹15,000",
-      description: "Perfect for intimate gatherings",
-      features: [
-        "4 hours of photography coverage",
-        "High-resolution digital images",
-        "Online gallery access",
-        "Print release included",
-        "Up to 200 edited photos"
-      ]
-    },
-    {
-      name: "Premium Package",
-      price: "₹25,000",
-      description: "Ideal for larger celebrations",
-      features: [
-        "6 hours of photography coverage",
-        "High-resolution digital images",
-        "Online gallery access",
-        "Print release included",
-        "Up to 400 edited photos",
-        "Same-day slideshow",
-        "Engagement session included"
+      id: 1,
+      name: "Simple Elegance",
+      price: 8000,
+      originalPrice: 10000,
+      duration: "2 hours",
+      photos: 80,
+      videos: 1,
+      highlights: 1,
+      includes: [
+        "Professional photographer",
+        "2-hour photo session",
+        "Location setup",
+        "80 premium edited photos",
+        "1 highlight video (2-3 min)",
+        "Online gallery access"
       ],
-      featured: true
+      bestFor: "Small, intimate engagement celebrations"
     },
     {
-      name: "Deluxe Package",
-      price: "₹35,000",
-      description: "Complete coverage for special events",
-      features: [
-        "8 hours of photography coverage",
-        "High-resolution digital images",
+      id: 2,
+      name: "Celestial Celebration",
+      price: 15000,
+      originalPrice: 18000,
+      duration: "4 hours",
+      photos: 180,
+      videos: 2,
+      highlights: 1,
+      includes: [
+        "Two photographers",
+        "4-hour photo session",
+        "Multiple setups",
+        "180 premium edited photos",
+        "2 highlight videos (2-3 min each)",
+        "Full cinematic coverage",
         "Online gallery access",
-        "Print release included",
-        "Up to 600 edited photos",
+        "Same-day slideshow"
+      ],
+      bestFor: "Larger engagement parties with multiple activities"
+    },
+    {
+      id: 3,
+      name: "Royal Affair",
+      price: 22000,
+      originalPrice: 25000,
+      duration: "6 hours",
+      photos: 300,
+      videos: 3,
+      highlights: 2,
+      includes: [
+        "Three-person crew",
+        "6-hour premium session",
+        "Multiple locations",
+        "300 premium edited photos",
+        "3 highlight videos (2-3 min each)",
+        "Full cinematic coverage",
+        "Drone footage",
+        "Behind-the-scenes video",
+        "Online gallery access",
+        "Print release",
         "Same-day slideshow",
-        "Engagement session included",
-        "Second photographer",
-        "Drone photography (weather permitting)",
-        "Highlight video (1-2 minutes)"
-      ]
+        "Physical album (15 pages)"
+      ],
+      bestFor: "Grand engagement celebrations"
     }
   ];
 
-  const handleDiscountApply = (discount: number) => {
-    setDiscountPercentage(discount);
-  };
+  const babyShowerPackages = [
+    {
+      id: 4,
+      name: "Sweet Beginnings",
+      price: 7000,
+      originalPrice: 9000,
+      duration: "3 hours",
+      photos: 100,
+      videos: 1,
+      highlights: 1,
+      includes: [
+        "Professional photographer",
+        "3-hour photo session",
+        "Themed decoration setup",
+        "100 premium edited photos",
+        "1 highlight video (2-3 min)",
+        "Online gallery access"
+      ],
+      bestFor: "Simple baby shower celebrations"
+    },
+    {
+      id: 5,
+      name: "Joyful Journey",
+      price: 12000,
+      originalPrice: 15000,
+      duration: "4 hours",
+      photos: 180,
+      videos: 2,
+      highlights: 1,
+      includes: [
+        "Two photographers",
+        "4-hour photo session",
+        "Complete themed setup",
+        "180 premium edited photos",
+        "2 highlight videos (2-3 min each)",
+        "Full cinematic coverage",
+        "Online gallery access",
+        "Same-day slideshow"
+      ],
+      bestFor: "Elaborate baby shower events"
+    },
+    {
+      id: 6,
+      name: "Blessed Arrival",
+      price: 18000,
+      originalPrice: 22000,
+      duration: "6 hours",
+      photos: 250,
+      videos: 3,
+      highlights: 2,
+      includes: [
+        "Three-person crew",
+        "6-hour premium session",
+        "Premium decoration setup",
+        "250 premium edited photos",
+        "3 highlight videos (2-3 min each)",
+        "Full cinematic coverage",
+        "Drone footage",
+        "Behind-the-scenes video",
+        "Online gallery access",
+        "Same-day slideshow",
+        "Physical album (10 pages)"
+      ],
+      bestFor: "Grand baby shower celebrations"
+    }
+  ];
 
-  const handleBookNow = (packageName: string) => {
-    // Track package interest
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'click_engagement_package_cta', {
-        package_name: packageName,
-        page_title: 'Engagement & Baby Shower Packages'
-      });
+  const currentPackages = activeTab === 'engagement' ? engagementPackages : babyShowerPackages;
+
+  const applyCoupon = () => {
+    if(couponCode.toLowerCase() === 'launch10') {
+      setAppliedCoupon(true);
+      setDiscountPercentage(10);
+      alert('Congratulations! 10% discount applied.');
+    } else if(couponCode.toLowerCase() === 'earlybird15') {
+      setAppliedCoupon(true);
+      setDiscountPercentage(15);
+      alert('Congratulations! 15% discount applied.');
+    } else {
+      alert('Invalid coupon code. Please try again.');
     }
   };
 
+  const calculateDiscountedPrice = (price: number) => {
+    if(appliedCoupon) {
+      return Math.round(price - (price * discountPercentage / 100));
+    }
+    return price;
+  };
+
   return (
-    <div className="min-h-screen bg-light-gray py-16">
-      <SEO 
-        title="Engagement & Baby Shower Photography Packages | The Flash Photofilms" 
-        description="Premium engagement and baby shower photography packages by The Flash Photofilms including traditional and candid photography, cinematic videography, albums, reels, highlights and drone coverage."
-      />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
-            Engagement & Baby Shower Photography Packages
+    <div className="min-h-screen bg-white">
+      {/* Header Section */}
+      <header className="bg-gradient-to-br from-dark-maroon to-black text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold text-gold sm:text-5xl">
+            Engagement & Baby Shower Packages
           </h1>
-          <p className="mt-6 text-xl text-medium-gray max-w-3xl mx-auto">
-            Capture your special moments with our premium engagement and baby shower packages designed to preserve every precious moment with artistic excellence and professional quality.
+          <p className="mt-4 text-xl text-white max-w-3xl mx-auto">
+            Capture your special engagement and baby shower moments with our exclusive photography packages. Professional, creative, and memorable sessions tailored to your unique celebration.
           </p>
         </div>
+      </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {packages.map((pkg, index) => (
-            <div 
-              key={index} 
-              className={`bg-white rounded-2xl shadow-lg p-8 relative ${pkg.featured ? 'ring-2 ring-gold transform md:-translate-y-4' : ''}`}
-            >
-              {pkg.featured && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gold text-dark-maroon px-4 py-1 rounded-full text-sm font-bold">
-                  Most Popular
-                </div>
-              )}
-              <h2 className="text-2xl font-bold text-dark-maroon mb-2">{pkg.name}</h2>
-              <div className="text-3xl font-bold text-gold mb-2">{pkg.price}</div>
-              <p className="text-medium-gray mb-6">{pkg.description}</p>
-              
-              <ul className="space-y-3 mb-8">
-                {pkg.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start">
-                    <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-medium-gray">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <Link 
-                href="/contact" 
-                className={`block text-center py-3 px-6 rounded-xl font-bold transition-colors ${
-                  pkg.featured 
-                    ? 'bg-gold text-dark-maroon hover:bg-transparent hover:text-gold border border-gold' 
-                    : 'bg-dark-maroon text-white hover:bg-gold hover:text-dark-maroon'
+      {/* Package Selection Tabs */}
+      <section className="py-12 bg-light-gray">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center mb-12">
+            <div className="inline-flex bg-white p-1 rounded-lg shadow">
+              <button
+                onClick={() => setActiveTab('engagement')}
+                className={`px-6 py-3 rounded-lg font-medium ${
+                  activeTab === 'engagement'
+                    ? 'bg-gold text-dark-maroon'
+                    : 'text-dark-maroon hover:bg-gold/10'
                 }`}
               >
-                Book Now
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-          <h2 className="text-3xl font-bold text-dark-maroon mb-6 text-center">Package Inclusions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-xl font-bold text-gold mb-4">What's Included</h3>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">Professional photographer for selected hours</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">High-resolution edited photos</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">Online gallery with print release</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">Personalized photo album (Deluxe)</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gold mb-4">Additional Options</h3>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">Additional hours (+₹2,500/hour)</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">Physical photo album (+₹5,000)</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">Additional photographer (+₹8,000)</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-medium-gray">Video coverage (+₹15,000)</span>
-                </li>
-              </ul>
+                Engagement
+              </button>
+              <button
+                onClick={() => setActiveTab('baby-shower')}
+                className={`px-6 py-3 rounded-lg font-medium ${
+                  activeTab === 'baby-shower'
+                    ? 'bg-gold text-dark-maroon'
+                    : 'text-dark-maroon hover:bg-gold/10'
+                }`}
+              >
+                Baby Shower
+              </button>
             </div>
           </div>
-        </div>
 
-        <div className="text-center bg-gradient-to-r from-dark-maroon to-gold py-16 rounded-2xl">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Capture Your Special Moments?</h2>
-          <p className="text-xl text-gold mb-8 max-w-2xl mx-auto">
-            Contact us today to discuss your engagement or baby shower photography needs and schedule a consultation.
+          {/* Coupon Input */}
+          <div className="max-w-md mx-auto mb-12">
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="text"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+                placeholder="Enter coupon code"
+                className="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+              />
+              <button
+                onClick={applyCoupon}
+                className="px-6 py-3 bg-gold text-dark-maroon rounded-lg font-medium hover:bg-white hover:text-dark-maroon transition-colors"
+              >
+                Apply
+              </button>
+            </div>
+            <p className="text-center text-medium-gray mt-2 text-sm">
+              Have a coupon? Enter it above for instant discount
+            </p>
+          </div>
+
+          {/* Packages Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {currentPackages.map((pkg) => (
+              <div
+                key={pkg.id}
+                className={`bg-white rounded-xl shadow-lg overflow-hidden border ${
+                  selectedPackage === pkg.id
+                    ? 'border-gold ring-2 ring-gold/50'
+                    : 'border-gray-200'
+                } hover:border-gold transition-all duration-300`}
+              >
+                <div className="p-8">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-2xl font-bold text-dark-maroon">{pkg.name}</h3>
+                    <div className="text-right">
+                      <p className="text-lg font-bold text-dark-maroon line-through text-medium-gray">
+                        ₹{pkg.originalPrice.toLocaleString()}
+                      </p>
+                      <p className="text-2xl font-bold text-gold">
+                        ₹{calculateDiscountedPrice(pkg.price).toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-6 space-y-2">
+                    <div className="flex items-center text-medium-gray">
+                      <FaClock className="text-gold mr-2" /> Duration: {pkg.duration}
+                    </div>
+                    <div className="flex items-center text-medium-gray">
+                      <FaCamera className="text-gold mr-2" /> {pkg.photos} Premium Photos
+                    </div>
+                    <div className="flex items-center text-medium-gray">
+                      <FaVideo className="text-gold mr-2" /> {pkg.videos} Video(s)
+                    </div>
+                  </div>
+
+                  <ul className="mb-6 space-y-2">
+                    {pkg.includes.map((feature, idx) => (
+                      <li key={idx} className="flex items-start text-medium-gray">
+                        <FaStar className="text-gold mt-1 mr-2 flex-shrink-0" /> {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="text-sm text-medium-gray italic mb-6">
+                    <span className="font-medium text-gold">Best for:</span> {pkg.bestFor}
+                  </p>
+
+                  <button
+                    onClick={() => setSelectedPackage(pkg.id)}
+                    className={`w-full py-3 rounded-lg font-medium transition-colors ${
+                      selectedPackage === pkg.id
+                        ? 'bg-gold text-dark-maroon'
+                        : 'bg-dark-maroon text-gold hover:bg-gold hover:text-dark-maroon'
+                    }`}
+                  >
+                    {selectedPackage === pkg.id ? 'Selected' : 'Select Package'}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-dark-maroon sm:text-4xl">Why Choose Our Engagement & Baby Shower Packages?</h2>
+            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
+              We specialize in capturing the joy and excitement of these special occasions
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {[
+              {
+                title: "Artistic Vision",
+                description: "Creative compositions and artistic direction for stunning visuals",
+                icon: <FaCamera className="text-4xl text-gold" />
+              },
+              {
+                title: "Flexible Locations",
+                description: "Choose from our curated list of beautiful locations or suggest your own",
+                icon: <FaMapMarkerAlt className="text-4xl text-gold" />
+              },
+              {
+                title: "Expert Guidance",
+                description: "Professional posing guidance to make you feel comfortable and look amazing",
+                icon: <FaUserFriends className="text-4xl text-gold" />
+              },
+              {
+                title: "Unlimited Poses",
+                description: "Relaxed session allowing for natural, candid moments",
+                icon: <FaStar className="text-4xl text-gold" />
+              },
+              {
+                title: "Quick Turnaround",
+                description: "Receive your edited photos within 1 week of the shoot",
+                icon: <FaClock className="text-4xl text-gold" />
+              },
+              {
+                title: "Premium Editing",
+                description: "Advanced editing techniques to enhance the joy",
+                icon: <FaStar className="text-4xl text-gold" />
+              }
+            ].map((feature, index) => (
+              <div key={index} className="text-center">
+                <div className="flex justify-center mb-6">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-dark-maroon mb-4">{feature.title}</h3>
+                <p className="text-medium-gray">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-20 bg-light-gray">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-dark-maroon sm:text-4xl">Our Process</h2>
+            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
+              A seamless journey from planning to final deliverables
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { step: 1, title: "Consultation", desc: "Discuss your vision and preferences" },
+              { step: 2, title: "Planning", desc: "Finalize location and timeline" },
+              { step: 3, title: "Shoot Day", desc: "Professional photo session" },
+              { step: 4, title: "Delivery", desc: "Premium edited photos & videos" }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-dark-maroon text-gold rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-bold text-dark-maroon mb-2">{item.title}</h3>
+                <p className="text-medium-gray">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-dark-maroon to-gold">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+            Ready to capture your special moments?
+          </h2>
+          <p className="mt-4 text-xl text-gold max-w-3xl mx-auto">
+            Book your engagement or baby shower session today and create memories that last forever
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              href="/contact" 
-              className="bg-white text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-white transition-colors"
+          <div className="mt-10">
+            <Link
+              href="/contact"
+              className="inline-block bg-white text-dark-maroon px-10 py-4 rounded-xl font-bold text-lg hover:bg-gold hover:text-white transition-colors duration-300 mr-4 mb-4"
             >
-              Get in Touch
+              Book Now
             </Link>
-            <Link 
-              href="/packages" 
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-dark-maroon transition-colors"
+            <Link
+              href="/gallery"
+              className="inline-block bg-transparent text-white border-2 border-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-dark-maroon transition-colors duration-300"
             >
-              View All Packages
+              View Gallery
             </Link>
           </div>
+          <p className="mt-6 text-medium-gray">
+            Have questions? Call us at +91 79849 41331
+          </p>
         </div>
-      </div>
-      <WhatsAppCTA />
+      </section>
     </div>
   );
 };
 
-export default EngagementBabyShowerPackagesPage;
+export default EngagementBabyShowerPackages;

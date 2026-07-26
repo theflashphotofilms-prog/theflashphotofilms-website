@@ -1,192 +1,205 @@
-'use client';
-
+import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import SEO from '../../components/SEO';
-import WhatsAppCTA from '../../components/WhatsAppCTA';
+import { FaCamera, FaVideo, FaLightbulb, FaGraduationCap, FaMusic, FaBaby, FaRing, FaBirthdayCake } from 'react-icons/fa';
 
-const OtherServicesPage = () => {
+export const metadata: Metadata = {
+  title: 'Other Services - The Flash Photofilms',
+  description: 'Explore our diverse range of photography and videography services beyond weddings. From corporate events to family portraits, we capture every moment with excellence.',
+};
+
+const OtherServices = () => {
   const services = [
     {
-      title: "Pre-Wedding Shoots",
-      description: "Romantic outdoor sessions before the big day to capture your love story.",
-      icon: (
-        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      )
+      title: "Corporate Events",
+      description: "Professional photography for conferences, seminars, product launches, and business gatherings.",
+      icon: <FaCamera className="text-4xl text-gold" />,
+      features: ["Conference Coverage", "Product Launches", "Team Building Events", "Annual Meetings"]
     },
     {
-      title: "Post-Wedding Shoots",
-      description: "Beautiful sessions after the wedding to capture your new journey together.",
-      icon: (
-        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.677c.3.922 1.216 1.337 2.09.847l4.377-2.526c.873-.5.95-1.56 0-2.06l-4.377-2.526a1.2 1.2 0 00-1.25-.076L12 5.432l-1.519-4.677a1.2 1.2 0 00-1.25-.076l-4.377 2.526c-.874.5-.796 1.56 0 2.06l4.377 2.526c.873.49 1.79.075 2.09-.847l1.519-4.677z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12c0 2.762-1.327 5.029-3.392 6.5M3 12c1.327 1.471 3.392-1.5 3.392-1.5m0 0c0-1.053.26-2.07.72-3M12 12v9m0-9c1.673 0 3.392-1.5 3.392-3.5S13.673 6 12 6s-3.392 1.5-3.392 3.5S10.327 12 12 12z" />
-        </svg>
-      )
+      title: "Fashion Photography",
+      description: "Creative and artistic fashion shoots for portfolios, campaigns, and personal branding.",
+      icon: <FaLightbulb className="text-4xl text-gold" />,
+      features: ["Portfolio Creation", "Campaign Shoots", "Personal Branding", "Editorial Work"]
     },
     {
-      title: "Engagement Sessions",
-      description: "Intimate photos to celebrate your engagement and upcoming marriage.",
-      icon: (
-        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      )
+      title: "Educational Institution",
+      description: "Specialized photography services for schools, colleges, and educational events.",
+      icon: <FaGraduationCap className="text-4xl text-gold" />,
+      features: ["School Events", "Graduations", "Portraits", "Campus Life"]
+    },
+    {
+      title: "Music Events",
+      description: "Dynamic coverage of concerts, music festivals, and live performances.",
+      icon: <FaMusic className="text-4xl text-gold" />,
+      features: ["Concerts", "Music Festivals", "Artist Portraits", "Behind the Scenes"]
     },
     {
       title: "Family Portraits",
-      description: "Professional family photos that capture your bond and personality.",
-      icon: (
-        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      )
+      description: "Timeless family photographs capturing precious moments and connections.",
+      icon: <FaRing className="text-4xl text-gold" />,
+      features: ["Family Sessions", "Outdoor Shoots", "Studio Portraits", "Seasonal Themes"]
     },
     {
-      title: "Corporate Events",
-      description: "Professional photography for corporate events, conferences, and meetings.",
-      icon: (
-        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      )
-    },
-    {
-      title: "Product Photography",
-      description: "High-quality product images for e-commerce and marketing materials.",
-      icon: (
-        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      )
+      title: "Pet Photography",
+      description: "Heartwarming images of your beloved pets in their natural environment.",
+      icon: <FaBaby className="text-4xl text-gold" />,
+      features: ["Indoor Sessions", "Outdoor Adventures", "Pet Portraits", "Family Pet Photos"]
     }
   ];
 
-  const additionalServices = [
+  const faqItems = [
     {
-      title: "Photo Restoration",
-      description: "Restore old and damaged photos to their original beauty."
+      question: "How far in advance should I book?",
+      answer: "We recommend booking at least 2-3 months in advance for popular dates, especially for weekend events."
     },
     {
-      title: "Album Design",
-      description: "Custom-designed photo albums to preserve your memories."
+      question: "What is included in the other services packages?",
+      answer: "Packages typically include professional photography/videography, high-resolution digital files, online gallery access, and customized deliverables based on your specific needs."
     },
     {
-      title: "Photo Prints",
-      description: "High-quality prints on various materials and sizes."
+      question: "Do you travel for events?",
+      answer: "Yes, we offer services nationwide. Travel fees may apply for locations beyond 50km from our base in Ankleshwar."
     },
     {
-      title: "Digital Archiving",
-      description: "Secure storage and organization of your photo collections."
+      question: "How long does it take to receive the final deliverables?",
+      answer: "Photo delivery typically takes 2-4 weeks, while video editing may take 4-6 weeks depending on the complexity of the project."
+    },
+    {
+      question: "Can I request specific shots or themes?",
+      answer: "Absolutely! We encourage clients to share their ideas, preferences, and shot lists to ensure we capture everything that matters to you."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-light-gray py-16">
-      <SEO 
-        title="Other Photography Services | The Flash Photofilms" 
-        description="Corporate Events, Birthday Parties, Maternity Shoots, Baby Photoshoots and customised photography services by The Flash Photofilms."
-      />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
-            Other Photography Services
+    <div className="min-h-screen bg-white">
+      {/* Header Section */}
+      <header className="bg-gradient-to-br from-dark-maroon to-black text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold text-gold sm:text-5xl">
+            Other Services
           </h1>
-          <p className="mt-6 text-xl text-medium-gray max-w-3xl mx-auto">
-            Explore our diverse range of photography and videography services tailored to capture your special moments.
+          <p className="mt-4 text-xl text-white max-w-3xl mx-auto">
+            Explore our diverse range of photography and videography services beyond weddings. From corporate events to family portraits, we capture every moment with excellence.
           </p>
         </div>
+      </header>
 
+      {/* Services Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-dark-maroon sm:text-4xl">Our Specialized Services</h2>
+            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
+              Each service is tailored to meet the unique needs of different occasions and subjects.
+            </p>
+          </div>
 
-        {/* Main Services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {services.map((service, index) => (
-            <div key={index} className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-              <div className="bg-gold/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                {service.icon}
-              </div>
-              <h2 className="text-xl font-bold text-dark-maroon mb-4">{service.title}</h2>
-              <p className="text-medium-gray mb-6">{service.description}</p>
-              <Link 
-                href="/contact" 
-                className="text-gold font-bold hover:text-dark-maroon transition-colors inline-flex items-center"
-              >
-                Learn More
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        {/* Additional Services */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-          <h2 className="text-3xl font-bold text-dark-maroon mb-8 text-center">Additional Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {additionalServices.map((service, index) => (
-              <div key={index} className="flex items-start">
-                <div className="bg-gold/10 p-2 rounded-lg mr-4">
-                  <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-dark-maroon mb-2">{service.title}</h3>
-                  <p className="text-medium-gray">{service.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {services.map((service, index) => (
+              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:border-gold transition-colors duration-300">
+                <div className="p-8">
+                  <div className="flex justify-center mb-6">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-center text-dark-maroon mb-4">{service.title}</h3>
+                  <p className="text-medium-gray text-center mb-6">{service.description}</p>
+                  <ul className="space-y-2">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-medium-gray">
+                        <span className="text-gold mr-2">✓</span> {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Service Process */}
-        <div className="bg-gradient-to-r from-dark-maroon to-gold rounded-2xl shadow-lg p-8 md:p-12 mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Our Service Process</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      {/* Process Section */}
+      <section className="py-20 bg-light-gray">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-dark-maroon sm:text-4xl">Our Process</h2>
+            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
+              A seamless journey from concept to final deliverables
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { step: "1", title: "Consultation", desc: "Discuss your needs and vision" },
-              { step: "2", title: "Planning", desc: "Create a customized plan" },
-              { step: "3", title: "Execution", desc: "Capture your special moments" },
-              { step: "4", title: "Delivery", desc: "Receive your beautiful photos" }
+              { step: 1, title: "Consultation", desc: "Understanding your needs and vision" },
+              { step: 2, title: "Planning", desc: "Detailed planning and logistics" },
+              { step: 3, title: "Execution", desc: "Professional service delivery" },
+              { step: 4, title: "Delivery", desc: "High-quality deliverables" }
             ].map((item, index) => (
               <div key={index} className="text-center">
-                <div className="bg-white text-dark-maroon w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold mx-auto mb-4">
+                <div className="w-16 h-16 bg-dark-maroon text-gold rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                   {item.step}
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gold">{item.desc}</p>
+                <h3 className="text-xl font-bold text-dark-maroon mb-2">{item.title}</h3>
+                <p className="text-medium-gray">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Call to Action */}
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-dark-maroon mb-4">Ready to Explore Our Services?</h2>
-          <p className="text-xl text-medium-gray mb-8 max-w-2xl mx-auto">
-            Contact us today to discuss your photography needs and schedule a consultation.
+      {/* FAQ Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-dark-maroon sm:text-4xl">Frequently Asked Questions</h2>
+            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
+              Everything you need to know about our other services
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            {faqItems.map((faq, index) => (
+              <div key={index} className="mb-6 border border-gray-200 rounded-lg overflow-hidden">
+                <div className="p-6 bg-white">
+                  <h3 className="text-lg font-bold text-dark-maroon">{faq.question}</h3>
+                  <p className="mt-2 text-medium-gray">{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-dark-maroon to-gold">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+            Ready to capture your special moments?
+          </h2>
+          <p className="mt-4 text-xl text-gold max-w-3xl mx-auto">
+            Contact us today to discuss your photography needs
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              href="/contact" 
-              className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+          <div className="mt-10">
+            <Link
+              href="/contact"
+              className="inline-block bg-white text-dark-maroon px-10 py-4 rounded-xl font-bold text-lg hover:bg-gold hover:text-white transition-colors duration-300 mr-4 mb-4"
             >
               Get in Touch
             </Link>
-            <Link 
-              href="/packages" 
-              className="bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
+            <Link
+              href="/packages"
+              className="inline-block bg-transparent text-white border-2 border-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-dark-maroon transition-colors duration-300"
             >
               View Packages
             </Link>
           </div>
+          <p className="mt-6 text-medium-gray">
+            Have questions? Call us at +91 79849 41331
+          </p>
         </div>
-      </div>
-      <WhatsAppCTA />
+      </section>
     </div>
   );
 };
 
-export default OtherServicesPage;
+export default OtherServices;

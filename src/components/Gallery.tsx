@@ -1,132 +1,183 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
+
+interface GalleryImage {
+  id: number;
+  src: string;
+  alt: string;
+  category: string;
+}
 
 const Gallery = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [filter, setFilter] = useState<string>('all');
 
-  // Mock gallery data - in a real app, this would come from props or an API
-  const galleryItems = [
-    { id: 1, src: '/placeholder-gallery-1.jpg', title: 'Wedding Ceremony' },
-    { id: 2, src: '/placeholder-gallery-2.jpg', title: 'Pre-Wedding Shoot' },
-    { id: 3, src: '/placeholder-gallery-3.jpg', title: 'Engagement Session' },
-    { id: 4, src: '/placeholder-gallery-4.jpg', title: 'Baby Shower' },
-    { id: 5, src: '/placeholder-gallery-5.jpg', title: 'Corporate Event' },
-    { id: 6, src: '/placeholder-gallery-6.jpg', title: 'Portrait Session' },
-    { id: 7, src: '/placeholder-gallery-7.jpg', title: 'Drone Coverage' },
-    { id: 8, src: '/placeholder-gallery-8.jpg', title: 'Cinematic Video' },
+  // Mock gallery data
+  const galleryImages: GalleryImage[] = [
+    { id: 1, src: '/gallery/wedding1.jpg', alt: 'Wedding Ceremony', category: 'wedding' },
+    { id: 2, src: '/gallery/wedding2.jpg', alt: 'Wedding Reception', category: 'wedding' },
+    { id: 3, src: '/gallery/portrait1.jpg', alt: 'Portrait Session', category: 'portrait' },
+    { id: 4, src: '/gallery/event1.jpg', alt: 'Corporate Event', category: 'event' },
+    { id: 5, src: '/gallery/wedding3.jpg', alt: 'Wedding Couple', category: 'wedding' },
+    { id: 6, src: '/gallery/portrait2.jpg', alt: 'Family Portrait', category: 'portrait' },
+    { id: 7, src: '/gallery/event2.jpg', alt: 'Product Launch', category: 'event' },
+    { id: 8, src: '/gallery/wedding4.jpg', alt: 'Wedding Details', category: 'wedding' },
+    { id: 9, src: '/gallery/portrait3.jpg', alt: 'Engagement Session', category: 'portrait' },
+    { id: 10, src: '/gallery/event3.jpg', alt: 'Conference', category: 'event' },
+    { id: 11, src: '/gallery/wedding5.jpg', alt: 'Wedding Venue', category: 'wedding' },
+    { id: 12, src: '/gallery/portrait4.jpg', alt: 'Lifestyle Portrait', category: 'portrait' },
   ];
 
-  const openLightbox = (index: number) => {
-    setCurrentIndex(index);
-    setSelectedImage(galleryItems[index].src);
+  const filteredImages = filter === 'all' 
+    ? galleryImages 
+    : galleryImages.filter(img => img.category === filter);
+
+  const openImage = (image: GalleryImage) => {
+    setSelectedImage(image);
   };
 
-  const closeLightbox = () => {
+  const closeImage = () => {
     setSelectedImage(null);
   };
 
-  const goToPrevious = () => {
-    const isFirstImage = currentIndex === 0;
-    const newIndex = isFirstImage ? galleryItems.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
-    setSelectedImage(galleryItems[newIndex].src);
+  const navigateImage = (direction: 'prev' | 'next') => {
+    if (!selectedImage) return;
+
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id);
+    let newIndex;
+
+    if (direction === 'prev') {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : galleryImages.length - 1;
+    } else {
+      newIndex = currentIndex < galleryImages.length - 1 ? currentIndex + 1 : 0;
+    }
+
+    setSelectedImage(galleryImages[newIndex]);
   };
 
-  const goToNext = () => {
-    const isLastImage = currentIndex === galleryItems.length - 1;
-    const newIndex = isLastImage ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-    setSelectedImage(galleryItems[newIndex].src);
-  };
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImage) {
+        if (e.key === 'Escape') {
+          closeImage();
+        } else if (e.key === 'ArrowLeft') {
+          navigateImage('prev');
+        } else if (e.key === 'ArrowRight') {
+          navigateImage('next');
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage]);
 
   return (
-    <section className="py-16 bg-light-gray">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-[#D2A97F] mb-4">Our Gallery</h2>
-          <p className="text-xl text-medium-gray max-w-3xl mx-auto">
-            Browse through our collection of photography work and see the magic we create
-          </p>
-        </div>
+    <div className="container mx-auto px-4 py-12">
+      <div className="text-center mb-16">
+        <h2 className="text-3xl font-bold text-dark-maroon mb-4">Our Gallery</h2>
+        <p className="text-medium-gray max-w-2xl mx-auto">
+          Explore our collection of memorable moments captured through our lens
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {galleryItems.map((item, index) => (
-            <div 
-              key={item.id} 
-              className="relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer"
-              onClick={() => openLightbox(index)}
-            >
-              <div className="aspect-square relative">
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <h3 className="font-bold text-lg text-white">{item.title}</h3>
-                </div>
-              </div>
+      {/* Filter Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {['all', 'wedding', 'portrait', 'event'].map((category) => (
+          <button
+            key={category}
+            onClick={() => setFilter(category)}
+            className={`px-6 py-2 rounded-full capitalize ${
+              filter === category
+                ? 'bg-dark-maroon text-white'
+                : 'bg-white text-dark-maroon border border-dark-maroon hover:bg-dark-maroon hover:text-white'
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {/* Gallery Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filteredImages.map((image) => (
+          <div 
+            key={image.id} 
+            className="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
+            onClick={() => openImage(image)}
+          >
+            <div className="aspect-square overflow-hidden">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={400}
+                height={400}
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+              />
             </div>
-          ))}
-        </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-dark-maroon/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <p className="text-white font-medium">{image.alt}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Lightbox */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={closeLightbox}
+          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={closeImage}
         >
-          <button 
-            className="absolute top-4 right-4 text-white bg-[#3A5A40] bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
-            onClick={closeLightbox}
-          >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          
-          <button 
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-[#3A5A40] bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
-            onClick={(e) => {
-              e.stopPropagation();
-              goToPrevious();
-            }}
-          >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          
-          <button 
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-[#3A5A40] bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
-            onClick={(e) => {
-              e.stopPropagation();
-              goToNext();
-            }}
-          >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-          
           <div className="relative max-w-6xl max-h-[90vh] w-full">
-            <Image
-              src={selectedImage}
-              alt="Enlarged view"
-              width={800}
-              height={600}
-              className="object-contain max-h-[80vh] w-full"
-              onClick={(e) => e.stopPropagation()}
-            />
+            <button
+              onClick={closeImage}
+              className="absolute top-4 right-4 text-white bg-dark-maroon bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
+            >
+              <FaTimes />
+            </button>
+            
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateImage('prev');
+              }}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-dark-maroon bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
+            >
+              <FaChevronLeft />
+            </button>
+            
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateImage('next');
+              }}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-dark-maroon bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center z-10 hover:bg-opacity-100 transition-all duration-300"
+            >
+              <FaChevronRight />
+            </button>
+            
+            <div className="flex justify-center">
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                width={800}
+                height={600}
+                className="object-contain max-h-[80vh]"
+              />
+            </div>
+            
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-center">
+              <p className="font-medium">{selectedImage.alt}</p>
+              <p className="text-sm opacity-80">{selectedImage.id} of {galleryImages.length}</p>
+            </div>
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 };
 

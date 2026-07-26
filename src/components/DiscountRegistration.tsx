@@ -1,135 +1,226 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-const DiscountRegistration = () => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [error, setError] = useState('');
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  consent: boolean;
+}
+
+export default function DiscountRegistration() {
   const router = useRouter();
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    phone: '',
+    consent: false,
+  });
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if user has already registered in the past 3 months
+    const registrationData = localStorage.getItem('discountRegistration');
+    if (registrationData) {
+      const { timestamp } = JSON.parse(registrationData);
+      const threeMonthsAgo = new Date();
+      threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+      
+      if (new Date(timestamp) > threeMonthsAgo) {
+        setIsRegistered(true);
+      }
+    }
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setIsSubmitting(true);
+    setIsLoading(true);
+    setError(null);
 
     try {
-      // Submit to Google Sheets via API route
-      const response = await fetch('/api/google-sheets-discount-registration', {
+      // Validate form
+      if (!formData.name || !formData.email || !formData.phone) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      if (!formData.consent) {
+        throw new Error('Please consent to receive communications');
+      }
+
+      // Prepare data for API
+      const userData = {
+        ...formData,
+        timestamp: new Date().toISOString(),
+      };
+
+      // Store in localStorage to prevent multiple submissions
+      localStorage.setItem('discountRegistration', JSON.stringify(userData));
+
+      // Send data to Google Sheets via API route
+      const response = await fetch('/api/discount-registration', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        setSubmitSuccess(true);
-        // Reset form
-        setName('');
-        setEmail('');
-      } else {
-        setError(result.error || 'Failed to register. Please try again.');
+      if (!response.ok) {
+        throw new Error(`Failed to register: ${response.statusText}`);
       }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
-      console.error('Submission error:', err);
+
+      const result = await response.json();
+      console.log('Registration successful:', result);
+
+      // Mark as registered
+      setIsRegistered(true);
+
+      // Redirect to thank you page after a short delay
+      setTimeout(() => {
+        router.push('/thank-you');
+      }, 1000);
+    } catch (err: any) {
+      console.error('Registration error:', err);
+      setError(err.message || 'An error occurred during registration');
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
-  if (submitSuccess) {
+  if (isRegistered) {
     return (
-      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md mx-auto text-center">
-        <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#D2A97F]/10">
-          <svg className="h-10 w-10 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+        <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10">
+          <svg className="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-[#D2A97F] mt-4">Congratulations!</h3>
+        <h3 className="text-2xl font-bold text-dark-maroon mt-4">Congratulations!</h3>
         <p className="mt-2 text-medium-gray">
-          You are eligible for a <span className="font-bold text-[#D2A97F]">10% launch discount</span> valid for 3 months.
+          You are eligible for a <span className="font-bold text-gold">10% launch discount</span> valid for 3 months.
         </p>
-        <p className="mt-4 text-medium-gray">
-          Our team will contact you shortly with more details.
-        </p>
+        <div className="mt-6">
+          <p className="text-medium-gray text-sm">
+            Your registration has been recorded. You can use the discount code at checkout.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md mx-auto">
-      <h3 className="text-2xl font-bold text-[#D2A97F]">Launch Discount Offer</h3>
-      <p className="mt-2 text-medium-gray">
-        Be among the first to enjoy our exclusive launch discount!
+    <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+      <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10">
+        <svg className="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+      </div>
+      <h3 className="text-2xl font-bold text-dark-maroon mt-4">Launch Discount Offer</h3>
+      <p className="mt-2 text-medium-gray text-sm">
+        Register now to claim your exclusive launch discount
       </p>
-      <a 
-        href="https://wa.me/7984941331" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="text-[#D2A97F] font-medium hover:text-[#3A5A40] transition-colors"
-      >
-        WhatsApp Us for Details
-      </a>
       
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>
-          <label htmlFor="name" className="block text-medium-gray mb-1">Full Name</label>
+          <label htmlFor="name" className="block text-sm font-medium text-medium-gray mb-1">
+            Full Name *
+          </label>
           <input
             type="text"
             id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
             placeholder="Enter your full name"
           />
         </div>
         
         <div>
-          <label htmlFor="email" className="block text-medium-gray mb-1">Email Address</label>
+          <label htmlFor="email" className="block text-sm font-medium text-medium-gray mb-1">
+            Email Address *
+          </label>
           <input
             type="email"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40] focus:outline-none transition-colors"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
             placeholder="Enter your email address"
           />
         </div>
         
-        <div className="mb-4 p-4 bg-[#D2A97F]/10 border border-[#D2A97F]/30 rounded-lg">
-          <p className="text-medium-gray">
-            Register now and get <span className="font-bold text-[#D2A97F]">10% off</span> your first booking. 
-            Limited time offer for early birds!
-          </p>
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-medium-gray mb-1">
+            Phone Number *
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+            placeholder="Enter your phone number"
+          />
+        </div>
+        
+        <div className="flex items-start">
+          <div className="flex items-center h-5">
+            <input
+              id="consent"
+              name="consent"
+              type="checkbox"
+              checked={formData.consent}
+              onChange={handleChange}
+              className="focus:ring-gold h-4 w-4 text-dark-maroon border-gray-300 rounded"
+            />
+          </div>
+          <div className="ml-3 text-sm">
+            <label htmlFor="consent" className="font-medium text-medium-gray">
+              I agree to receive communications about products, services, and offers via phone/email
+            </label>
+          </div>
         </div>
         
         {error && (
-          <div className="p-3 bg-red-50 text-red-700 rounded-lg">
-            {error}
+          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-600 text-sm">{error}</p>
           </div>
         )}
         
         <button
           type="submit"
-          disabled={isSubmitting}
-          className={`w-full py-3 px-4 rounded-xl font-bold text-white transition-colors duration-300 ${
-            isSubmitting 
+          disabled={isLoading}
+          className={`w-full py-3 px-4 rounded-md font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+            isLoading 
               ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-[#3A5A40] hover:bg-[#D2A97F] hover:text-[#3A5A40]'
+              : 'bg-dark-maroon hover:bg-gold hover:text-dark-maroon focus:ring-gold'
           }`}
         >
-          {isSubmitting ? 'Registering...' : 'Register for Discount'}
+          {isLoading ? 'Processing...' : 'Claim Your Discount'}
         </button>
       </form>
+      
+      <div className="mt-6 p-4 bg-gold/10 border border-gold/30 rounded-lg">
+        <p className="text-sm text-medium-gray">
+          Register now and get <span className="font-bold text-gold">10% off</span> your first booking. 
+          This exclusive launch offer is valid for the first 3 months.
+        </p>
+      </div>
     </div>
   );
-};
-
-export default DiscountRegistration;
+}

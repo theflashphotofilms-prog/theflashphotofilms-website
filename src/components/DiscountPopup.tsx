@@ -1,274 +1,214 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { FaTimes, FaInfoCircle, FaCheck } from 'react-icons/fa';
 
 const DiscountPopup = () => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
-    email: ''
-  });
+  const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState('');
+  const [name, setFirstName] = useState('');
+  const [phone, setPhone] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [couponCode, setCouponCode] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  // Initialize on client side only
+  // Show popup after 3 seconds
   useEffect(() => {
-    // Only run on client side
-    if (typeof window !== 'undefined') {
-      setMounted(true);
-      
-      // Show popup after 3 seconds on mount (only on client)
-      const timer = setTimeout(() => {
-        try {
-          // Check if user has already seen the popup (using localStorage)
-          const hasSeenPopup = localStorage.getItem('hasSeenDiscountPopup');
-          if (!hasSeenPopup) {
-            setShowPopup(true);
-            setIsVisible(true);
-          }
-        } catch (e) {
-          // Handle cases where localStorage is not available
-          console.warn('Could not access localStorage, skipping discount popup');
-        }
-      }, 3000);
+    const timer = setTimeout(() => {
+      // Check if user has already seen the popup in the last 24 hours
+      const lastShown = localStorage.getItem('discountPopupShown');
+      if (!lastShown || Date.now() - parseInt(lastShown) > 24 * 60 * 60 * 1000) {
+        setIsVisible(true);
+        localStorage.setItem('discountPopupShown', Date.now().toString());
+      }
+    }, 3000);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(() => {
-      setShowPopup(false);
-      try {
-        // Mark as seen so it doesn't appear again
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('hasSeenDiscountPopup', 'true');
-        }
-      } catch (e) {
-        console.warn('Could not set localStorage item');
-      }
-    }, 300);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const validateInputs = () => {
+    if (!name.trim()) {
+      setError('Please enter your name');
+      return false;
+    }
+    if (!email.trim()) {
+      setError('Please enter your email');
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address');
+      return false;
+    }
+    if (!phone.trim()) {
+      setError('Please enter your phone number');
+      return false;
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      setError('Please enter a valid 10-digit phone number');
+      return false;
+    }
+    setError('');
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    
+    if (!validateInputs()) {
+      return;
+    }
+
     setIsSubmitting(true);
-
+    
     try {
-      // Validate inputs
-      if (!formData.name.trim() || !formData.email.trim() || !formData.mobile.trim()) {
-        setError('Please fill in all fields');
-        setIsSubmitting(false);
-        return;
-      }
+      // Generate a random coupon code
+      const generatedCode = 'TFP' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      setCouponCode(generatedCode);
+      
+      // Prepare data for Google Sheets
+      const formData = {
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        couponCode: generatedCode,
+        timestamp: new Date().toISOString()
+      };
 
-      // Basic email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        setError('Please enter a valid email address');
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Basic mobile validation (simple check for minimum length)
-      if (formData.mobile.replace(/\D/g, '').length < 10) {
-        setError('Please enter a valid mobile number');
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Submit to Google Sheets via API route
+      // Send data to Google Sheets via API route
       const response = await fetch('/api/google-sheets-discount-registration', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          name: formData.name, 
-          email: formData.email, 
-          mobile: formData.mobile 
-        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        setSubmitSuccess(true);
-        setCouponCode(result.couponCode);
-        
-        // Reset form
-        setFormData({ name: '', mobile: '', email: '' });
-      } else {
-        setError(result.error || 'Failed to submit. Please try again.');
+      if (!response.ok) {
+        throw new Error('Failed to submit data');
       }
+
+      // Success
+      setIsSubmitted(true);
+      
+      // Store submission in localStorage to prevent multiple submissions
+      localStorage.setItem('discountSubmitted', 'true');
     } catch (err) {
       console.error('Submission error:', err);
-      setError('An unexpected error occurred. Please try again.');
+      setError('An error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Only render when fully mounted AND showPopup is true AND isVisible is true
-  // This ensures no DOM elements exist until the popup is actually needed and ready to show
-  if (!mounted || !showPopup || !isVisible) return null;
+  if (!isVisible) return null;
 
-  // Only render the overlay and modal when all conditions are met
   return (
-    <>
-      {/* Overlay - only render when all conditions are met */}
-      <div 
-        className="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-100 transition-opacity duration-300"
-        onClick={handleClose}
-      />
-
-      {/* Popup Modal - only render when all conditions are met */}
-      <div 
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-100 transition-all duration-300"
-      >
-        <div 
-          className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
-          onClick={(e) => e.stopPropagation()} // Prevent click from closing modal
-        >
-          {!submitSuccess ? (
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-bold text-[#3A5A40]">Get 10% OFF On Any Package</h2>
-                <button 
-                  onClick={handleClose}
-                  className="text-[#D2A97F] hover:text-[#3A5A40] transition-colors"
-                  aria-label="Close"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              
-              <p className="text-medium-gray mb-6">
-                Enter your details to receive a unique discount code valid for 90 days.
-              </p>
-              
-              {error && (
-                <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg">
-                  {error}
-                </div>
-              )}
-              
-              <form onSubmit={handleSubmit}>
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40]"
-                      placeholder="Enter your full name"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">
-                      Mobile Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="mobile"
-                      name="mobile"
-                      value={formData.mobile}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40]"
-                      placeholder="Enter your mobile number"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#D2A97F] focus:border-[#3A5A40]"
-                      placeholder="Enter your email address"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="mt-6">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full py-3 px-4 rounded-md text-white font-medium ${
-                      isSubmitting 
-                        ? 'bg-gray-400 cursor-not-allowed' 
-                        : 'bg-[#D2A97F] hover:bg-[#3A5A40] transition-colors'
-                    }`}
-                  >
-                    {isSubmitting ? 'Processing...' : 'Claim Your Discount'}
-                  </button>
-                </div>
-              </form>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        {!isSubmitted ? (
+          <div className="p-6">
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="text-2xl font-bold text-dark-maroon">Get 10% OFF On Any Package</h2>
+              <button 
+                onClick={handleClose}
+                className="text-gold hover:text-dark-maroon transition-colors"
+              >
+                <FaTimes />
+              </button>
             </div>
-          ) : (
-            <div className="p-6">
-              <div className="text-center">
-                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="mt-4 text-lg font-medium text-[#3A5A40]">Discount Confirmed!</h3>
-                <div className="mt-2">
-                  <p className="text-medium-gray">
-                    Congratulations! Your discount has been confirmed.
-                  </p>
-                  <div className="mt-4 p-4 bg-[#f8f4f0] rounded-lg">
-                    <p className="text-lg font-bold text-[#3A5A40]">Your Coupon Code:</p>
-                    <p className="text-2xl font-bold text-[#D2A97F] mt-2">{couponCode}</p>
-                    <p className="mt-2 text-sm text-medium-gray">
-                      Use this code within 90 days for 10% off any package
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <button
-                    onClick={handleClose}
-                    className="w-full py-3 px-4 bg-[#D2A97F] text-[#3A5A40] rounded-md font-medium hover:bg-[#3A5A40] hover:text-white transition-colors"
-                  >
-                    Continue Browsing
-                  </button>
-                </div>
+            
+            <div className="mb-6 p-4 bg-gold/10 border border-gold/30 rounded-lg">
+              <div className="flex items-start">
+                <FaInfoCircle className="text-gold mt-1 mr-2 flex-shrink-0" />
+                <p className="text-medium-gray text-sm">
+                  Limited time offer! Register now to receive a discount code valid for 3 months.
+                </p>
               </div>
             </div>
-          )}
-        </div>
+            
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+                {error}
+              </div>
+            )}
+            
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-medium-gray mb-2">Full Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-dark-maroon"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-medium-gray mb-2">Email Address *</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-dark-maroon"
+                  placeholder="Enter your email"
+                />
+              </div>
+              
+              <div className="mb-6">
+                <label htmlFor="phone" className="block text-medium-gray mb-2">Phone Number *</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-dark-maroon"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-3 px-4 bg-dark-maroon text-white rounded-md font-medium hover:bg-gold hover:text-dark-maroon transition-colors ${
+                  isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
+              >
+                {isSubmitting ? 'Processing...' : 'Get My Discount'}
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="p-6 text-center">
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10 mb-4">
+              <FaCheck className="h-10 w-10 text-gold" />
+            </div>
+            <h3 className="mt-4 text-lg font-medium text-dark-maroon">Discount Confirmed!</h3>
+            <p className="mt-2 text-medium-gray">
+              Your details have been recorded. Here is your exclusive discount code:
+            </p>
+            <p className="text-lg font-bold text-dark-maroon mt-4">Your Coupon Code:</p>
+            <p className="text-2xl font-bold text-gold mt-2">{couponCode}</p>
+            <p className="mt-4 text-medium-gray text-sm">
+              Use this code at checkout to get 10% off any package. Valid for 3 months.
+            </p>
+            <button
+              onClick={handleClose}
+              className="mt-6 w-full py-3 px-4 bg-gold text-dark-maroon rounded-md font-medium hover:bg-dark-maroon hover:text-white transition-colors"
+            >
+              Continue Browsing
+            </button>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
