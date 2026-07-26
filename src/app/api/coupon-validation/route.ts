@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { getPool, initDiscountCouponsTable } from '@/lib/db';
+import { getPool, initDiscountCouponsTable } from '../../../lib/db';
 
 // Helper function to generate a cryptographically secure random coupon code
 function generateCouponCode(): string {
