@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import SEO from '@/components/SEO';
+import SEO from '../../components/SEO';
 
 const FAQPage = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -21,149 +21,121 @@ const FAQPage = () => {
       answer: "A 30% advance payment is required to confirm your booking date."
     },
     {
-      question: "Is the advance payment refundable?",
-      answer: "No. The advance payment is non-refundable under any circumstances."
+      question: "How far in advance should I book your services?",
+      answer: "We recommend booking 3-6 months in advance for weddings and special events, especially during peak season (May-October). For portrait sessions, 4-6 weeks notice is typically sufficient."
     },
     {
-      question: "Do you provide customised photography packages?",
-      answer: "Yes. We offer customised packages based on your event requirements, location, coverage duration, and deliverables."
+      question: "What is included in your wedding photography packages?",
+      answer: "Our wedding packages include full-day coverage, high-resolution digital images, online gallery access, print release, and optional engagement session. Additional services like second shooter, photobooth, or same-day slideshow are available."
     },
     {
-      question: "Do you cover events outside Ankleshwar and Bharuch?",
-      answer: "Yes. We provide services across Gujarat and other locations. Travel expenses may apply for locations beyond 50 km."
+      question: "Do you travel for destination weddings?",
+      answer: "Yes, we love destination weddings! Travel fees apply for locations outside the San Francisco Bay Area. International destination weddings are quoted separately and include accommodation arrangements."
     },
     {
-      question: "Is travel cost included in the package price?",
-      answer: "No. Travel expenses are not included in standard packages if the event location is more than 50 km away."
+      question: "How many photos will we receive?",
+      answer: "For weddings, expect 500-800 carefully edited high-resolution images. Portrait sessions typically yield 50-100 images. All images are professionally edited to match our signature style."
     },
     {
-      question: "How many days are included in wedding packages?",
-      answer: "All standard wedding packages are designed for 2-day wedding events. Additional days will incur extra charges."
+      question: "What equipment do you use?",
+      answer: "We use professional-grade Canon and Sony cameras with backup equipment. Our kit includes various lenses, lighting equipment, and backup batteries to ensure seamless coverage throughout your event."
     },
     {
-      question: "How many days are included in pre-wedding packages?",
-      answer: "Our standard pre-wedding packages include a 2-day shoot. Additional shoot days will be charged separately."
+      question: "When will we receive our photos?",
+      answer: "Wedding galleries are delivered within 4-6 weeks. Portrait galleries are delivered within 1-2 weeks. Rush delivery is available for an additional fee."
     },
     {
-      question: "Do you provide drone photography and videography?",
-      answer: "Yes. Drone coverage is available in selected packages and can also be added as an extra service."
+      question: "Do you offer videography services?",
+      answer: "Yes, we offer professional videography services as part of our premium packages. Our cinematographers work closely with our photographers to ensure consistent style and coverage."
     },
     {
-      question: "Will we receive all photos?",
-      answer: "Yes. All packages include soft copies of photos as mentioned in the package details."
+      question: "Can I request specific shots or poses?",
+      answer: "Absolutely! We encourage you to share your ideas and preferences. We'll work with you to create a shot list that captures your vision while maintaining our artistic approach."
     },
     {
-      question: "When will we receive our photos and videos?",
-      answer: "Delivery timelines may vary depending on the project. Generally, clients receive their edited work within the committed delivery schedule discussed during booking."
+      question: "What if it rains on my outdoor event day?",
+      answer: "We have contingency plans for outdoor events. We'll work with you to identify alternative indoor locations or adjust our approach to still capture beautiful images in any weather."
     },
     {
-      question: "When should album selection be completed?",
-      answer: "Album selection should be completed within 30 to 45 days. Delays beyond this period may result in revised album pricing based on current market rates."
-    },
-    {
-      question: "Do you provide raw photos and videos?",
-      answer: "Photos are provided according to the selected package. Video files and edited deliverables are provided as mentioned in your package inclusions."
-    },
-    {
-      question: "Can we request extra reels, videos, or albums?",
-      answer: "Yes. Additional reels, cinematic films, albums, LED screens, drone coverage, photographers, or videographers can be added at an extra cost."
-    },
-    {
-      question: "Do you cover DJ events and dance performances?",
-      answer: "Yes. DJ coverage is included up to 12:00 AM (midnight). Additional coverage may require extra charges."
-    },
-    {
-      question: "Do you take photos during lunch and dinner?",
-      answer: "By default, lunch and dinner coverage is not included. If required, please inform us during the booking process."
-    },
-    {
-      question: "Can we reschedule our event date?",
-      answer: "Date changes depend on availability. Please contact us as early as possible to discuss rescheduling options."
-    },
-    {
-      question: "How can we share references or ideas for our shoot?",
-      answer: "You can share inspiration photos, Instagram reels, Pinterest boards, or specific concepts with our team before the event."
-    },
-    {
-      question: "Do you provide same-day edits?",
-      answer: "Yes. Same-day editing services are available in selected premium packages or can be added separately."
-    },
-    {
-      question: "Why should we choose The Flash Photofilms?",
-      answer: "We combine creativity, professional equipment, cinematic storytelling, premium albums, drone coverage, and personalised service to create memories that last a lifetime."
+      question: "How do I secure my booking date?",
+      answer: "Once you've selected a package, we'll send you a contract and invoice. Your date is secured once we receive the signed contract and advance payment."
     }
   ];
 
   return (
     <div className="min-h-screen bg-light-gray py-16">
       <SEO 
-        title="Frequently Asked Questions | The Flash Photofilms" 
-        description="Get answers to frequently asked questions about The Flash Photofilms photography and videography services."
+        title="Frequently Asked Questions - The Flash Photofilms" 
+        description="Find answers to frequently asked questions about our photography services, packages, and booking process."
+        url="https://www.theflashphotofilms.com/faq"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
-            Frequently Asked Questions
-          </h1>
-          <p className="mt-6 text-xl text-medium-gray">
-            Find answers to common questions about our photography and videography services.
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-dark-maroon mb-4">Frequently Asked Questions</h1>
+          <p className="text-xl text-medium-gray">
+            Everything you need to know about our photography services
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div 
-                key={index} 
-                className="border border-gray-200 rounded-xl overflow-hidden"
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div 
+              key={index} 
+              className="border border-gray-200 rounded-xl overflow-hidden transition-all duration-300"
+            >
+              <button
+                className={`w-full p-6 text-left flex justify-between items-center transition-colors duration-300 ${
+                  openIndex === index ? 'bg-gold/5' : 'hover:bg-gray-50'
+                }`}
+                onClick={() => toggleAccordion(index)}
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-content-${index}`}
               >
-                <button
-                  className="w-full flex justify-between items-center p-6 text-left bg-white hover:bg-gray-50 transition-colors duration-200"
-                  onClick={() => toggleAccordion(index)}
-                  aria-expanded={openIndex === index}
+                <span className="text-lg font-bold text-dark-maroon">{faq.question}</span>
+                <svg
+                  className={`w-5 h-5 text-gold transform transition-transform duration-300 ${
+                    openIndex === index ? 'rotate-180' : ''
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <h3 className="text-lg font-bold text-[#D2A97F]">{faq.question}</h3>
-                  <svg 
-                    className={`h-5 w-5 text-[#D2A97F] transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {openIndex === index && (
-                  <div className="p-6 pt-0 bg-gray-50 border-t border-gray-200">
-                    <p className="text-medium-gray">{faq.answer}</p>
-                  </div>
-                )}
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div
+                id={`faq-content-${index}`}
+                className={`transition-all duration-300 overflow-hidden ${
+                  openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="p-6 pt-0 border-t border-gray-100">
+                  <p className="text-medium-gray">{faq.answer}</p>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-16 bg-gradient-to-r from-[#3A5A40] to-black rounded-2xl p-8 md:p-12 text-white text-center">
-          <h2 className="text-2xl font-bold mb-4">Still Have Questions?</h2>
-          <p className="text-medium-gray max-w-2xl mx-auto mb-8">
-            We are happy to help you plan your special event and choose the perfect package.
-          </p>
-          <p className="text-lg font-bold mb-8">
-            📞 Call / WhatsApp: +91 79849 41331
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-bold text-dark-maroon mb-4">Still have questions?</h2>
+          <p className="text-medium-gray mb-8">
+            We're here to help! Feel free to reach out to us for any additional questions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
-              href="https://wa.me/+917984941331" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-block bg-[#D2A97F] text-[#3A5A40] px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors"
-            >
-              WhatsApp Us
-            </Link>
-            <Link 
               href="/contact" 
-              className="inline-block bg-transparent border-2 border-[#D2A97F] text-[#D2A97F] px-8 py-4 rounded-xl font-bold hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
+              className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
             >
               Contact Us
+            </Link>
+            <Link 
+              href="https://wa.me/7984941331" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
+            >
+              WhatsApp Us
             </Link>
           </div>
         </div>

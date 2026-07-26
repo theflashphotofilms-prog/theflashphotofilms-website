@@ -1,137 +1,101 @@
-'use client';
+'use client'; // Added use client directive
 
+import { useState } from 'react'; // Added useState import
 import Link from 'next/link';
-import { useState } from 'react';
-import SEO from '@/components/SEO';
-import CouponInput from '@/components/CouponInput';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
+import SEO from '../../components/SEO';
+import CouponInput from '../../components/CouponInput'; // Added missing import
 
 const PreWeddingPackagesPage = () => {
-  const [discountPercentage, setDiscountPercentage] = useState(0);
+  const [appliedDiscount, setAppliedDiscount] = useState(0);
+  const [discountMessage, setDiscountMessage] = useState('');
 
-  // Calculate discounted price
-  const calculateDiscountedPrice = (originalPrice: string) => {
-    if (discountPercentage === 0) return originalPrice;
-    
-    // Extract numeric value from price (remove ₹ and -/)
-    const numericValue = parseInt(originalPrice.replace(/[^\d]/g, ''), 10);
-    const discountAmount = (numericValue * discountPercentage) / 100;
-    const discountedValue = numericValue - discountAmount;
-    
-    // Format back to original format
-    return `₹${discountedValue.toLocaleString('en-IN')}/-`;
+  const handleDiscountApply = (discountPercentage: number) => { // Removed second parameter
+    setAppliedDiscount(discountPercentage);
+    setDiscountMessage(`${discountPercentage}% discount applied!`);
   };
 
   const packages = [
     {
-      name: "ENGAGEMENT SHOOT",
-      price: "₹12,500/-",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer",
-        "• 1 Drone Pilot"
+      name: "Romantic Package",
+      price: "₹18,000",
+      description: "Perfect for intimate pre-wedding moments",
+      features: [
+        "2 hours of photography coverage",
+        "High-resolution digital images",
+        "Online gallery access",
+        "Print release included",
+        "Up to 150 edited photos",
+        "Scenic location included"
       ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 1 Instagram Reel",
-        "• Drone Coverage"
-      ],
-      popular: false,
-      bgColor: "bg-white"
+      bgColor: "bg-white",
+      popular: false
     },
     {
-      name: "MEHENDI SHOOT",
-      price: "₹16,500/-",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer",
-        "• 1 Candid Photographer",
-        "• 1 Drone Pilot"
+      name: "Premium Package",
+      price: "₹28,000",
+      description: "Ideal for elaborate pre-wedding shoots",
+      features: [
+        "4 hours of photography coverage",
+        "High-resolution digital images",
+        "Online gallery access",
+        "Print release included",
+        "Up to 250 edited photos",
+        "Multiple locations",
+        "Styling assistance",
+        "Professional makeup artist"
       ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 150 Photos Album with Bag",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 1 Instagram Reel",
-        "• Drone Coverage"
-      ],
-      popular: false,
-      bgColor: "bg-white"
-    },
-    {
-      name: "SANGEET SHOOT",
-      price: "₹24,500/-",
-      badge: "Most Popular",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer",
-        "• 1 Candid Photographer",
-        "• 1 Cinematic Videographer",
-        "• 1 Drone Pilot"
-      ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 200 Photos Album with Bag",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 2 Instagram Reels",
-        "• Drone Coverage",
-        "• 200 Photos Digital Frame"
-      ],
+      bgColor: "bg-white",
       popular: true,
-      bgColor: "bg-gradient-to-br from-[#D2A97F] to-yellow-100"
+      popularText: "Most Popular"
     },
     {
-      name: "Haldi SHOOT",
-      price: "₹8,500/-",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer"
+      name: "Luxury Package",
+      price: "₹45,000",
+      description: "Complete pre-wedding experience",
+      features: [
+        "6 hours of photography coverage",
+        "High-resolution digital images",
+        "Online gallery access",
+        "Print release included",
+        "Up to 400 edited photos",
+        "Multiple premium locations",
+        "Styling assistance",
+        "Professional makeup artist",
+        "Hair stylist",
+        "Preparation shoot included",
+        "Highlight video (1-2 minutes)"
       ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 1 Instagram Reel"
-      ],
-      popular: false,
-      bgColor: "bg-white"
+      bgColor: "bg-white",
+      popular: false
     }
   ];
 
-  const handleDiscountApply = (discount: number) => {
-    setDiscountPercentage(discount);
-  };
-
-  const handleBookNow = (packageName: string) => {
-    // Track package interest
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'click_pre_wedding_package_cta', {
-        package_name: packageName,
-        page_title: 'Pre-Wedding Packages'
-      });
-    }
-  };
+  const locations = [
+    "Garden Parks",
+    "Historical Monuments",
+    "Beaches",
+    "Hill Stations",
+    "Palaces",
+    "Urban Landscapes"
+  ];
 
   return (
-    <div className="min-h-screen bg-light-gray py-16">
+    <div className="min-h-screen bg-light-gray">
       <SEO 
-        title="Pre-Wedding Photography Packages | The Flash Photofilms" 
-        description="Premium pre-wedding photography packages by The Flash Photofilms including traditional and candid photography, cinematic videography, albums, reels, highlights and drone coverage."
+        title="Pre-Wedding Photography Packages - The Flash Photofilms" 
+        description="Beautiful pre-wedding photography packages. Professional photographers to capture your love story before the big day."
+        url="https://www.theflashphotofilms.com/pre-wedding-packages"
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
-            Pre-Wedding Photography Packages
-          </h1>
-          <p className="mt-6 text-xl text-medium-gray max-w-3xl mx-auto">
-            Capture your love story with our premium pre-wedding packages designed to preserve every romantic moment with artistic excellence and professional quality.
+          <h1 className="text-4xl font-bold text-dark-maroon mb-4">Pre-Wedding Photography Packages</h1>
+          <p className="text-xl text-medium-gray max-w-3xl mx-auto">
+            Celebrate your love story with our specially crafted pre-wedding packages designed to capture your journey before the big day.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {packages.map((pkg, index) => (
             <div 
               key={index} 
@@ -139,106 +103,119 @@ const PreWeddingPackagesPage = () => {
             >
               {pkg.popular && (
                 <div className="bg-[#D2A97F] text-[#3A5A40] text-center py-2 font-bold">
-                  Most Popular
+                  {pkg.popularText}
                 </div>
               )}
               <div className="p-8">
-                <h3 className="text-xl font-bold text-[#D2A97F] mb-4 text-center">{pkg.name}</h3>
-                <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-[#D2A97F]">
-                    {calculateDiscountedPrice(pkg.price)}
-                  </div>
-                  {discountPercentage > 0 && (
-                    <div className="text-sm text-medium-gray line-through">
-                      Original: {pkg.price}
-                    </div>
-                  )}
-                </div>
+                <h2 className="text-2xl font-bold text-dark-maroon mb-2">{pkg.name}</h2>
+                <div className="text-3xl font-bold text-gold mb-2">{pkg.price}</div>
+                <p className="text-medium-gray mb-6">{pkg.description}</p>
                 
-                <div className="mb-6">
-                  <h4 className="font-bold text-[#D2A97F] mb-2">Team:</h4>
-                  <ul className="text-medium-gray text-sm space-y-1">
-                    {pkg.team.map((item, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-[#D2A97F] mr-2">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="mb-6">
-                  <h4 className="font-bold text-[#D2A97F] mb-2">Included:</h4>
-                  <ul className="text-medium-gray text-sm space-y-1">
-                    {pkg.included.map((item, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-[#D2A97F] mr-2">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="space-y-3 mb-8">
+                  {pkg.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-start">
+                      <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="text-medium-gray">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
                 
                 <Link 
                   href="/contact" 
-                  onClick={() => handleBookNow(pkg.name)}
-                  className="block w-full bg-[#D2A97F] text-[#3A5A40] text-center py-3 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors duration-300"
+                  className={`block text-center py-3 px-6 rounded-xl font-bold transition-colors ${
+                    pkg.popular 
+                      ? 'bg-[#D2A97F] text-[#3A5A40] hover:bg-transparent hover:text-[#D2A97F] border border-[#D2A97F]' 
+                      : 'bg-dark-maroon text-white hover:bg-gold hover:text-dark-maroon'
+                  }`}
                 >
-                  Book Your Event
+                  Book Now
                 </Link>
               </div>
             </div>
           ))}
         </div>
 
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+          <h2 className="text-3xl font-bold text-dark-maroon mb-6 text-center">Popular Locations</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {locations.map((location, index) => (
+              <div key={index} className="flex items-center p-4 bg-light-gray rounded-lg">
+                <svg className="w-5 h-5 text-gold mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-medium-gray">{location}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-dark-maroon to-gold rounded-2xl shadow-lg p-8 md:p-12 mb-16">
+          <h2 className="text-3xl font-bold text-white mb-4 text-center">Why Choose Our Pre-Wedding Services?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              { 
+                title: "Creative Direction", 
+                desc: "Our experienced team provides creative input to make your shoot unique" 
+              },
+              { 
+                title: "Flexible Timing", 
+                desc: "Shoots scheduled at optimal times for best lighting and ambiance" 
+              },
+              { 
+                title: "Professional Team", 
+                desc: "Skilled photographers and assistants for flawless execution" 
+              },
+              { 
+                title: "Quick Delivery", 
+                desc: "Preview gallery within 48 hours of your shoot" 
+              }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-gold">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Discount Section */}
         <div className="mt-16 bg-white rounded-2xl shadow-lg p-8">
           <h2 className="text-2xl font-bold text-[#D2A97F] mb-6 text-center">Have a Coupon Code?</h2>
           <CouponInput 
             onApply={handleDiscountApply} 
             originalPrice={packages[0].price} 
           />
+          {discountMessage && (
+            <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-lg text-center">
+              {discountMessage}
+            </div>
+          )}
         </div>
 
-        <div className="mt-20">
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-[#D2A97F]">Terms & Conditions</h2>
-              <button 
-                onClick={() => {
-                  const tnc = document.getElementById('tnc-details');
-                  if (tnc) {
-                    tnc.classList.toggle('hidden');
-                  }
-                }}
-                className="text-[#D2A97F] font-medium hover:text-[#3A5A40]"
-              >
-                Show/Hide Details
-              </button>
-            </div>
-            
-            <div id="tnc-details" className="space-y-4 hidden">
-              <ol className="text-medium-gray space-y-3 list-decimal list-inside">
-                <li><span className="font-medium text-[#D2A97F]">30% advance payment is required to confirm the booking.</span> After the event is completed, 50% payment must be cleared. Soft copies of photos/videos will be delivered only after this payment. The remaining balance must be paid on the day of album selection.</li>
-                <li><span className="font-medium text-[#D2A97F]">Without advance payment, the booking will not be confirmed.</span></li>
-                <li><span className="font-medium text-[#D2A97F]">Advance payment is non-refundable under any circumstances.</span></li>
-                <li><span className="font-medium text-[#D2A97F]">Album selection must be completed within 30 to 45 days after delivery of the preview.</span> If album selection is delayed beyond this period, album charges will be calculated according to the current market rates.</li>
-                <li><span className="font-medium text-[#D2A97F]">DJ shoot coverage is available only up to 12:00 AM (midnight).</span></li>
-                <li><span className="font-medium text-[#D2A97F]">Photos of guests while having lunch or dinner are not included by default.</span> If such coverage is required, it must be discussed and confirmed at the time of booking.</li>
-                <li><span className="font-medium text-[#D2A97F]">Wedding film editing is included up to 3 hours duration only.</span> If the final edited video exceeds 3 hours, additional editing charges will apply.</li>
-                <li><span className="font-medium text-[#D2A97F]">All final data (photos/videos) must be collected within 30 to 45 days.</span> After this period, if data is lost due to technical issues, hardware failure, or any unforeseen reason, The Flash Photofilms will not be responsible.</li>
-                <li><span className="font-medium text-[#D2A97F]">Clients and guests must maintain respectful behaviour with photographers and videographers.</span> Any misuse, abusive language, or inappropriate behaviour may result in immediate cancellation of services without any refund.</li>
-                <li><span className="font-medium text-[#D2A97F]">Only items specifically mentioned in the selected package are included.</span> Any additional services, products, manpower, equipment, albums, reels, videos, drone coverage, LED screens, travel arrangements, or custom requirements will be charged separately.</li>
-              </ol>
-              
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <p className="text-center text-medium-gray italic">
-                  Thank You For Trusting The Flash Photofilms. We look forward to capturing your beautiful memories.
-                </p>
-              </div>
-            </div>
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-dark-maroon mb-4">Ready to Capture Your Love Story?</h2>
+          <p className="text-xl text-medium-gray mb-8 max-w-2xl mx-auto">
+            Contact us today to discuss your pre-wedding photography needs and schedule a consultation.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link 
+              href="/contact" 
+              className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+            >
+              Get in Touch
+            </Link>
+            <Link 
+              href="/portfolio" 
+              className="bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
+            >
+              View Sample Work
+            </Link>
           </div>
         </div>
       </div>
+      <WhatsAppCTA />
     </div>
   );
 };

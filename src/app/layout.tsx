@@ -1,27 +1,63 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import WhatsAppCTA from '@/components/WhatsAppCTA';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import WhatsAppCTA from '../components/WhatsAppCTA';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: 'The Flash Photofilms - Professional Photography & Videography Services',
-  description: 'Premium wedding, event, and commercial photography & videography services by Mohit Panchal. Capturing memories with artistic excellence.',
+  description: 'Professional photography and videography services for weddings, events, and commercial projects. Capture your special moments with our expert team.',
+  keywords: 'photography, videography, wedding photography, event photography, commercial photography, professional photographer',
+  authors: [{ name: 'The Flash Photofilms' }],
+  creator: 'The Flash Photofilms',
+  publisher: 'The Flash Photofilms',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://www.theflashphotofilms.com',
+    title: 'The Flash Photofilms - Professional Photography & Videography Services',
+    description: 'Professional photography and videography services for weddings, events, and commercial projects.',
+    siteName: 'The Flash Photofilms',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Flash Photofilms - Professional Photography & Videography Services',
+    description: 'Professional photography and videography services for weddings, events, and commercial projects.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'google-site-verification-token',
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} font-sans antialiased`}>
         <Navbar />
-        {children}
+        <main>{children}</main>
         <Footer />
         <WhatsAppCTA />
         <script

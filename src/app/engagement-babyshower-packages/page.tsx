@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import SEO from '@/components/SEO';
-import CouponInput from '@/components/CouponInput';
+import SEO from '../../components/SEO';
+import CouponInput from '../../components/CouponInput';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
 
 const EngagementBabyShowerPackagesPage = () => {
   const [discountPercentage, setDiscountPercentage] = useState(0);
@@ -23,83 +24,48 @@ const EngagementBabyShowerPackagesPage = () => {
 
   const packages = [
     {
-      name: "ENGAGEMENT PACKAGE",
-      price: "₹8,500/-",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer",
-        "• 1 Drone Pilot"
-      ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 1 Instagram Reel",
-        "• Drone Coverage"
-      ],
-      popular: false,
-      bgColor: "bg-white"
+      name: "Basic Package",
+      price: "₹15,000",
+      description: "Perfect for intimate gatherings",
+      features: [
+        "4 hours of photography coverage",
+        "High-resolution digital images",
+        "Online gallery access",
+        "Print release included",
+        "Up to 200 edited photos"
+      ]
     },
     {
-      name: "BABY SHOWER PACKAGE",
-      price: "₹12,500/-",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer",
-        "• 1 Candid Photographer"
+      name: "Premium Package",
+      price: "₹25,000",
+      description: "Ideal for larger celebrations",
+      features: [
+        "6 hours of photography coverage",
+        "High-resolution digital images",
+        "Online gallery access",
+        "Print release included",
+        "Up to 400 edited photos",
+        "Same-day slideshow",
+        "Engagement session included"
       ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 150 Photos Album with Bag",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 1 Instagram Reel"
-      ],
-      popular: false,
-      bgColor: "bg-white"
+      featured: true
     },
     {
-      name: "MEHENDI PACKAGE",
-      price: "₹16,500/-",
-      badge: "Most Popular",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer",
-        "• 1 Candid Photographer",
-        "• 1 Drone Pilot"
-      ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 200 Photos Album with Bag",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 2 Instagram Reels",
-        "• Drone Coverage"
-      ],
-      popular: true,
-      bgColor: "bg-gradient-to-br from-[#D2A97F] to-yellow-100"
-    },
-    {
-      name: "GANESH CHATURTHI PACKAGE",
-      price: "₹24,500/-",
-      team: [
-        "• 1 Traditional Photographer",
-        "• 1 Traditional Videographer",
-        "• 1 Candid Photographer",
-        "• 1 Cinematic Videographer",
-        "• 1 Drone Pilot"
-      ],
-      included: [
-        "• All Soft Copy Raw Photos",
-        "• 250 Photos Album with Bag",
-        "• 1 Cinematic Video",
-        "• 1 Highlight Video",
-        "• 2 Instagram Reels",
-        "• Drone Coverage",
-        "• 200 Photos Digital Frame"
-      ],
-      popular: false,
-      bgColor: "bg-white"
+      name: "Deluxe Package",
+      price: "₹35,000",
+      description: "Complete coverage for special events",
+      features: [
+        "8 hours of photography coverage",
+        "High-resolution digital images",
+        "Online gallery access",
+        "Print release included",
+        "Up to 600 edited photos",
+        "Same-day slideshow",
+        "Engagement session included",
+        "Second photographer",
+        "Drone photography (weather permitting)",
+        "Highlight video (1-2 minutes)"
+      ]
     }
   ];
 
@@ -133,114 +99,132 @@ const EngagementBabyShowerPackagesPage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {packages.map((pkg, index) => (
             <div 
               key={index} 
-              className={`${pkg.bgColor} rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 transition-transform duration-300`}
+              className={`bg-white rounded-2xl shadow-lg p-8 relative ${pkg.featured ? 'ring-2 ring-gold transform md:-translate-y-4' : ''}`}
             >
-              {pkg.popular && (
-                <div className="bg-[#D2A97F] text-[#3A5A40] text-center py-2 font-bold">
+              {pkg.featured && (
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gold text-dark-maroon px-4 py-1 rounded-full text-sm font-bold">
                   Most Popular
                 </div>
               )}
-              <div className="p-8">
-                <h3 className="text-xl font-bold text-[#D2A97F] mb-4 text-center">{pkg.name}</h3>
-                <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-[#D2A97F]">
-                    {calculateDiscountedPrice(pkg.price)}
-                  </div>
-                  {discountPercentage > 0 && (
-                    <div className="text-sm text-medium-gray line-through">
-                      Original: {pkg.price}
-                    </div>
-                  )}
-                </div>
-                
-                <div className="mb-6">
-                  <h4 className="font-bold text-[#D2A97F] mb-2">Team:</h4>
-                  <ul className="text-medium-gray text-sm space-y-1">
-                    {pkg.team.map((item, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-[#D2A97F] mr-2">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className="mb-6">
-                  <h4 className="font-bold text-[#D2A97F] mb-2">Included:</h4>
-                  <ul className="text-medium-gray text-sm space-y-1">
-                    {pkg.included.map((item, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-[#D2A97F] mr-2">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <Link 
-                  href="/contact" 
-                  onClick={() => handleBookNow(pkg.name)}
-                  className="block w-full bg-[#D2A97F] text-[#3A5A40] text-center py-3 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors duration-300"
-                >
-                  Book Your Event
-                </Link>
-              </div>
+              <h2 className="text-2xl font-bold text-dark-maroon mb-2">{pkg.name}</h2>
+              <div className="text-3xl font-bold text-gold mb-2">{pkg.price}</div>
+              <p className="text-medium-gray mb-6">{pkg.description}</p>
+              
+              <ul className="space-y-3 mb-8">
+                {pkg.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-start">
+                    <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-medium-gray">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <Link 
+                href="/contact" 
+                className={`block text-center py-3 px-6 rounded-xl font-bold transition-colors ${
+                  pkg.featured 
+                    ? 'bg-gold text-dark-maroon hover:bg-transparent hover:text-gold border border-gold' 
+                    : 'bg-dark-maroon text-white hover:bg-gold hover:text-dark-maroon'
+                }`}
+              >
+                Book Now
+              </Link>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-[#D2A97F] mb-6 text-center">Have a Coupon Code?</h2>
-          <CouponInput 
-            onApply={handleDiscountApply} 
-            originalPrice={packages[0].price} 
-          />
-        </div>
-
-        <div className="mt-20">
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-[#D2A97F]">Terms & Conditions</h2>
-              <button 
-                onClick={() => {
-                  const tnc = document.getElementById('tnc-details');
-                  if (tnc) {
-                    tnc.classList.toggle('hidden');
-                  }
-                }}
-                className="text-[#D2A97F] font-medium hover:text-[#3A5A40]"
-              >
-                Show/Hide Details
-              </button>
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+          <h2 className="text-3xl font-bold text-dark-maroon mb-6 text-center">Package Inclusions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-gold mb-4">What's Included</h3>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">Professional photographer for selected hours</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">High-resolution edited photos</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">Online gallery with print release</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">Personalized photo album (Deluxe)</span>
+                </li>
+              </ul>
             </div>
-            
-            <div id="tnc-details" className="space-y-4 hidden">
-              <ol className="text-medium-gray space-y-3 list-decimal list-inside">
-                <li><span className="font-medium text-[#D2A97F]">30% advance payment is required to confirm the booking.</span> After the event is completed, 50% payment must be cleared. Soft copies of photos/videos will be delivered only after this payment. The remaining balance must be paid on the day of album selection.</li>
-                <li><span className="font-medium text-[#D2A97F]">Without advance payment, the booking will not be confirmed.</span></li>
-                <li><span className="font-medium text-[#D2A97F]">Advance payment is non-refundable under any circumstances.</span></li>
-                <li><span className="font-medium text-[#D2A97F]">Album selection must be completed within 30 to 45 days after delivery of the preview.</span> If album selection is delayed beyond this period, album charges will be calculated according to the current market rates.</li>
-                <li><span className="font-medium text-[#D2A97F]">DJ shoot coverage is available only up to 12:00 AM (midnight).</span></li>
-                <li><span className="font-medium text-[#D2A97F]">Photos of guests while having lunch or dinner are not included by default.</span> If such coverage is required, it must be discussed and confirmed at the time of booking.</li>
-                <li><span className="font-medium text-[#D2A97F]">Wedding film editing is included up to 3 hours duration only.</span> If the final edited video exceeds 3 hours, additional editing charges will apply.</li>
-                <li><span className="font-medium text-[#D2A97F]">All final data (photos/videos) must be collected within 30 to 45 days.</span> After this period, if data is lost due to technical issues, hardware failure, or any unforeseen reason, The Flash Photofilms will not be responsible.</li>
-                <li><span className="font-medium text-[#D2A97F]">Clients and guests must maintain respectful behaviour with photographers and videographers.</span> Any misuse, abusive language, or inappropriate behaviour may result in immediate cancellation of services without any refund.</li>
-                <li><span className="font-medium text-[#D2A97F]">Only items specifically mentioned in the selected package are included.</span> Any additional services, products, manpower, equipment, albums, reels, videos, drone coverage, LED screens, travel arrangements, or custom requirements will be charged separately.</li>
-              </ol>
-              
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <p className="text-center text-medium-gray italic">
-                  Thank You For Trusting The Flash Photofilms. We look forward to capturing your beautiful memories.
-                </p>
-              </div>
+            <div>
+              <h3 className="text-xl font-bold text-gold mb-4">Additional Options</h3>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">Additional hours (+₹2,500/hour)</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">Physical photo album (+₹5,000)</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">Additional photographer (+₹8,000)</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-gold mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-medium-gray">Video coverage (+₹15,000)</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
+
+        <div className="text-center bg-gradient-to-r from-dark-maroon to-gold py-16 rounded-2xl">
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to Capture Your Special Moments?</h2>
+          <p className="text-xl text-gold mb-8 max-w-2xl mx-auto">
+            Contact us today to discuss your engagement or baby shower photography needs and schedule a consultation.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link 
+              href="/contact" 
+              className="bg-white text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-white transition-colors"
+            >
+              Get in Touch
+            </Link>
+            <Link 
+              href="/packages" 
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-dark-maroon transition-colors"
+            >
+              View All Packages
+            </Link>
+          </div>
+        </div>
       </div>
+      <WhatsAppCTA />
     </div>
   );
 };

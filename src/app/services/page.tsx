@@ -1,185 +1,168 @@
 'use client';
 
 import Link from 'next/link';
-import WhatsAppCTA from '@/components/WhatsAppCTA';
-import SEO from '@/components/SEO';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
+import SEO from '../../components/SEO';
 
 const ServicesPage = () => {
+
   const services = [
     {
       title: "Wedding Photography",
       description: "Capture your special day with our premium wedding photography services, featuring traditional and candid styles.",
+      features: ["Full-day coverage", "High-resolution images", "Online gallery", "Print release"],
       icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      href: "/packages"
-    },
-    {
-      title: "Pre-Wedding Shoots",
-      description: "Beautiful pre-wedding photos that celebrate your love story with artistic excellence.",
-      icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
-      ),
-      href: "/pre-wedding-packages"
+      )
     },
     {
-      title: "Engagement & Baby Shower",
-      description: "Special moments deserve special memories - capture them with our specialized photography.",
+      title: "Event Photography",
+      description: "From corporate events to birthday parties, we capture all the important moments of your special events.",
+      features: ["Multiple locations", "Professional equipment", "Same-day slideshow", "Drone coverage"],
       icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
         </svg>
-      ),
-      href: "/engagement-babyshower-packages"
+      )
     },
     {
       title: "Portrait Sessions",
-      description: "Professional portrait photography for individuals, couples, and families.",
+      description: "Professional portrait photography for individuals, families, and professional headshots.",
+      features: ["Indoor/outdoor options", "Wardrobe assistance", "Professional lighting", "Multiple outfit changes"],
       icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
-      ),
-      href: "/contact"
-    },
-    {
-      title: "Event Coverage",
-      description: "Comprehensive photography and videography for corporate events, parties, and celebrations.",
-      icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      ),
-      href: "/contact"
+      )
     },
     {
       title: "Commercial Photography",
-      description: "Professional commercial photography for businesses, products, and brands.",
+      description: "High-quality commercial photography for businesses, products, and marketing materials.",
+      features: ["Product shoots", "Architectural photography", "Brand imagery", "Marketing materials"],
       icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
-      ),
-      href: "/contact"
-    },
-    {
-      title: "Video Production",
-      description: "Cinematic videography services for weddings, events, and promotional content.",
-      icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        </svg>
-      ),
-      href: "/contact"
-    },
-    {
-      title: "Drone Coverage",
-      description: "Aerial photography and videography services for unique perspectives and stunning shots.",
-      icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      href: "/contact"
-    },
-    {
-      title: "Photo Albums",
-      description: "Custom photo albums and prints to preserve your memories in physical form.",
-      icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      ),
-      href: "/contact"
-    },
-    {
-      title: "Social Media Content",
-      description: "Instagram reels, Facebook posts, and other social media content creation.",
-      icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-        </svg>
-      ),
-      href: "/contact"
-    },
-    {
-      title: "Custom Packages",
-      description: "Tailored photography and videography solutions to meet your specific needs.",
-      icon: (
-        <svg className="h-8 w-8 text-[#D2A97F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      ),
-      href: "/contact"
+      )
     }
   ];
 
+  const processSteps = [
+    { step: "1", title: "Consultation", desc: "Discuss your needs and vision" },
+    { step: "2", title: "Planning", desc: "Create a customized plan" },
+    { step: "3", title: "Execution", desc: "Capture your special moments" },
+    { step: "4", title: "Delivery", desc: "Receive your beautiful photos" }
+  ];
+
   return (
-    <div className="min-h-screen bg-light-gray py-16">
+    <div className="min-h-screen bg-light-gray">
       <SEO 
-        title="Photography & Videography Services | The Flash Photofilms" 
-        description="Comprehensive photography and videography services including wedding, pre-wedding, engagement, portrait, event, commercial, and video production by The Flash Photofilms."
+        title="Professional Photography Services - The Flash Photofilms" 
+        description="Comprehensive photography services including weddings, events, portraits, and commercial photography. Professional photographers for all occasions."
+        url="https://www.theflashphotofilms.com/services"
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
-            Our Photography & Videography Services
-          </h1>
-          <p className="mt-6 text-xl text-medium-gray max-w-3xl mx-auto">
-            Comprehensive photography and videography solutions for all your special occasions and professional needs.
+          <h1 className="text-4xl font-bold text-dark-maroon mb-4">Our Photography Services</h1>
+          <p className="text-xl text-medium-gray max-w-3xl mx-auto">
+            Professional photography services tailored to capture your most important moments with creativity and precision.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
           {services.map((service, index) => (
-            <Link 
-              key={index} 
-              href={service.href}
-              className="group"
-            >
-              <div className="bg-white rounded-2xl shadow-lg p-8 h-full border border-gray-200 hover:border-[#D2A97F] transition-colors duration-300">
-                <div className="bg-[#D2A97F]/10 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#D2A97F] transition-colors duration-300">
+            <div key={index} className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+              <div className="flex items-start">
+                <div className="bg-gold/10 p-3 rounded-lg mr-6">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold text-[#D2A97F] mb-3">{service.title}</h3>
-                <p className="text-medium-gray mb-4">{service.description}</p>
-                <span className="text-[#D2A97F] font-medium inline-flex items-center">
-                  Learn More
-                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
+                <div>
+                  <h2 className="text-2xl font-bold text-dark-maroon mb-3">{service.title}</h2>
+                  <p className="text-medium-gray mb-6">{service.description}</p>
+                  <ul className="space-y-2 mb-6">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center text-medium-gray">
+                        <svg className="w-4 h-4 text-gold mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link 
+                    href="/contact" 
+                    className="text-gold font-bold hover:text-dark-maroon transition-colors inline-flex items-center"
+                  >
+                    Learn More
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 
-        <div className="mt-16 bg-gradient-to-r from-[#3A5A40] to-black rounded-2xl p-8 md:p-12 text-white text-center">
-          <h2 className="text-2xl font-bold mb-4">Ready to Book Your Session?</h2>
-          <p className="text-medium-gray max-w-2xl mx-auto mb-8">
-            Contact us today to discuss your photography needs and schedule your session
+        {/* Process Section */}
+        <div className="bg-gradient-to-r from-dark-maroon to-gold rounded-2xl shadow-lg p-8 md:p-12 mb-16">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">Our Service Process</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {processSteps.map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="bg-white text-dark-maroon w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold mx-auto mb-4">
+                  {step.step}
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-gold">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-dark-maroon mb-4">Ready to Book Our Services?</h2>
+          <p className="text-xl text-medium-gray mb-8 max-w-2xl mx-auto">
+            Contact us today to discuss your photography needs and schedule a consultation.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
               href="/contact" 
-              className="inline-block bg-[#D2A97F] text-[#3A5A40] px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors"
+              className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
             >
               Get in Touch
             </Link>
             <Link 
-              href="/faq" 
-              className="inline-block bg-transparent border-2 border-[#D2A97F] text-[#D2A97F] px-8 py-4 rounded-xl font-bold hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
+              href="/packages" 
+              className="bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
             >
-              Visit FAQ
+              View Packages
             </Link>
           </div>
         </div>
+
+        {/* Discount Offer */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+          <h2 className="text-2xl font-bold text-dark-maroon mb-4">Launch Discount Offer</h2>
+          <p className="text-medium-gray mb-6 max-w-2xl mx-auto">
+            Be among the first to enjoy our exclusive launch discount! Get 10% off your first booking when you register today.
+          </p>
+          <Link 
+            href="/contact" 
+            className="bg-gold text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-gold transition-colors inline-block"
+          >
+            Register for Discount
+          </Link>
+          <p className="mt-4 text-sm text-medium-gray">
+            Limited time offer - Valid for 3 months from registration
+          </p>
+        </div>
       </div>
+      
       <WhatsAppCTA />
     </div>
   );

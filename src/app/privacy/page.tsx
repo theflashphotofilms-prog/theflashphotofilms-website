@@ -1,101 +1,83 @@
 import Link from 'next/link';
-import WhatsAppCTA from '@/components/WhatsAppCTA';
-import SEO from '@/components/SEO';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
+import SEO from '../../components/SEO';
 
-const PrivacyPolicyPage = () => {
+const PrivacyPage = () => {
   return (
     <div className="min-h-screen bg-light-gray py-16">
       <SEO 
-        title="Privacy Policy | The Flash Photofilms" 
-        description="Privacy policy for The Flash Photofilms photography and videography services. Learn how we collect, use, and protect your personal information."
+        title="Privacy Policy - The Flash Photofilms" 
+        description="Privacy policy for The Flash Photofilms photography services and website usage."
+        url="https://www.theflashphotofilms.com/privacy"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-[#D2A97F] mb-6">Privacy Policy</h1>
+          <h1 className="text-4xl font-bold text-dark-maroon mb-4">Privacy Policy</h1>
           <p className="text-xl text-medium-gray">
-            Your privacy is important to us. Learn how we collect, use, and protect your information.
+            Information about how we collect, use, and protect your personal data
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <div className="prose prose-lg max-w-none">
-            <p className="text-medium-gray mb-6">
-              At The Flash Photofilms, we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you interact with our photography and videography services.
-            </p>
-
-            <h2 className="text-2xl font-bold text-[#D2A97F] mb-4 mt-10">Information We Collect</h2>
+        <div className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+          <section>
+            <h2 className="text-2xl font-bold text-dark-maroon mb-4">Information We Collect</h2>
             <p className="text-medium-gray mb-4">
-              We collect information that you provide directly to us when you:
+              We collect information you provide directly to us, such as when you book our services, 
+              contact us through our website, or subscribe to our newsletter. This may include your 
+              name, email address, phone number, and other contact information.
             </p>
-            <ul className="text-medium-gray list-disc pl-6 mb-6 space-y-2">
-              <li>Contact us through our website, email, or phone</li>
-              <li>Book photography or videography services</li>
-              <li>Subscribe to our newsletter or promotional offers</li>
-              <li>Share feedback or reviews about our services</li>
-              <li>Interact with us on social media platforms</li>
-            </ul>
+          </section>
 
-            <h2 className="text-2xl font-bold text-[#D2A97F] mb-4 mt-10">How We Use Your Information</h2>
+          <section>
+            <h2 className="text-2xl font-bold text-dark-maroon mb-4">How We Use Your Information</h2>
             <p className="text-medium-gray mb-4">
-              We use the information we collect to:
+              We use the information we collect to provide and improve our photography services, 
+              communicate with you, process bookings, and send you relevant updates about our services.
             </p>
-            <ul className="text-medium-gray list-disc pl-6 mb-6 space-y-2">
-              <li>Provide and improve our photography and videography services</li>
-              <li>Process bookings and payments</li>
-              <li>Communicate with you about your bookings and services</li>
-              <li>Send you updates about our services and special offers</li>
-              <li>Respond to your inquiries and feedback</li>
-              <li>Personalize your experience with our services</li>
-            </ul>
+          </section>
 
-            <h2 className="text-2xl font-bold text-[#D2A97F] mb-4 mt-10">Information Sharing and Disclosure</h2>
+          <section>
+            <h2 className="text-2xl font-bold text-dark-maroon mb-4">Data Protection</h2>
             <p className="text-medium-gray mb-4">
-              We do not sell, trade, or rent your personal information to third parties. We may share your information with trusted partners who assist us in operating our business, conducting business, or serving our customers, provided they agree to maintain the confidentiality of your information.
+              We implement appropriate security measures to protect your personal information 
+              against unauthorized access, alteration, disclosure, or destruction.
             </p>
+          </section>
 
-            <h2 className="text-2xl font-bold text-[#D2A97F] mb-4 mt-10">Data Security</h2>
+          <section>
+            <h2 className="text-2xl font-bold text-dark-maroon mb-4">Sharing Your Information</h2>
             <p className="text-medium-gray mb-4">
-              We implement appropriate security measures to protect against unauthorized access, alteration, disclosure, or destruction of your personal information. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+              We do not sell, trade, or rent your personal information to others. 
+              We may share your information with trusted third parties who assist us in operating 
+              our website or providing our services, provided they agree to maintain the confidentiality of your information.
             </p>
+          </section>
 
-            <h2 className="text-2xl font-bold text-[#D2A97F] mb-4 mt-10">Your Rights</h2>
+          <section>
+            <h2 className="text-2xl font-bold text-dark-maroon mb-4">Your Rights</h2>
             <p className="text-medium-gray mb-4">
-              Depending on your location, you may have the following rights regarding your personal information:
+              You have the right to access, update, or delete your personal information at any time. 
+              You may also opt out of receiving promotional communications from us.
             </p>
-            <ul className="text-medium-gray list-disc pl-6 mb-6 space-y-2">
-              <li>The right to access your personal information</li>
-              <li>The right to rectify inaccurate personal information</li>
-              <li>The right to erasure of your personal information</li>
-              <li>The right to restrict processing of your personal information</li>
-              <li>The right to data portability</li>
-              <li>The right to withdraw consent</li>
-            </ul>
+          </section>
 
-            <h2 className="text-2xl font-bold text-[#D2A97F] mb-4 mt-10">Contact Us</h2>
-            <p className="text-medium-gray mb-4">
-              If you have any questions about this Privacy Policy or concerns about how your information is handled, please contact us using the information provided on our Contact page.
+          <section>
+            <h2 className="text-2xl font-bold text-dark-maroon mb-4">Cookies</h2>
+            <p className="text-medium-gray">
+              Our website uses cookies to enhance your browsing experience and analyze website traffic. 
+              You can choose to disable cookies through your browser settings, though this may affect 
+              your use of our website.
             </p>
-          </div>
+          </section>
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-medium-gray mb-6">
-            For questions about our privacy policy or services, feel free to reach out to us.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              href="/contact" 
-              className="inline-block bg-[#D2A97F] text-[#3A5A40] px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors"
-            >
-              Contact Us
-            </Link>
-            <Link 
-              href="/terms" 
-              className="inline-block bg-transparent border-2 border-[#D2A97F] text-[#D2A97F] px-8 py-4 rounded-xl font-bold hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
-            >
-              Terms of Service
-            </Link>
-          </div>
+          <Link 
+            href="/" 
+            className="inline-block bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+          >
+            Back to Home
+          </Link>
         </div>
       </div>
       <WhatsAppCTA />
@@ -103,4 +85,4 @@ const PrivacyPolicyPage = () => {
   );
 };
 
-export default PrivacyPolicyPage;
+export default PrivacyPage;

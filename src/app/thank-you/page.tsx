@@ -1,40 +1,47 @@
 import Link from 'next/link';
-import SEO from '@/components/SEO';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
+import SEO from '../../components/SEO';
 
 const ThankYouPage = () => {
   return (
-    <div className="min-h-screen bg-[#3A5A40] py-16 flex items-center">
+    <div className="min-h-screen bg-light-gray flex items-center">
       <SEO 
-        title="Thank You | The Flash Photofilms" 
-        description="Thank you for contacting The Flash Photofilms. We have received your inquiry and will contact you shortly."
+        title="Thank You - The Flash Photofilms" 
+        description="Thank you for contacting The Flash Photofilms. We appreciate your interest in our photography services."
+        url="https://www.theflashphotofilms.com/thank-you"
       />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl mb-6">
-            Thank You For Contacting The Flash Photofilms
-          </h1>
-          <p className="text-xl text-[#D2A97F] max-w-2xl mx-auto">
-            We have received your inquiry and will contact you shortly.
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
+          <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10 mb-6">
+            <svg className="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold text-dark-maroon mb-4">Thank You!</h1>
+          <p className="text-xl text-medium-gray mb-6">
+            Your message has been sent successfully. We appreciate your interest in our photography services.
           </p>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-12">
-          <Link 
-            href="/" 
-            className="inline-block bg-[#D2A97F] text-[#3A5A40] px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors"
-          >
-            Back To Home
-          </Link>
-          <a 
-            href="https://wa.me/7984941331" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-block bg-transparent border-2 border-[#D2A97F] text-[#D2A97F] px-8 py-4 rounded-xl font-bold hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
-          >
-            WhatsApp Us
-          </a>
+          <p className="text-medium-gray mb-8">
+            One of our representatives will contact you within 24 hours to discuss your photography needs.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link 
+              href="/" 
+              className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+            >
+              Back to Home
+            </Link>
+            <Link 
+              href="/contact" 
+              className="bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
+            >
+              Contact Again
+            </Link>
+          </div>
         </div>
       </div>
+      <WhatsAppCTA />
     </div>
   );
 };

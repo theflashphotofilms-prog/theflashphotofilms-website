@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import WhatsAppCTA from '@/components/WhatsAppCTA';
-import SEO from '@/components/SEO';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
+import SEO from '../../components/SEO';
 
 const AboutPage = () => {
   const values = [

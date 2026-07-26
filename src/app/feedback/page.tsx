@@ -1,133 +1,129 @@
 'use client';
 
 import Link from 'next/link';
-import SEO from '@/components/SEO';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
+import SEO from '../../components/SEO';
 
 const FeedbackPage = () => {
   return (
     <div className="min-h-screen bg-light-gray py-16">
       <SEO 
-        title="Share Your Experience | The Flash Photofilms" 
-        description="Share your feedback about The Flash Photofilms photography and videography services. Help us improve and assist other clients in their decision-making."
+        title="Share Your Feedback - The Flash Photofilms" 
+        description="Share your feedback about our photography services. Help us improve and serve you better."
+        url="https://www.theflashphotofilms.com/feedback"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[#D2A97F] sm:text-5xl">
-            Share Your Experience
-          </h1>
-          <p className="mt-6 text-xl text-medium-gray max-w-3xl mx-auto">
-            Your feedback helps us improve our services and assists other clients in making confident decisions.
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-dark-maroon mb-4">We Value Your Feedback</h1>
+          <p className="text-xl text-medium-gray">
+            Your opinion matters to us. Share your experience with our photography services.
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-          <h2 className="text-3xl font-bold text-[#D2A97F] text-center mb-12">Why Your Feedback Matters</h2>
-          
-          <div className="space-y-8">
-            <div className="flex items-start">
-              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-[#D2A97F]/10 mr-6 flex-shrink-0">
-                <div className="flex items-center justify-center h-6 w-6 rounded-md bg-[#D2A97F] text-[#3A5A40]">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-medium-gray">
-                <strong className="text-[#D2A97F]">Help others:</strong> Your review guides potential clients in making confident decisions.
-              </p>
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <form className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-medium-gray mb-2 font-medium">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+                placeholder="Enter your full name"
+              />
             </div>
-            
-            <div className="flex items-start">
-              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-[#D2A97F]/10 mr-6 flex-shrink-0">
-                <div className="flex items-center justify-center h-6 w-6 rounded-md bg-[#D2A97F] text-[#3A5A40]">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-medium-gray">
-                <strong className="text-[#D2A97F]">Improve our service:</strong> Your insights help us enhance our photography and customer experience.
-              </p>
+
+            <div>
+              <label htmlFor="email" className="block text-medium-gray mb-2 font-medium">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+                placeholder="Enter your email address"
+              />
             </div>
-            
-            <div className="flex items-start">
-              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-[#D2A97F]/10 mr-6 flex-shrink-0">
-                <div className="flex items-center justify-center h-6 w-6 rounded-md bg-[#D2A97F] text-[#3A5A40]">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-medium-gray">
-                <strong className="text-[#D2A97F]">Build trust:</strong> Authentic reviews create transparency and strengthen our reputation.
-              </p>
+
+            <div>
+              <label htmlFor="service" className="block text-medium-gray mb-2 font-medium">Service Received</label>
+              <select
+                id="service"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+              >
+                <option value="">Select a service</option>
+                <option value="wedding">Wedding Photography</option>
+                <option value="event">Event Photography</option>
+                <option value="portrait">Portrait Session</option>
+                <option value="commercial">Commercial Photography</option>
+                <option value="other">Other</option>
+              </select>
             </div>
-            
-            <div className="flex items-start">
-              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-[#D2A97F]/10 mr-6 flex-shrink-0">
-                <div className="flex items-center justify-center h-6 w-6 rounded-md bg-[#D2A97F] text-[#3A5A40]">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
+
+            <div>
+              <label htmlFor="rating" className="block text-medium-gray mb-2 font-medium">Overall Rating</label>
+              <div className="flex space-x-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    className="text-gray-300 hover:text-gold focus:outline-none"
+                  >
+                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </button>
+                ))}
               </div>
-              <p className="text-medium-gray">
-                <strong className="text-[#D2A97F]">Recognition:</strong> Outstanding reviews may be featured in our marketing materials (with permission).
-              </p>
             </div>
-          </div>
+
+            <div>
+              <label htmlFor="feedback" className="block text-medium-gray mb-2 font-medium">Your Feedback</label>
+              <textarea
+                id="feedback"
+                rows={5}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+                placeholder="Please share your detailed feedback about our services..."
+              ></textarea>
+            </div>
+
+            <div>
+              <label htmlFor="improvements" className="block text-medium-gray mb-2 font-medium">Suggestions for Improvement</label>
+              <textarea
+                id="improvements"
+                rows={3}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+                placeholder="How can we improve our services?"
+              ></textarea>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="contact"
+                className="h-4 w-4 text-gold focus:ring-gold border-gray-300 rounded"
+              />
+              <label htmlFor="contact" className="ml-2 block text-medium-gray">
+                I agree to be contacted regarding my feedback
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-dark-maroon text-white py-4 px-6 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+            >
+              Submit Feedback
+            </button>
+          </form>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-[#D2A97F] mb-6">Ready to Share Your Experience?</h2>
-          <p className="text-medium-gray mb-8 max-w-2xl mx-auto">
-            Your honest feedback is valuable to us. Whether your experience was exceptional or you have suggestions for improvement, we welcome your thoughts.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link 
-              href="https://g.page/r/[GOOGLE_REVIEW_LINK]/review" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-block bg-[#D2A97F] text-[#3A5A40] px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors"
-            >
-              Leave Google Review
-            </Link>
-            <Link 
-              href="/contact" 
-              className="inline-block bg-transparent border-2 border-[#D2A97F] text-[#D2A97F] px-8 py-4 rounded-xl font-bold hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
-            >
-              Send Direct Feedback
-            </Link>
-          </div>
-          
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <h3 className="text-xl font-bold text-[#D2A97F] mb-4">Alternative Ways to Connect</h3>
-            <div className="flex flex-wrap justify-center gap-6">
-              <Link 
-                href="mailto:info@theflashphotofilms.com" 
-                className="text-medium-gray hover:text-[#D2A97F] transition-colors"
-              >
-                info@theflashphotofilms.com
-              </Link>
-              <Link 
-                href="https://wa.me/7984941331" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-medium-gray hover:text-[#D2A97F] transition-colors"
-              >
-                WhatsApp
-              </Link>
-              <Link 
-                href="/faq" 
-                className="text-medium-gray hover:text-[#D2A97F] transition-colors"
-              >
-                FAQ
-              </Link>
-            </div>
-          </div>
+        <div className="mt-12 text-center">
+          <Link 
+            href="/" 
+            className="inline-block bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
+          >
+            Back to Home
+          </Link>
         </div>
       </div>
+      <WhatsAppCTA />
     </div>
   );
 };

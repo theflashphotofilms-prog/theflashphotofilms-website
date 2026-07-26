@@ -1,56 +1,86 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-import SEO from '@/components/SEO';
-import CouponInput from '@/components/CouponInput';
+import SEO from '../../components/SEO';
+import WhatsAppCTA from '../../components/WhatsAppCTA';
 
 const OtherServicesPage = () => {
-  const [discountPercentage, setDiscountPercentage] = useState(0);
-
-  // Calculate discounted price
-  const calculateDiscountedPrice = (originalPrice: string) => {
-    if (discountPercentage === 0) return originalPrice;
-    
-    // Extract numeric value from price (remove ₹ and -/)
-    const numericValue = parseInt(originalPrice.replace(/[^\d]/g, ''), 10);
-    const discountAmount = (numericValue * discountPercentage) / 100;
-    const discountedValue = numericValue - discountAmount;
-    
-    // Format back to original format
-    return `₹${discountedValue.toLocaleString('en-IN')}/-`;
-  };
-
   const services = [
     {
-      name: "Corporate Event Packages",
-      price: "₹10,000/-",
-      description: "Professional photography and videography coverage for corporate events, conferences, seminars, product launches, award ceremonies, business meetings, and company celebrations.",
-      bgColor: "bg-white"
+      title: "Pre-Wedding Shoots",
+      description: "Romantic outdoor sessions before the big day to capture your love story.",
+      icon: (
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      )
     },
     {
-      name: "Birthday Party Packages",
-      price: "₹3,999/-",
-      description: "Capture unforgettable birthday celebrations with professional photography and videography coverage for kids, adults, family gatherings, and themed birthday events.",
-      bgColor: "bg-white"
+      title: "Post-Wedding Shoots",
+      description: "Beautiful sessions after the wedding to capture your new journey together.",
+      icon: (
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.677c.3.922 1.216 1.337 2.09.847l4.377-2.526c.873-.5.95-1.56 0-2.06l-4.377-2.526a1.2 1.2 0 00-1.25-.076L12 5.432l-1.519-4.677a1.2 1.2 0 00-1.25-.076l-4.377 2.526c-.874.5-.796 1.56 0 2.06l4.377 2.526c.873.49 1.79.075 2.09-.847l1.519-4.677z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12c0 2.762-1.327 5.029-3.392 6.5M3 12c1.327 1.471 3.392-1.5 3.392-1.5m0 0c0-1.053.26-2.07.72-3M12 12v9m0-9c1.673 0 3.392-1.5 3.392-3.5S13.673 6 12 6s-3.392 1.5-3.392 3.5S10.327 12 12 12z" />
+        </svg>
+      )
     },
     {
-      name: "Maternity Shoot Packages",
-      price: "₹6,000/-",
-      description: "Elegant maternity photography sessions designed to preserve beautiful memories of your motherhood journey with creative concepts and professional editing.",
-      bgColor: "bg-white"
+      title: "Engagement Sessions",
+      description: "Intimate photos to celebrate your engagement and upcoming marriage.",
+      icon: (
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
     },
     {
-      name: "Baby Photoshoot Packages",
-      price: "₹999/-",
-      description: "Professional baby photography sessions to capture adorable moments, milestones, newborn portraits, and family memories.",
-      bgColor: "bg-white"
+      title: "Family Portraits",
+      description: "Professional family photos that capture your bond and personality.",
+      icon: (
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      )
+    },
+    {
+      title: "Corporate Events",
+      description: "Professional photography for corporate events, conferences, and meetings.",
+      icon: (
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      )
+    },
+    {
+      title: "Product Photography",
+      description: "High-quality product images for e-commerce and marketing materials.",
+      icon: (
+        <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      )
     }
   ];
 
-  const handleDiscountApply = (discount: number) => {
-    setDiscountPercentage(discount);
-  };
+  const additionalServices = [
+    {
+      title: "Photo Restoration",
+      description: "Restore old and damaged photos to their original beauty."
+    },
+    {
+      title: "Album Design",
+      description: "Custom-designed photo albums to preserve your memories."
+    },
+    {
+      title: "Photo Prints",
+      description: "High-quality prints on various materials and sizes."
+    },
+    {
+      title: "Digital Archiving",
+      description: "Secure storage and organization of your photo collections."
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-light-gray py-16">
@@ -68,67 +98,93 @@ const OtherServicesPage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+
+        {/* Main Services */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => (
-            <div 
-              key={index} 
-              className={`${service.bgColor} rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 transition-transform duration-300`}
-            >
-              <div className="p-8">
-                <h3 className="text-xl font-bold text-[#D2A97F] mb-2">{service.name}</h3>
-                <div className="text-center mb-4">
-                  <div className="text-sm text-medium-gray">Starting From</div>
-                  <div className="text-2xl font-bold text-[#D2A97F]">
-                    {calculateDiscountedPrice(service.price)}
-                  </div>
-                  {discountPercentage > 0 && (
-                    <div className="text-sm text-medium-gray line-through">
-                      Original: {service.price}
-                    </div>
-                  )}
-                </div>
-                <p className="text-medium-gray mb-6">{service.description}</p>
-                <Link 
-                  href="/contact" 
-                  className="block w-full bg-[#D2A97F] text-[#3A5A40] text-center py-3 rounded-xl font-bold hover:bg-white hover:text-[#3A5A40] transition-colors duration-300"
-                >
-                  Get Custom Quote
-                </Link>
+            <div key={index} className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+              <div className="bg-gold/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                {service.icon}
               </div>
+              <h2 className="text-xl font-bold text-dark-maroon mb-4">{service.title}</h2>
+              <p className="text-medium-gray mb-6">{service.description}</p>
+              <Link 
+                href="/contact" 
+                className="text-gold font-bold hover:text-dark-maroon transition-colors inline-flex items-center"
+              >
+                Learn More
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 bg-white rounded-2xl shadow-lg p-8">
-          <h3 className="text-2xl font-bold text-[#D2A97F] mb-6 text-center">Have a Coupon Code?</h3>
-          <CouponInput 
-            onApply={handleDiscountApply} 
-            originalPrice={services[0].price} 
-          />
+        {/* Additional Services */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+          <h2 className="text-3xl font-bold text-dark-maroon mb-8 text-center">Additional Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {additionalServices.map((service, index) => (
+              <div key={index} className="flex items-start">
+                <div className="bg-gold/10 p-2 rounded-lg mr-4">
+                  <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-dark-maroon mb-2">{service.title}</h3>
+                  <p className="text-medium-gray">{service.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
-          <h3 className="text-xl font-bold text-[#D2A97F] mb-4">Terms & Conditions</h3>
-          <ol className="text-medium-gray space-y-3 list-decimal list-inside">
-            <li><span className="font-medium text-[#D2A97F]">30% advance payment is required to confirm the booking.</span> After the event is completed, 50% payment must be cleared. Soft copies of photos/videos will be delivered only after this payment. The remaining balance must be paid on the day of album selection.</li>
-            <li><span className="font-medium text-[#D2A97F]">Without advance payment, the booking will not be confirmed.</span></li>
-            <li><span className="font-medium text-[#D2A97F]">Advance payment is non-refundable under any circumstances.</span></li>
-            <li><span className="font-medium text-[#D2A97F]">Album selection must be completed within 30 to 45 days after delivery of the preview.</span> If album selection is delayed beyond this period, album charges will be calculated according to the current market rates.</li>
-            <li><span className="font-medium text-[#D2A97F]">DJ shoot coverage is available only up to 12:00 AM (midnight).</span></li>
-            <li><span className="font-medium text-[#D2A97F]">Photos of guests while having lunch or dinner are not included by default.</span> If such coverage is required, it must be discussed and confirmed at the time of booking.</li>
-            <li><span className="font-medium text-[#D2A97F]">Wedding film editing is included up to 3 hours duration only.</span> If the final edited video exceeds 3 hours, additional editing charges will apply.</li>
-            <li><span className="font-medium text-[#D2A97F]">All final data (photos/videos) must be collected within 30 to 45 days.</span> After this period, if data is lost due to technical issues, hardware failure, or any unforeseen reason, The Flash Photofilms will not be responsible.</li>
-            <li><span className="font-medium text-[#D2A97F]">Clients and guests must maintain respectful behaviour with photographers and videographers.</span> Any misuse, abusive language, or inappropriate behaviour may result in immediate cancellation of services without any refund.</li>
-            <li><span className="font-medium text-[#D2A97F]">Only items specifically mentioned in the selected package are included.</span> Any additional services, products, manpower, equipment, albums, reels, videos, drone coverage, LED screens, travel arrangements, or custom requirements will be charged separately.</li>
-          </ol>
-          
-          <div className="mt-6 pt-4 border-t border-gray-200">
-            <p className="text-center text-medium-gray italic">
-              Thank You For Trusting The Flash Photofilms. We look forward to capturing your beautiful memories.
-            </p>
+        {/* Service Process */}
+        <div className="bg-gradient-to-r from-dark-maroon to-gold rounded-2xl shadow-lg p-8 md:p-12 mb-16">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">Our Service Process</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              { step: "1", title: "Consultation", desc: "Discuss your needs and vision" },
+              { step: "2", title: "Planning", desc: "Create a customized plan" },
+              { step: "3", title: "Execution", desc: "Capture your special moments" },
+              { step: "4", title: "Delivery", desc: "Receive your beautiful photos" }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="bg-white text-dark-maroon w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-gold">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-dark-maroon mb-4">Ready to Explore Our Services?</h2>
+          <p className="text-xl text-medium-gray mb-8 max-w-2xl mx-auto">
+            Contact us today to discuss your photography needs and schedule a consultation.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link 
+              href="/contact" 
+              className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+            >
+              Get in Touch
+            </Link>
+            <Link 
+              href="/packages" 
+              className="bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
+            >
+              View Packages
+            </Link>
           </div>
         </div>
       </div>
+      <WhatsAppCTA />
     </div>
   );
 };
