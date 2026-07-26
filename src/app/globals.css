@@ -3,32 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --color-forest-green: #3A5A40;
-  --color-soft-gold: #D2A97F;
+  --color-forest-green: #3A5A40; /* Forest Green */
+  --color-soft-gold: #D2A97F; /* Soft Gold */
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 body {
-  background-color: #3A5A40;
-  color: white;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: 
-    radial-gradient(ellipse at 15% 25%, rgba(210, 169, 127, 0.03) 1px, transparent 2px),
-    radial-gradient(ellipse at 85% 75%, rgba(210, 169, 127, 0.02) 1px, transparent 2px),
-    linear-gradient(to bottom, 
-      rgba(0, 0, 0, 0.02) 0%, 
-      transparent 50%, 
-      rgba(0, 0, 0, 0.02) 100%);
-  background-size: 150px 150px, 200px 200px, 100% 100%;
-  z-index: -1;
+/* Luxury Wedding Theme for Specific Components */
+.navbar-themed {
+  @apply bg-[#3A5A40] text-[#D2A97F];
+}
+
+.hero-themed {
+  @apply bg-[#3A5A40] text-[#D2A97F];
+}
+
+.footer-themed {
+  @apply bg-[#3A5A40] text-[#D2A97F];
+}
+
+.cta-themed {
+  @apply bg-[#3A5A40] text-[#D2A97F];
+}
+
+.btn-luxury {
+  @apply bg-[#D2A97F] text-[#3A5A40] hover:bg-[#3A5A40] hover:text-[#D2A97F] border border-[#D2A97F];
+}
+
+.package-card-themed {
+  @apply bg-[#3A5A40] text-[#D2A97F] border border-[#D2A97F];
 }
 
 /* Standard text color definitions */

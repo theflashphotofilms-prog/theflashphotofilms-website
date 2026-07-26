@@ -27,24 +27,24 @@ export default function Home() {
         description="Professional photography and videography services for weddings, events, and commercial projects. Capture your special moments with our expert team."
         url="https://www.theflashphotofilms.com/"
       />
-      <div className="relative bg-white overflow-hidden">
+      <div className="relative hero-themed overflow-hidden bg-[#1A1A1A]">
         {/* Hero Section */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
             <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block text-dark-maroon">The Flash Photofilms</span>
+                <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                  <span className="block text-white">The Flash Photofilms</span>
                   <span className="block text-gold mt-2">Capturing Life's Precious Moments</span>
                 </h1>
-                <p className="mt-3 text-base text-medium-gray sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                <p className="mt-3 text-base text-white sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                   Professional photography and videography services that preserve your most cherished memories with artistry and passion.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     <Link
                       href="/contact"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gold hover:bg-dark-maroon md:py-4 md:text-lg md:px-10"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-[#3A5A40] bg-[#D2A97F] hover:bg-[#3A5A40] hover:text-[#D2A97F] md:py-4 md:text-lg md:px-10"
                     >
                       Book a Session
                     </Link>
@@ -52,7 +52,7 @@ export default function Home() {
                   <div className="mt-3 sm:mt-0 sm:ml-3">
                     <Link
                       href="/portfolio"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-dark-maroon bg-gold/20 hover:bg-gold/30 md:py-4 md:text-lg md:px-10"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-[#D2A97F] text-base font-medium rounded-md text-[#D2A97F] bg-[#3A5A40]/20 hover:bg-[#D2A97F]/30 md:py-4 md:text-lg md:px-10"
                     >
                       View Our Work
                     </Link>
@@ -121,37 +121,24 @@ export default function Home() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-dark-maroon to-gold py-20">
+      {/* Call to Action Section */}
+      <div className="bg-gradient-to-r from-[#3A5A40] to-[#4A6A50] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">
-              Ready to capture your special moments?
+            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+              Ready to Capture Your Story?
             </h2>
-            <p className="mt-4 text-xl text-gold">
-              Contact us today to discuss your photography needs
+            <p className="mt-4 max-w-2xl mx-auto text-xl text-[#D2A97F]">
+              Contact us today to book your session and receive a personalized quote.
             </p>
-            <div className="mt-10">
+            <div className="mt-8">
               <Link
                 href="/contact"
-                className="inline-block bg-white text-dark-maroon px-10 py-4 rounded-xl font-bold text-lg hover:bg-gold hover:text-white transition-colors duration-300 mr-4 mb-4"
+                className="inline-block cta-themed px-8 py-4 font-bold rounded-lg hover:bg-[#D2A97F] hover:text-[#3A5A40] transition-colors"
               >
-                Book Your Session
+                Get in Touch
               </Link>
-              <button
-                onClick={() => {
-                  // Since DiscountPopup manages its own state, we can trigger a global event or just let the popup appear automatically
-                  // Or we can show an alert to inform the user that the popup will appear
-                  alert('A discount popup will appear shortly. If it doesn\'t, it may have been shown before.');
-                }}
-                className="inline-block bg-transparent text-white border-2 border-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-dark-maroon transition-colors duration-300"
-              >
-                Claim Launch Discount
-              </button>
             </div>
-            <p className="mt-6 text-medium-gray">
-              Limited time offer - Save 10% on your first booking
-            </p>
           </div>
         </div>
       </div>
