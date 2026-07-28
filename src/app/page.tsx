@@ -38,8 +38,10 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="fade-up">
             <div className="w-24 h-1 bg-soft-gold mx-auto mb-6"></div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-ivory mb-6 tracking-tight">
-              Creating Timeless Wedding Films & Photographs
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-ivory mb-6 tracking-tight flex items-center justify-center">
+              <span className="mr-1">EVERY FRAME H</span>
+              <span className="text-soft-gold text-5xl md:text-7xl lg:text-8xl">◉</span>
+              <span className="ml-1">LDS A FEELING</span>
             </h1>
             <h2 className="text-xl md:text-2xl lg:text-3xl font-sans font-light text-soft-gold mb-10 max-w-4xl mx-auto">
               Luxury wedding photography and cinematic films crafted for couples across Gujarat and India.
@@ -164,7 +166,7 @@ export default function Home() {
                     width={300} 
                     height={200} 
                     className="w-full h-full object-cover slow-zoom"
-                    priority={index === 0} // Only prioritize the first image
+                    priority={index === 0} // Prioritize first image
                   />
                 </div>
                 <h3 className="text-2xl font-serif font-bold text-forest-green mb-4">{service.title}</h3>

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import TermsAndConditions from '../../components/TermsAndConditions';
 
 export default function PackagesPage() {
   const packages = [
@@ -203,6 +204,9 @@ export default function PackagesPage() {
           </ul>
         </div>
       </div>
+
+      {/* Terms & Conditions */}
+      <TermsAndConditions compact={true} />
 
       {/* Bottom CTA Section */}
       <div className="py-20">
