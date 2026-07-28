@@ -84,7 +84,7 @@ const ContactForm = () => {
             type="text"
             id="fullName"
             {...register('fullName', { required: 'Full Name is required' })}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors bg-white text-black placeholder:text-gray-500 ${
               errors.fullName ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter your full name"
@@ -106,7 +106,7 @@ const ContactForm = () => {
                 message: 'Invalid email address'
               }
             })}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors bg-white text-black placeholder:text-gray-500 ${
               errors.email ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter your email address"
@@ -128,7 +128,7 @@ const ContactForm = () => {
                 message: 'Please enter a valid 10-digit phone number'
               }
             })}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors bg-white text-black placeholder:text-gray-500 ${
               errors.phone ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter your 10-digit phone number"
@@ -143,13 +143,13 @@ const ContactForm = () => {
           <select
             id="service"
             {...register('service', { required: 'Please select a service' })}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors bg-white text-black ${
               errors.service ? 'border-red-500' : 'border-gray-300'
             }`}
           >
             <option value="">Select a service</option>
             {services.map(service => (
-              <option key={service} value={service}>{service}</option>
+              <option key={service} value={service} className="text-black">{service}</option>
             ))}
           </select>
           {errors.service && <p className="mt-1 text-red-500 text-sm">{errors.service.message}</p>}
@@ -163,7 +163,7 @@ const ContactForm = () => {
             type="date"
             id="weddingDate"
             {...register('weddingDate', { required: 'Wedding date is required' })}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors bg-white text-black ${
               errors.weddingDate ? 'border-red-500' : 'border-gray-300'
             }`}
           />
@@ -178,7 +178,7 @@ const ContactForm = () => {
             id="message"
             {...register('message')}
             rows={4}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors bg-white text-black placeholder:text-gray-500"
             placeholder="Tell us more about your event and requirements..."
           ></textarea>
         </div>
@@ -189,7 +189,7 @@ const ContactForm = () => {
               id="consent"
               {...register('consent', { required: 'You must consent to receive communications' })}
               type="checkbox"
-              className="focus:ring-gold h-4 w-4 text-dark-maroon border-gray-300 rounded"
+              className="focus:ring-gold h-4 w-4 text-dark-maroon border-gray-300 rounded bg-white"
             />
           </div>
           <div className="ml-3 text-sm">
