@@ -1,289 +1,133 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  
-  const phoneNumber = "+91 79849 41331"; // Official phone number
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  
-  // Function to close mobile menu when navigating
-  const closeMobileMenu = () => setIsMenuOpen(false);
 
+  // Handle scroll effect for navbar
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when navigating to a new page
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md transition-all duration-300">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.png"
-              alt="The Flash Photofilms Logo"
-              width={120}
-              height={60}
-              priority={true}
-              className="h-12 sm:h-[45px] object-contain"
-            />
-          </Link>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-forest-green/90 backdrop-blur-md py-2' : 'bg-transparent py-4'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
+          <div className="flex-shrink-0">
+            <Link href="/" className="text-2xl font-serif font-bold text-soft-gold">THE FLASH PHOTOFILMS</Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
-            <Link 
-              href="/" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/' ? 'text-gold' : scrolled ? 'text-gold' : 'text-dark-maroon'}`}
-              onClick={closeMobileMenu}
-            >
-              Home
-            </Link>
-            <Link 
-              href="/about" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/about' ? 'text-gold' : scrolled ? 'text-gold' : 'text-dark-maroon'}`}
-              onClick={closeMobileMenu}
-            >
-              About
-            </Link>
-            <Link 
-              href="/services" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/services' ? 'text-gold' : scrolled ? 'text-gold' : 'text-dark-maroon'}`}
-              onClick={closeMobileMenu}
-            >
-              Services
-            </Link>
-            <Link 
-              href="/packages" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/packages' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Wedding Packages
-            </Link>
-            <Link 
-              href="/pre-wedding-packages" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/pre-wedding-packages' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Pre-Wedding Packages
-            </Link>
-            <Link 
-              href="/engagement-babyshower-packages" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/engagement-babyshower-packages' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Engagement & Baby Shower
-            </Link>
-            <Link 
-              href="/portfolio" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/portfolio' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Portfolio
-            </Link>
-            <Link 
-              href="/feedback" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/feedback' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Reviews
-            </Link>
-            <Link 
-              href="/faq" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/faq' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              FAQ
-            </Link>
-            <Link 
-              href="/contact" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/contact' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Contact
-            </Link>
-            <Link 
-              href="/disclaimer" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/disclaimer' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Disclaimer
-            </Link>
-            <Link 
-              href="/other-services" 
-              className={`font-medium transition-colors hover:text-gold ${pathname === '/other-services' ? 'text-gold' : scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Other Services
-            </Link>
-            <a 
-              href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
-              className={`hidden lg:flex items-center space-x-1 font-medium transition-colors hover:text-gold ${scrolled ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style={{ flexShrink: 0 }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span>{phoneNumber}</span>
-            </a>
-            <Link 
-              href="/contact" 
-              className={`hidden lg:flex items-center bg-gold text-dark-maroon px-6 py-2 rounded-lg font-bold hover:bg-white hover:text-dark-maroon transition-colors`}
-              onClick={closeMobileMenu}
-            >
-              Book Now
-            </Link>
-          </nav>
+          {/* Desktop Menu */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              <Link href="/" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
+                Home
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/' ? 'w-full' : ''}`}></span>
+              </Link>
+              <Link href="/about" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/about' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
+                About
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/about' ? 'w-full' : ''}`}></span>
+              </Link>
+              <Link href="/portfolio" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/portfolio' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
+                Portfolio
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/portfolio' ? 'w-full' : ''}`}></span>
+              </Link>
+              <Link href="/films" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/films' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
+                Films
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/films' ? 'w-full' : ''}`}></span>
+              </Link>
+              <Link href="/packages" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/packages' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
+                Packages
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/packages' ? 'w-full' : ''}`}></span>
+              </Link>
+              <Link href="/contact" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/contact' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
+                Contact
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/contact' ? 'w-full' : ''}`}></span>
+              </Link>
+              <Link href="/contact" className="ml-4 px-4 py-2 rounded-full bg-soft-gold text-forest-green text-sm font-bold hover:bg-opacity-90 transition-all duration-300">
+                Book Now
+              </Link>
+            </div>
+          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center md:hidden">
-            <a 
-              href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
-              className={`mr-4 ${scrolled ? 'text-gold' : 'text-gold'}`}
-            >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style={{ flexShrink: 0 }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-            </a>
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
-              className={`p-2 rounded-md ${scrolled ? 'text-gold' : 'text-gold'}`}
-              aria-expanded={isMenuOpen}
-              aria-label="Toggle navigation menu"
+              className="inline-flex items-center justify-center p-2 rounded-md text-ivory hover:text-soft-gold focus:outline-none"
             >
-              {isMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style={{ flexShrink: 0 }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style={{ flexShrink: 0 }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
+              <svg
+                className={`${isOpen ? 'hidden' : 'block'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg
+                className={`${isOpen ? 'block' : 'hidden'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation - moved outside the main container to prevent height issues */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-dark-maroon dark:bg-dark-maroon shadow-lg rounded-lg mt-2 py-4 absolute left-0 right-0 mx-4 z-40 max-h-[calc(100vh-80px)] overflow-y-auto">
-          <div className="flex flex-col space-y-4 px-4">
-            <Link 
-              href="/" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Home
-            </Link>
-            <Link 
-              href="/about" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/about' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              About
-            </Link>
-            <Link 
-              href="/services" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/services' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Services
-            </Link>
-            <Link 
-              href="/packages" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/packages' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Wedding Packages
-            </Link>
-            <Link 
-              href="/pre-wedding-packages" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/pre-wedding-packages' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Pre-Wedding Packages
-            </Link>
-            <Link 
-              href="/engagement-babyshower-packages" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/engagement-babyshower-packages' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Engagement & Baby Shower
-            </Link>
-            <Link 
-              href="/portfolio" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/portfolio' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Portfolio
-            </Link>
-            <Link 
-              href="/feedback" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/feedback' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Reviews
-            </Link>
-            <Link 
-              href="/faq" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/faq' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              FAQ
-            </Link>
-            <Link 
-              href="/contact" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/contact' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Contact
-            </Link>
-            <Link 
-              href="/disclaimer" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/disclaimer' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Disclaimer
-            </Link>
-            <Link 
-              href="/other-services" 
-              className={`font-medium py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${pathname === '/other-services' ? 'text-gold' : 'text-gold'}`}
-              onClick={closeMobileMenu}
-            >
-              Other Services
-            </Link>
-            <a 
-              href={`tel:${phoneNumber.replace(/\s+/g, '')}`} 
-              className={`py-2 px-4 rounded hover:bg-gold/10 hover:text-gold ${scrolled ? 'text-gold' : 'text-gold'}`}
-            >
-              <div className="flex items-center space-x-2">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style={{ flexShrink: 0 }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span>{phoneNumber}</span>
-              </div>
-            </a>
-            <Link 
-              href="/contact" 
-              className={`w-full text-center bg-gold text-dark-maroon px-6 py-2 rounded-lg font-bold hover:bg-white hover:text-dark-maroon transition-colors`}
-              onClick={closeMobileMenu}
-            >
-              Book Now
-            </Link>
-          </div>
+      {/* Mobile Menu */}
+      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-forest-green/95 backdrop-blur-md">
+          <Link href="/" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
+            Home
+          </Link>
+          <Link href="/about" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/about' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
+            About
+          </Link>
+          <Link href="/portfolio" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/portfolio' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
+            Portfolio
+          </Link>
+          <Link href="/films" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/films' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
+            Films
+          </Link>
+          <Link href="/packages" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/packages' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
+            Packages
+          </Link>
+          <Link href="/contact" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/contact' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
+            Contact
+          </Link>
+          <Link href="/contact" className="mt-2 block w-full text-center px-4 py-2 rounded-full bg-soft-gold text-forest-green font-bold hover:bg-opacity-90 transition-all duration-300">
+            Book Now
+          </Link>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

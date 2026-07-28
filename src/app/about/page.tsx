@@ -1,196 +1,181 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
+'use client';
+
 import Link from 'next/link';
+import Image from 'next/image';
 
-export const metadata: Metadata = {
-  title: 'About Us - The Flash Photofilms',
-  description: 'Learn about The Flash Photofilms, a premier photography and videography service dedicated to capturing life\'s most precious moments with artistic excellence.',
-};
-
-const About = () => {
-  const coreValues = [
-    {
-      title: "Excellence",
-      description: "We strive for perfection in every frame, delivering exceptional quality in each photograph."
-    },
-    {
-      title: "Creativity",
-      description: "We bring innovative perspectives and artistic vision to every project."
-    },
-    {
-      title: "Authenticity",
-      description: "We capture genuine emotions and authentic moments that tell your unique story."
-    },
-    {
-      title: "Reliability",
-      description: "We are committed to professionalism and punctuality, ensuring peace of mind."
-    }
-  ];
-
-  const teamMembers = [
-    {
-      name: "Mohit Panchal",
-      position: "Founder & Lead Photographer",
-      bio: "With over 10 years of experience in wedding and event photography, Mohit brings a unique artistic vision to every shoot. His expertise lies in capturing candid moments and creating cinematic narratives."
-    },
-    {
-      name: "Anjali Sharma",
-      position: "Creative Director",
-      bio: "Anjali specializes in visual storytelling and post-production. She ensures that every image reflects the couple's unique love story with attention to detail and artistic flair."
-    },
-    {
-      name: "Rajesh Kumar",
-      position: "Videography Specialist",
-      bio: "Rajesh is our expert in cinematography and video editing. He creates compelling visual narratives that bring your special day to life in motion."
-    }
-  ];
-
+export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header Section */}
-      <header className="bg-gradient-to-br from-dark-maroon to-black text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-gold sm:text-5xl">
+    <div className="min-h-screen bg-forest-green text-ivory">
+      {/* Hero Section */}
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center z-0" style={{backgroundImage: "url('/images/about/about-hero.jpg')"}}>
+          <div className="absolute inset-0 bg-gradient-to-b from-forest-green/80 to-forest-green/90"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-ivory mb-6">
             About The Flash Photofilms
           </h1>
-          <p className="mt-4 text-xl text-white max-w-3xl mx-auto">
-            Capturing life's most precious moments with artistic excellence and creative passion.
+          <p className="text-xl md:text-2xl text-soft-gold max-w-4xl mx-auto">
+            Luxury Wedding Photography & Cinematic Films Across Gujarat & India
           </p>
         </div>
-      </header>
+      </div>
 
-      {/* Our Story Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2">
-              <div className="relative">
-                <Image
-                  src="/about-us.jpg"
-                  alt="The Flash Photofilms Team"
-                  width={600}
-                  height={400}
-                  className="rounded-xl shadow-lg object-cover w-full h-auto"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-maroon to-transparent rounded-xl opacity-70"></div>
-              </div>
+      {/* Founder Story Section */}
+      <section className="py-20 bg-forest-green text-ivory">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="luxury-card overflow-hidden rounded-xl">
+              <Image 
+                src="/images/about/founder.jpg" 
+                alt="Founder of The Flash Photofilms" 
+                width={600} 
+                height={400} 
+                className="w-full h-auto object-cover"
+                priority
+              />
             </div>
-            <div className="lg:w-1/2">
-              <h2 className="text-3xl font-bold text-dark-maroon mb-6">Our Story</h2>
-              <p className="text-medium-gray mb-6">
-                Founded in 2015, The Flash Photofilms began as a passion project driven by a love for storytelling through the lens. What started as a small team of enthusiasts has grown into one of the region's most respected photography and videography services.
+            <div className="space-y-8">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-soft-gold">Our Founder's Story</h2>
+              <p className="text-lg text-ivory leading-relaxed">
+                Founded with a passion for capturing life's most precious moments, The Flash Photofilms began as a dream 
+                to transform ordinary events into extraordinary memories. With over a decade of experience in luxury 
+                wedding photography and cinematic films, our founder has traveled across Gujarat and India, documenting 
+                countless love stories with artistic precision and emotional depth.
               </p>
-              <p className="text-medium-gray mb-6">
-                Our journey has been marked by innovation, creativity, and an unwavering commitment to excellence. We've had the privilege of capturing thousands of precious moments, from intimate ceremonies to grand celebrations.
+              <p className="text-lg text-ivory leading-relaxed">
+                What started as a personal passion for storytelling has evolved into a renowned luxury wedding 
+                photography and film studio, trusted by couples from all walks of life to preserve their most 
+                cherished moments.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Philosophy Section */}
+      <section className="py-20 bg-ivory text-forest-green">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-forest-green mb-6">
+              Our Philosophy
+            </h2>
+            <div className="w-24 h-1 bg-soft-gold mx-auto mb-8"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              {
+                title: "Emotional Storytelling",
+                description: "We believe every wedding has a unique story worth telling. Our approach focuses on capturing the raw emotions, stolen glances, and fleeting moments that make your love story uniquely yours."
+              },
+              {
+                title: "Artistic Excellence",
+                description: "With an eye for composition, lighting, and timing, we create images that transcend mere documentation and become timeless art pieces for your home."
+              },
+              {
+                title: "Cinematic Vision",
+                description: "Our films weave together visual storytelling and audio elements to create immersive narratives that transport you back to the magic of your special day."
+              }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <h3 className="text-2xl font-serif font-bold text-soft-gold mb-4">{item.title}</h3>
+                <p className="text-medium-gray">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section className="py-20 bg-forest-green text-ivory">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-soft-gold">Years of Excellence</h2>
+              <p className="text-lg text-ivory leading-relaxed">
+                Over the years, we have perfected our craft by continuously evolving with the latest in photography 
+                and filmmaking technology. Our team has captured over 500 weddings across diverse locations in 
+                Gujarat and India, each presenting unique challenges and opportunities to showcase our artistic vision.
+              </p>
+              <p className="text-lg text-ivory leading-relaxed">
+                Our experience spans various wedding traditions and ceremonies, allowing us to seamlessly blend into 
+                any celebration while maintaining our signature style of luxury and sophistication. From intimate 
+                ceremonies to grand celebrations, we adapt our approach to honor the uniqueness of each love story.
+              </p>
+            </div>
+            <div className="luxury-card overflow-hidden rounded-xl">
+              <Image 
+                src="/images/about/experience.jpg" 
+                alt="Our Experience" 
+                width={600} 
+                height={400} 
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Emotional Storytelling Approach */}
+      <section className="py-20 bg-ivory text-forest-green">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-forest-green mb-6">
+              Our Approach
+            </h2>
+            <div className="w-24 h-1 bg-soft-gold mx-auto mb-8"></div>
+            <p className="text-xl text-medium-gray max-w-4xl mx-auto">
+              We don't just capture weddings. We preserve emotions that become family heirlooms.
+            </p>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="luxury-card p-8 rounded-xl">
+              <h3 className="text-2xl font-serif font-bold text-soft-gold mb-4">Cinematic Wedding Films</h3>
               <p className="text-medium-gray">
-                Today, we continue to push the boundaries of visual storytelling, incorporating the latest technology and artistic techniques to create timeless memories for our clients.
+                Our cinematic films go beyond simple documentation. We create immersive narratives that capture the 
+                emotions, atmosphere, and unique story of your wedding day. Through artistic cinematography and 
+                thoughtful editing, we craft films that feel like treasured movies of your love story.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Values Section */}
-      <section className="py-20 bg-light-gray">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-dark-maroon">Our Core Values</h2>
-            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
-              The principles that guide our work and relationships with clients
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {coreValues.map((value, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300">
-                <div className="bg-gold/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="h-8 w-8 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-dark-maroon mb-4">{value.title}</h3>
-                <p className="text-medium-gray">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Meet Our Team Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-dark-maroon">Meet Our Team</h2>
-            <p className="mt-4 text-lg text-medium-gray max-w-3xl mx-auto">
-              Passionate professionals dedicated to capturing your story
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {teamMembers.map((member, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-                <div className="p-8">
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 mx-auto mb-6" />
-                  <h3 className="text-lg font-bold text-dark-maroon">Team Member {index + 1}</h3>
-                  <p className="text-gold font-medium mb-4">{member.position}</p>
-                  <p className="text-medium-gray">{member.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-dark-maroon to-gold text-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold">500+</div>
-              <div className="text-gold">Happy Couples</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold">10+</div>
-              <div className="text-gold">Years Experience</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold">10K+</div>
-              <div className="text-gold">Photos Captured</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold">50+</div>
-              <div className="text-gold">Locations Covered</div>
+            <div className="luxury-card p-8 rounded-xl">
+              <h3 className="text-2xl font-serif font-bold text-soft-gold mb-4">Luxury Wedding Photography</h3>
+              <p className="text-medium-gray">
+                Our photography approach combines technical excellence with emotional sensitivity, allowing us to 
+                document not just what happened, but how it felt. Every frame tells part of your unique journey together.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-dark-maroon mb-8">Ready to Work With Us?</h2>
-          <p className="text-lg text-medium-gray max-w-3xl mx-auto mb-12">
-            Experience the difference that passion, professionalism, and creativity can make for your special day.
+      <section className="py-20 bg-forest-green text-ivory">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
+            Ready to Start Your Story?
+          </h2>
+          <p className="text-xl text-cream mb-10">
+            Let's discuss how we can capture your unique love story with cinematic excellence
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
+            <Link 
               href="/contact"
-              className="inline-block bg-gold text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-dark-maroon transition-colors"
+              className="btn-primary bg-soft-gold text-forest-green px-8 py-4 rounded-pill font-medium"
             >
-              Get in Touch
+              Inquire Now
             </Link>
-            <Link
+            <Link 
               href="/portfolio"
-              className="inline-block bg-transparent border-2 border-gold text-gold px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+              className="btn-secondary border-2 border-soft-gold text-soft-gold bg-transparent px-8 py-4 rounded-pill font-medium"
             >
-              View Our Work
+              View Portfolio
             </Link>
           </div>
         </div>
       </section>
     </div>
   );
-};
-
-export default About;
+}

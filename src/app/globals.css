@@ -3,219 +3,481 @@
 @tailwind utilities;
 
 :root {
-  --color-forest-green: #3A5A40; /* Forest Green */
+  --color-forest-green: #1E3525; /* Darker Forest Green */
   --color-soft-gold: #D2A97F; /* Soft Gold */
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-start-rgb: 30, 53, 37; /* Forest Green */
+  --background-end-rgb: 26, 43, 31; /* Darker Forest Green */
+  --ivory: #FEFCF7; /* Warm Ivory */
+  --cream: #FDF6EE; /* Soft Cream */
+  --translucent-alpha: 0.8;
 }
 
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base font styling */
 body {
-  color: rgb(var(--foreground-rgb));
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Add velvet/texture effect to body */
+body {
+  color: var(--ivory);
   background: linear-gradient(
       to bottom,
-      transparent,
+      rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  background-attachment: fixed;
+  position: relative;
 }
 
-/* Standard text color definitions */
-.text-dark-maroon {
-  color: #3A5A40;
+/* Add subtle texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(210, 169, 127, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(210, 169, 127, 0.05) 0%, transparent 20%);
+  pointer-events: none;
+  z-index: -1;
 }
 
-.text-gold {
+/* Luxury typography */
+.font-serif {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
+}
+
+.font-sans {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+}
+
+/* Custom color classes with enhanced versions */
+.text-forest-green {
+  color: #1E3525;
+}
+
+.text-soft-gold {
   color: #D2A97F;
 }
 
-.text-medium-gray {
-  color: #64748b; /* Using gray-500 equivalent */
+.text-gold-glow {
+  color: #D2A97F;
+  text-shadow: 0 0 5px rgba(210, 169, 127, 0.5);
 }
 
-.text-white {
-  color: white;
+.text-ivory {
+  color: #FEFCF7;
 }
 
-/* Background color definitions */
-.bg-dark-maroon {
-  background-color: #3A5A40;
+.text-cream {
+  color: #FDF6EE;
 }
 
-.bg-gold {
+.bg-forest-green {
+  background-color: #1E3525;
+}
+
+.bg-soft-gold {
   background-color: #D2A97F;
 }
 
-.bg-light-gray {
-  background-color: #f8fafc; /* Using gray-50 equivalent */
+.bg-ivory {
+  background-color: #FEFCF7;
 }
 
+.bg-cream {
+  background-color: #FDF6EE;
+}
+
+.bg-velvet {
+  background: linear-gradient(135deg, #1E3525 0%, #0F1A14 100%);
+}
+
+.bg-gold-glow {
+  background: #1E3525;
+  box-shadow: 0 0 15px rgba(210, 169, 127, 0.5);
+}
+
+/* Gradient backgrounds */
+.bg-gradient-gold {
+  background: linear-gradient(45deg, #D2A97F, #c2996f);
+}
+
+.bg-gradient-forest {
+  background: linear-gradient(135deg, #1E3525 0%, #0F1A14 100%);
+}
+
+/* Component classes - enhanced version */
+.input-field {
+  @apply border border-soft-gold text-forest-green bg-ivory rounded-md;
+}
+
+.input-field::placeholder {
+  @apply text-gray-500;
+}
+
+.input-field:focus {
+  @apply outline-none border-forest-green shadow-[0_0_0_2px_rgba(210,169,127,0.5)];
+}
+
+.btn-text {
+  color: #1E3525;
+  font-weight: 500; /* font-medium equivalent */
+}
+
+.gold-text {
+  color: #D2A97F;
+}
+
+.btn-primary {
+  @apply inline-block px-6 py-3 rounded-lg font-semibold text-center transition-all duration-300 shadow-lg hover:shadow-xl;
+}
+
+.btn-primary {
+  background-color: #D2A97F; /* Soft gold */
+  color: #1E3525; /* Forest green */
+  font-weight: 500; /* font-medium */
+  border-radius: 2rem; /* Rounded pill shape */
+  padding: 0.75rem 2rem; /* py-3 px-8 */
+  transition: all 300ms ease-in-out;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #D2A97F, #c2996f);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(210, 169, 127, 0.3), 0 0 15px rgba(210, 169, 127, 0.2);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+}
+
+.btn-secondary {
+  @apply inline-block px-6 py-3 rounded-lg font-semibold text-center transition-all duration-300;
+  background-color: #1E3525; /* Forest green */
+  color: #D2A97F; /* Soft gold */
+  border: 1px solid #D2A97F;
+}
+
+.link-style {
+  border-color: #D2A97F;
+  color: #1E3525;
+}
+
+.link-style:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+  margin: 2px; /* focus:ring-offset-2 equivalent */
+}
+
+.underline-link {
+  color: #1E3525;
+  text-decoration: underline;
+}
+
+.underline-link:hover {
+  color: #D2A97F;
+  transition: color 200ms ease-in-out;
+}
+
+.text-dark {
+  color: #1E3525;
+}
+
+.input-contact {
+  border-color: #D2A97F;
+  color: #1E3525;
+  background-color: #FEFCF7;
+}
+
+.input-contact::placeholder {
+  color: #64748b; /* gray-500 equivalent */
+}
+
+.input-contact:focus {
+  outline: none;
+  border-color: #1E3525;
+  box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+}
+
+.input-contact {
+  border-radius: 0.375rem; /* rounded-md */
+}
+
+.input-contact-full {
+  border-color: #D2A97F;
+  color: #1E3525;
+  background-color: #FEFCF7;
+}
+
+.input-contact-full::placeholder {
+  color: #64748b; /* gray-500 equivalent */
+}
+
+.input-contact-full:focus {
+  outline: none;
+  border-color: #1E3525;
+  box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+}
+
+.input-contact-full {
+  border-radius: 0.375rem; /* rounded-md */
+}
+
+.input-contact-select {
+  border-color: #D2A97F;
+  color: #1E3525;
+  background-color: #FEFCF7;
+}
+
+.input-contact-select::placeholder {
+  color: #64748b; /* gray-500 equivalent */
+}
+
+.input-contact-select:focus {
+  outline: none;
+  border-color: #1E3525;
+  box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+}
+
+.input-contact-select {
+  border-radius: 0.375rem; /* rounded-md */
+}
+
+.input-contact-message {
+  border-color: #D2A97F;
+  color: #1E3525;
+  background-color: #FEFCF7;
+}
+
+.input-contact-message::placeholder {
+  color: #64748b; /* gray-500 equivalent */
+}
+
+.input-contact-message:focus {
+  outline: none;
+  border-color: #1E3525;
+  box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+}
+
+.input-contact-message {
+  border-radius: 0.375rem; /* rounded-md */
+}
+
+.input-focus:focus {
+  outline: none;
+  border-color: #1E3525;
+  box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
+}
+
+.border-gold {
+  border-color: #D2A97F;
+}
+
+.border-dark-maroon {
+  border-color: #1E3525;
+}
+
+/* Luxury card styling with enhanced glassmorphism */
+.luxury-card {
+  @apply bg-forest-green/30 border border-soft-gold/20 backdrop-blur-sm rounded-xl transition-all duration-300 hover:border-soft-gold/50;
+}
+
+.luxury-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #D2A97F, transparent);
+  opacity: 0.8;
+}
+
+.luxury-card:hover::before {
+  opacity: 1;
+}
+
+.luxury-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(210, 169, 127, 0.2);
+}
+
+/* Gold shimmer effect */
+.gold-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.gold-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(210, 169, 127, 0.3),
+    transparent
+  );
+  transition: transform 0.5s ease-in-out;
+  transform: rotate(20deg);
+}
+
+.gold-shimmer:hover::after {
+  transform: translateX(100%) rotate(20deg);
+}
+
+/* Enhanced shimmer effect for text */
+.text-gold-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.text-gold-shimmer::after {
+  content: '✨';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: transform 0.5s ease-in-out;
+  transform: rotate(20deg);
+}
+
+.text-gold-shimmer:hover::after {
+  transform: translateX(100%) rotate(20deg);
+}
+
+/* Animation for elements that fade up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-border-glow {
+  position: relative;
+  box-shadow: 0 0 15px rgba(210, 169, 127, 0.5);
+  animation: borderGlow 2s infinite alternate;
+}
+
+@keyframes borderGlow {
+  from {
+    box-shadow: 0 0 15px rgba(210, 169, 127, 0.5);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(210, 169, 127, 0.8);
+  }
+}
+
+.shadow-gold-glow {
+  box-shadow: 0 10px 25px rgba(210, 169, 127, 0.3);
+}
+
+.slow-zoom {
+  @apply transition-transform duration-700 ease-in-out transform group-hover:scale-110;
+}
+
+/* Text gradient effect */
+.text-gold-gradient {
+  background: linear-gradient(45deg, #D2A97F, #c2996f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animation for scroll indicator */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Utility classes that need to come from Tailwind processing */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-@layer components {
-  .input-field {
-    border-color: #D2A97F;
-    color: #3A5A40;
+  
+  .cinematic-text {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
   
-  .input-field::placeholder {
-    color: #64748b; /* gray-500 equivalent */
+  .luxury-gradient {
+    background: linear-gradient(135deg, #1E3525 0%, #0F1A14 100%);
   }
   
-  .input-field:focus {
-    outline: none;
-    border-color: #3A5A40;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Soft gold with opacity
-  }
-  
-  .input-field {
-    border-radius: 0.375rem; /* rounded-md equivalent */
-  }
-  
-  .btn-text {
-    color: #3A5A40;
-    font-weight: 500; /* font-medium equivalent */
-  }
-  
-  .gold-text {
-    color: #D2A97F;
-  }
-  
-  .btn-primary {
-    background-color: #D2A97F; /* Soft gold */
-    color: #3A5A40; /* Forest green */
-    font-weight: 500; /* font-medium */
-    border-radius: 0.375rem; /* rounded-md */
-    padding: 0.5rem 1rem; /* py-2 px-4 */
-    transition: background-color 200ms ease-in-out;
-  }
-  
-  .btn-primary:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
-  }
-  
-  .btn-secondary {
-    background-color: #3A5A40; /* Forest green */
-    color: #D2A97F; /* Soft gold */
-  }
-  
-  .link-style {
-    border-color: #D2A97F;
-    color: #3A5A40;
-  }
-  
-  .link-style:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
-    margin: 2px; /* focus:ring-offset-2 equivalent */
-  }
-  
-  .underline-link {
-    color: #3A5A40;
-    text-decoration: underline;
-  }
-  
-  .underline-link:hover {
-    color: #D2A97F;
-    transition: color 200ms ease-in-out;
-  }
-  
-  .text-dark {
-    color: #3A5A40;
-  }
-  
-  .input-contact {
-    border-color: #D2A97F;
-    color: #3A5A40;
-  }
-  
-  .input-contact::placeholder {
-    color: #64748b; /* gray-500 equivalent */
-  }
-  
-  .input-contact:focus {
-    outline: none;
-    border-color: #3A5A40;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
-  }
-  
-  .input-contact {
-    border-radius: 0.375rem; /* rounded-md */
-  }
-  
-  .input-contact-full {
-    border-color: #D2A97F;
-    color: #3A5A40;
-  }
-  
-  .input-contact-full::placeholder {
-    color: #64748b; /* gray-500 equivalent */
-  }
-  
-  .input-contact-full:focus {
-    outline: none;
-    border-color: #3A5A40;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
-  }
-  
-  .input-contact-full {
-    border-radius: 0.375rem; /* rounded-md */
-  }
-  
-  .input-contact-select {
-    border-color: #D2A97F;
-    color: #3A5A40;
-  }
-  
-  .input-contact-select::placeholder {
-    color: #64748b; /* gray-500 equivalent */
-  }
-  
-  .input-contact-select:focus {
-    outline: none;
-    border-color: #3A5A40;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
-  }
-  
-  .input-contact-select {
-    border-radius: 0.375rem; /* rounded-md */
-  }
-  
-  .input-contact-message {
-    border-color: #D2A97F;
-    color: #3A5A40;
-  }
-  
-  .input-contact-message::placeholder {
-    color: #64748b; /* gray-500 equivalent */
-  }
-  
-  .input-contact-message:focus {
-    outline: none;
-    border-color: #3A5A40;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
-  }
-  
-  .input-contact-message {
-    border-radius: 0.375rem; /* rounded-md */
-  }
-  
-  .input-focus:focus {
-    outline: none;
-    border-color: #3A5A40;
-    box-shadow: 0 0 0 2px rgba(210, 169, 127, 0.5); /* Focus ring equivalent */
-  }
-  
-  .border-gold {
-    border-color: #D2A97F;
-  }
-  
-  .border-dark-maroon {
-    border-color: #3A5A40;
+  .gold-border {
+    border: 1px solid #D2A97F;
   }
 }

@@ -1,16 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppCTA from '../components/WhatsAppCTA';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const playfairDisplay = Playfair_Display({ 
+  subsets: ['latin'], 
+  variable: '--font-playfair-display',
+  weight: ['400', '500', '600', '700', '800', '900']
+});
 
 export const metadata: Metadata = {
-  title: 'The Flash Photofilms - Professional Photography & Videography Services',
-  description: 'Professional photography and videography services for weddings, events, and commercial projects. Capture your special moments with our expert team.',
-  keywords: 'photography, videography, wedding photography, event photography, commercial photography, professional photographer',
+  metadataBase: new URL("https://theflashphotofilms.com"),
+  title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films Gujarat',
+  description: 'Luxury wedding photography and cinematic films capturing timeless emotions across Ahmedabad, Surat, Vadodara and Gujarat.',
+  keywords: 'luxury wedding photography, cinematic wedding films, premium wedding photography, Ahmedabad wedding photographer, wedding cinematography',
   authors: [{ name: 'The Flash Photofilms' }],
   creator: 'The Flash Photofilms',
   publisher: 'The Flash Photofilms',
@@ -23,14 +29,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.theflashphotofilms.com',
-    title: 'The Flash Photofilms - Professional Photography & Videography Services',
-    description: 'Professional photography and videography services for weddings, events, and commercial projects.',
+    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films Gujarat',
+    description: 'Luxury wedding photography and cinematic films capturing timeless emotions across Ahmedabad, Surat, Vadodara and Gujarat.',
     siteName: 'The Flash Photofilms',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Flash Photofilms - Professional Photography & Videography Services',
-    description: 'Professional photography and videography services for weddings, events, and commercial projects.',
+    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films Gujarat',
+    description: 'Luxury wedding photography and cinematic films capturing timeless emotions across Ahmedabad, Surat, Vadodara and Gujarat.',
   },
   robots: {
     index: true,
@@ -55,7 +61,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${playfairDisplay.variable} font-sans antialiased bg-forest-green text-ivory`}>
         <Navbar />
         <main>{children}</main>
         <Footer />
@@ -92,7 +98,7 @@ export default function RootLayout({
                 "opens": "09:00",
                 "closes": "18:00"
               },
-              "description": "Professional wedding, event, and commercial photography & videography services by Mohit Panchal",
+              "description": "Premium luxury wedding photography and cinematic films",
               "provider": {
                 "@type": "Person",
                 "name": "Mohit Panchal"
@@ -105,14 +111,14 @@ export default function RootLayout({
                     "@type": "Offer",
                     "itemOffered": {
                       "@type": "Service",
-                      "name": "Wedding Photography"
+                      "name": "Luxury Wedding Photography"
                     }
                   },
                   {
                     "@type": "Offer",
                     "itemOffered": {
                       "@type": "Service",
-                      "name": "Wedding Videography"
+                      "name": "Cinematic Wedding Films"
                     }
                   },
                   {
@@ -126,7 +132,7 @@ export default function RootLayout({
                     "@type": "Offer",
                     "itemOffered": {
                       "@type": "Service",
-                      "name": "Portrait Session"
+                      "name": "Engagement Session"
                     }
                   }
                 ]
