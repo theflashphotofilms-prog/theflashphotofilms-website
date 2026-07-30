@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import TermsAndConditions from '../../components/TermsAndConditions';
+import type { Metadata } from 'next';
+
 
 export default function PackagesPage() {
   const packages = [
@@ -175,7 +177,7 @@ export default function PackagesPage() {
                 </div>
                 
                 <Link 
-                  href="/contact"
+                  href="/booking"
                   className={`w-full text-center py-3 rounded-lg font-bold text-base ${
                     pkg.featured 
                       ? 'bg-soft-gold text-forest-green hover:bg-opacity-90 transition-all duration-300' 

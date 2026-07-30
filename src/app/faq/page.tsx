@@ -14,51 +14,43 @@ const FAQPage = () => {
   const faqs = [
     {
       question: "How can I book The Flash Photofilms for my event?",
-      answer: "You can contact us through our Contact Form, WhatsApp, or direct phone call. Your booking will be confirmed only after the required advance payment is received."
+      answer: "You can book us directly through our booking page. Your booking will be confirmed only after the required advance payment is received. We recommend booking as early as possible, especially for weddings and popular dates."
     },
     {
       question: "How much advance payment is required for booking?",
-      answer: "A 30% advance payment is required to confirm your booking date."
+      answer: "A 30% advance payment is required to confirm your booking date. The remaining balance can be paid according to the schedule agreed upon during booking."
     },
     {
-      question: "How far in advance should I book your services?",
-      answer: "We recommend booking 3-6 months in advance for weddings and special events, especially during peak season (May-October). For portrait sessions, 4-6 weeks notice is typically sufficient."
+      question: "Do you provide customized photography packages?",
+      answer: "Yes. We offer customized packages based on your event requirements, location, coverage duration, and deliverables. Contact us to discuss your specific needs and we'll create a tailored package for you."
     },
     {
-      question: "What is included in your wedding photography packages?",
-      answer: "Our wedding packages include full-day coverage, high-resolution digital images, online gallery access, print release, and optional engagement session. Additional services like second shooter, photobooth, or same-day slideshow are available."
+      question: "Do you cover events outside Ankleshwar and Bharuch?",
+      answer: "Yes. We provide services across Gujarat and other locations. Travel expenses may apply for locations beyond 50 km from our base in Ankleshwar."
     },
     {
-      question: "Do you travel for destination weddings?",
-      answer: "Yes, we love destination weddings! Travel fees apply for locations outside the San Francisco Bay Area. International destination weddings are quoted separately and include accommodation arrangements."
+      question: "What equipment do you use for photography and videography?",
+      answer: "We use professional-grade cameras, lenses, lighting equipment, drones, stabilizers, and audio equipment. Our gear includes latest DSLR and mirrorless cameras, prime and zoom lenses, LED panels, and high-quality microphones to ensure optimal results in all conditions."
     },
     {
-      question: "How many photos will we receive?",
-      answer: "For weddings, expect 500-800 carefully edited high-resolution images. Portrait sessions typically yield 50-100 images. All images are professionally edited to match our signature style."
+      question: "How long does it take to receive the photos and videos?",
+      answer: "Photos are typically delivered within 3-4 weeks, while highlight videos are ready in 2-3 weeks. Complete video editing may take 4-6 weeks depending on the package. We provide sneak peeks within 48-72 hours of the event."
     },
     {
-      question: "What equipment do you use?",
-      answer: "We use professional-grade Canon and Sony cameras with backup equipment. Our kit includes various lenses, lighting equipment, and backup batteries to ensure seamless coverage throughout your event."
+      question: "Do you provide photo and video editing?",
+      answer: "Yes, all our packages include professional editing. Photos undergo color correction, exposure adjustments, and artistic enhancements. Videos are edited with music, transitions, and effects. We ensure all deliverables meet our quality standards."
     },
     {
-      question: "When will we receive our photos?",
-      answer: "Wedding galleries are delivered within 4-6 weeks. Portrait galleries are delivered within 1-2 weeks. Rush delivery is available for an additional fee."
+      question: "Can I request specific shots or have a shot list?",
+      answer: "Absolutely! We encourage clients to share shot lists, family group photo requirements, and specific moments they want captured. We also provide guidance on must-have shots and work with you to ensure all important moments are documented."
     },
     {
-      question: "Do you offer videography services?",
-      answer: "Yes, we offer professional videography services as part of our premium packages. Our cinematographers work closely with our photographers to ensure consistent style and coverage."
+      question: "How many photographers and videographers will be present?",
+      answer: "The number depends on your chosen package. Our standard packages include 1-2 photographers and 1-2 videographers. Premium packages may include additional team members. We customize team size based on your event scale and requirements."
     },
     {
-      question: "Can I request specific shots or poses?",
-      answer: "Absolutely! We encourage you to share your ideas and preferences. We'll work with you to create a shot list that captures your vision while maintaining our artistic approach."
-    },
-    {
-      question: "What if it rains on my outdoor event day?",
-      answer: "We have contingency plans for outdoor events. We'll work with you to identify alternative indoor locations or adjust our approach to still capture beautiful images in any weather."
-    },
-    {
-      question: "How do I secure my booking date?",
-      answer: "Once you've selected a package, we'll send you a contract and invoice. Your date is secured once we receive the signed contract and advance payment."
+      question: "Do you travel for destination weddings and events?",
+      answer: "Yes, we travel for destination weddings and events both within India and internationally. Travel expenses may apply for locations beyond 50 km from our base in Ankleshwar, Gujarat. We've covered events across Gujarat and various parts of India."
     }
   ];
 
@@ -120,14 +112,14 @@ const FAQPage = () => {
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-bold text-dark-maroon mb-4">Still have questions?</h2>
           <p className="text-medium-gray mb-8">
-            We're here to help! Feel free to reach out to us for any additional questions.
+            Don't hesitate to reach out to us directly for more information about our services.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
-              href="/contact" 
+              href="/booking" 
               className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
             >
-              Contact Us
+              Book Now
             </Link>
             <Link 
               href="https://wa.me/7984941331" 

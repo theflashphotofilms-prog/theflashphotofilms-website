@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@react-email/render": "^2.1.0",
+    "@vercel/og": "^0.11.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "googleapis": "^173.0.0",

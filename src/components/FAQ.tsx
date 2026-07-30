@@ -54,11 +54,11 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-ivory">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-base font-semibold text-gold tracking-wide uppercase">Frequently Asked Questions</h2>
-          <p className="mt-4 text-4xl leading-10 font-bold text-gold sm:text-5xl">
+          <h2 className="text-base font-semibold text-forest-green tracking-wide uppercase">Frequently Asked Questions</h2>
+          <p className="mt-4 text-4xl leading-10 font-bold text-forest-green sm:text-5xl">
             Everything You Need To Know
           </p>
           <p className="mt-6 text-xl text-medium-gray max-w-3xl mx-auto">
@@ -73,13 +73,13 @@ const FAQ = () => {
               className="mb-4 border border-gray-200 rounded-lg overflow-hidden"
             >
               <button
-                className="w-full flex justify-between items-center p-6 text-left bg-white hover:bg-light-gray transition-colors"
+                className="w-full flex justify-between items-center p-6 text-left bg-white hover:bg-forest-green/5 transition-colors"
                 onClick={() => toggleAccordion(index)}
                 aria-expanded={openIndex === index}
               >
-                <span className="text-lg font-bold text-gold">{faq.question}</span>
+                <span className="text-lg font-bold text-forest-green">{faq.question}</span>
                 <svg 
-                  className={`h-5 w-5 text-gold transform transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
+                  className={`h-5 w-5 text-soft-gold transform transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
                   fill="none" 
                   viewBox="0 0 24 24" 
                   stroke="currentColor"
@@ -104,10 +104,10 @@ const FAQ = () => {
               Still have questions? Feel free to reach out to us directly.
             </p>
             <Link
-              href="/contact"
-              className="inline-block bg-gold text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-dark-maroon transition-colors"
+              href="/booking"
+              className="inline-block bg-forest-green text-ivory px-8 py-4 rounded-xl font-bold hover:bg-soft-gold hover:text-forest-green transition-colors"
             >
-              Contact Us
+              Book Now
             </Link>
           </div>
         </div>

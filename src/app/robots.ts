@@ -5,8 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
+      disallow: ['/api/', '/admin/', '/private/', '/thank-you'],
     },
-    sitemap: 'https://flashphotofilms.com/sitemap.xml',
+    sitemap: 'https://www.theflashphotofilms.com/sitemap.xml',
+    host: 'https://www.theflashphotofilms.com',
   };
 }

@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FaTimes, FaInfoCircle, FaCheck } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { FaTimes, FaInfoCircle, FaCheck, FaLock } from 'react-icons/fa';
 
 const DiscountPopup = () => {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setFirstName] = useState('');
@@ -13,23 +15,18 @@ const DiscountPopup = () => {
   const [error, setError] = useState('');
   const [couponCode, setCouponCode] = useState('');
 
-  // Show popup after 3 seconds
+  // Check if user has already registered when component mounts
   useEffect(() => {
-    const timer = setTimeout(() => {
-      // Check if user has already seen the popup in the last 24 hours
-      const lastShown = localStorage.getItem('discountPopupShown');
-      if (!lastShown || Date.now() - parseInt(lastShown) > 24 * 60 * 60 * 1000) {
-        setIsVisible(true);
-        localStorage.setItem('discountPopupShown', Date.now().toString());
-      }
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    // Check if user has already registered via localStorage flag
+    const hasRegistered = localStorage.getItem('discountRegistrationCompleted');
+    if (!hasRegistered) {
+      // Show the modal immediately for new users
+      setIsVisible(true);
+    } else {
+      // Hide the modal if user has already registered
+      setIsVisible(false);
+    }
   }, []);
-
-  const handleClose = () => {
-    setIsVisible(false);
-  };
 
   const validateInputs = () => {
     if (!name.trim()) {
@@ -66,21 +63,15 @@ const DiscountPopup = () => {
     setIsSubmitting(true);
     
     try {
-      // Generate a random coupon code
-      const generatedCode = 'TFP' + Math.random().toString(36).substring(2, 8).toUpperCase();
-      setCouponCode(generatedCode);
-      
-      // Prepare data for Google Sheets
+      // Prepare data for discount registration API
       const formData = {
         name: name.trim(),
         email: email.trim(),
-        phone: phone.trim(),
-        couponCode: generatedCode,
-        timestamp: new Date().toISOString()
+        phone: phone.trim()
       };
 
-      // Send data to Google Sheets via API route
-      const response = await fetch('/api/google-sheets-discount-registration', {
+      // Send data to discount registration API (which handles Google Sheets and emails)
+      const response = await fetch('/api/discount-registration', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,17 +80,28 @@ const DiscountPopup = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit data');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit data');
       }
+
+      const result = await response.json();
+      setCouponCode(result.couponCode);
 
       // Success
       setIsSubmitted(true);
       
-      // Store submission in localStorage to prevent multiple submissions
-      localStorage.setItem('discountSubmitted', 'true');
-    } catch (err) {
+      // Store registration completion in localStorage to prevent showing the modal again
+      localStorage.setItem('discountRegistrationCompleted', 'true');
+
+      // Close the modal after showing the success message for a brief moment
+      setTimeout(() => {
+        setIsVisible(false);
+        // Redirect user back to the website
+        router.push('/');
+      }, 2000); // Show success message for 2 seconds before closing
+    } catch (err: any) {
       console.error('Submission error:', err);
-      setError('An error occurred. Please try again.');
+      setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -108,25 +110,22 @@ const DiscountPopup = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         {!isSubmitted ? (
           <div className="p-6">
-            <div className="flex justify-between items-start mb-4">
-              <h2 className="text-2xl font-bold text-dark-maroon">Get 10% OFF On Any Package</h2>
-              <button 
-                onClick={handleClose}
-                className="text-gold hover:text-dark-maroon transition-colors"
-              >
-                <FaTimes />
-              </button>
+            <div className="flex justify-center items-center mb-4">
+              <div className="mr-3 text-gold">
+                <FaLock size={20} />
+              </div>
+              <h2 className="text-2xl font-bold text-dark-maroon text-center flex-1">Unlock Your 10% Wedding Privilege</h2>
             </div>
             
             <div className="mb-6 p-4 bg-gold/10 border border-gold/30 rounded-lg">
               <div className="flex items-start">
                 <FaInfoCircle className="text-gold mt-1 mr-2 flex-shrink-0" />
                 <p className="text-medium-gray text-sm">
-                  Limited time offer! Register now to receive a discount code valid for 3 months.
+                  Unlock your exclusive 10% discount on wedding photography. Register to continue.
                 </p>
               </div>
             </div>
@@ -174,6 +173,10 @@ const DiscountPopup = () => {
                 />
               </div>
               
+              <div className="mb-4 text-center text-sm text-medium-gray">
+                <p>By registering, you agree to receive updates and exclusive offers.</p>
+              </div>
+              
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -181,7 +184,7 @@ const DiscountPopup = () => {
                   isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
                 }`}
               >
-                {isSubmitting ? 'Processing...' : 'Get My Discount'}
+                {isSubmitting ? 'Processing...' : 'Get My FLASH10 Coupon'}
               </button>
             </form>
           </div>
@@ -190,21 +193,30 @@ const DiscountPopup = () => {
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10 mb-4">
               <FaCheck className="h-10 w-10 text-gold" />
             </div>
-            <h3 className="mt-4 text-lg font-medium text-dark-maroon">Discount Confirmed!</h3>
+            <h3 className="mt-4 text-lg font-medium text-dark-maroon">Welcome to The Flash Photofilms!</h3>
             <p className="mt-2 text-medium-gray">
-              Your details have been recorded. Here is your exclusive discount code:
+              Thank you for joining our exclusive community. Here is your exclusive discount code:
             </p>
-            <p className="text-lg font-bold text-dark-maroon mt-4">Your Coupon Code:</p>
+            <p className="text-lg font-bold text-dark-maroon mt-4">Your Exclusive Coupon Code:</p>
             <p className="text-2xl font-bold text-gold mt-2">{couponCode}</p>
             <p className="mt-4 text-medium-gray text-sm">
-              Use this code at checkout to get 10% off any package. Valid for 3 months.
+              Enjoy 10% off any wedding package. Valid for 3 months from registration.
             </p>
-            <button
-              onClick={handleClose}
-              className="mt-6 w-full py-3 px-4 bg-gold text-dark-maroon rounded-md font-medium hover:bg-dark-maroon hover:text-white transition-colors"
-            >
-              Continue Browsing
-            </button>
+            <div className="mt-6 text-left bg-forest-green/10 rounded-lg p-4 text-sm text-medium-gray">
+              <h4 className="font-bold text-forest-green mb-2">How to use your discount:</h4>
+              <ol className="list-decimal pl-5 space-y-1">
+                <li>Save this coupon code</li>
+                <li>Navigate to our booking page</li>
+                <li>Enter this code during checkout</li>
+                <li>Enjoy your 10% discount</li>
+              </ol>
+            </div>
+            <p className="mt-4 text-medium-gray text-sm italic">
+              This discount is exclusive to registered members only.
+            </p>
+            <p className="mt-4 text-medium-gray text-sm">
+              Closing in 2 seconds...
+            </p>
           </div>
         )}
       </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { FaCheck } from 'react-icons/fa';
 
 interface FormData {
@@ -15,6 +16,7 @@ interface FormData {
 }
 
 const ContactForm = () => {
+  const router = useRouter();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,6 +48,11 @@ const ContactForm = () => {
       if (response.ok) {
         setIsSubmitted(true);
         reset(); // Reset form after successful submission
+        
+        // Redirect to thank you page after a short delay
+        setTimeout(() => {
+          router.push('/thank-you');
+        }, 1500);
       } else {
         console.error('Error submitting form');
       }

@@ -21,6 +21,7 @@ export default function DiscountRegistration() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [couponCode, setCouponCode] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if user has already registered in the past 3 months
@@ -74,15 +75,21 @@ export default function DiscountRegistration() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone
+        }),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to register: ${response.statusText}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to register for discount');
       }
 
       const result = await response.json();
       console.log('Registration successful:', result);
+      setCouponCode(result.couponCode);
 
       // Mark as registered
       setIsRegistered(true);
@@ -102,15 +109,21 @@ export default function DiscountRegistration() {
   if (isRegistered) {
     return (
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-        <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10">
-          <svg className="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-soft-gold/10">
+          <svg className="h-10 w-10 text-soft-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-dark-maroon mt-4">Congratulations!</h3>
+        <h3 className="text-2xl font-bold text-forest-green mt-4">Congratulations!</h3>
         <p className="mt-2 text-medium-gray">
-          You are eligible for a <span className="font-bold text-gold">10% launch discount</span> valid for 3 months.
+          You are eligible for a <span className="font-bold text-soft-gold">10% launch discount</span> valid for 3 months.
         </p>
+        {couponCode && (
+          <div className="mt-4 p-3 bg-forest-green/10 rounded-lg">
+            <p className="text-medium-gray text-sm">Your coupon code:</p>
+            <p className="text-lg font-bold text-soft-gold">{couponCode}</p>
+          </div>
+        )}
         <div className="mt-6">
           <p className="text-medium-gray text-sm">
             Your registration has been recorded. You can use the discount code at checkout.
@@ -122,12 +135,12 @@ export default function DiscountRegistration() {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-      <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gold/10">
-        <svg className="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-soft-gold/10">
+        <svg className="h-10 w-10 text-soft-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
       </div>
-      <h3 className="text-2xl font-bold text-dark-maroon mt-4">Launch Discount Offer</h3>
+      <h3 className="text-2xl font-bold text-forest-green mt-4">Launch Discount Offer</h3>
       <p className="mt-2 text-medium-gray text-sm">
         Register now to claim your exclusive launch discount
       </p>
@@ -143,7 +156,7 @@ export default function DiscountRegistration() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-soft-gold focus:border-forest-green focus:outline-none transition-colors"
             placeholder="Enter your full name"
           />
         </div>
@@ -158,7 +171,7 @@ export default function DiscountRegistration() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-soft-gold focus:border-forest-green focus:outline-none transition-colors"
             placeholder="Enter your email address"
           />
         </div>
@@ -173,7 +186,7 @@ export default function DiscountRegistration() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-soft-gold focus:border-forest-green focus:outline-none transition-colors"
             placeholder="Enter your phone number"
           />
         </div>
@@ -186,7 +199,7 @@ export default function DiscountRegistration() {
               type="checkbox"
               checked={formData.consent}
               onChange={handleChange}
-              className="focus:ring-gold h-4 w-4 text-dark-maroon border-gray-300 rounded"
+              className="focus:ring-soft-gold h-4 w-4 text-forest-green border-gray-300 rounded"
             />
           </div>
           <div className="ml-3 text-sm">
@@ -208,16 +221,16 @@ export default function DiscountRegistration() {
           className={`w-full py-3 px-4 rounded-md font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
             isLoading 
               ? 'bg-gray-400 cursor-not-allowed' 
-              : 'bg-dark-maroon hover:bg-gold hover:text-dark-maroon focus:ring-gold'
+              : 'bg-forest-green hover:bg-soft-gold hover:text-forest-green focus:ring-soft-gold'
           }`}
         >
           {isLoading ? 'Processing...' : 'Claim Your Discount'}
         </button>
       </form>
       
-      <div className="mt-6 p-4 bg-gold/10 border border-gold/30 rounded-lg">
+      <div className="mt-6 p-4 bg-soft-gold/10 border border-soft-gold/30 rounded-lg">
         <p className="text-sm text-medium-gray">
-          Register now and get <span className="font-bold text-gold">10% off</span> your first booking. 
+          Register now and get <span className="font-bold text-soft-gold">10% off</span> your first booking. 
           This exclusive launch offer is valid for the first 3 months.
         </p>
       </div>

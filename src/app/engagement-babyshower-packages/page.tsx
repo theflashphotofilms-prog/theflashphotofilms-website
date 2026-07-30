@@ -2,7 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import TermsAndConditions from '../../components/TermsAndConditions';
+import SEO from '../../components/SEO';
+
+
 
 export default function EngagementBabyShowerPackagesPage() {
   const packages = [
@@ -91,10 +95,10 @@ export default function EngagementBabyShowerPackagesPage() {
         <div className="absolute inset-0 bg-forest-green"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-serif font-bold text-ivory mb-6">
-            Engagement &amp; Baby Shower Collections
+            Engagement & Baby Shower Photography Packages
           </h1>
           <p className="text-xl text-soft-gold max-w-3xl mx-auto">
-            Curated packages designed to capture your special moments with elegance
+            Capture the joy and excitement of your special moments with our tailored collections
           </p>
         </div>
       </div>
@@ -151,14 +155,10 @@ export default function EngagementBabyShowerPackagesPage() {
                 </div>
                 
                 <Link 
-                  href="/contact"
-                  className={`w-full text-center py-3 rounded-lg font-bold text-base ${
-                    pkg.featured 
-                      ? 'bg-soft-gold text-forest-green hover:bg-opacity-90 transition-all duration-300' 
-                      : 'border-2 border-soft-gold text-soft-gold hover:bg-soft-gold hover:text-forest-green transition-all duration-300'
-                  }`}
+                  href="/booking" 
+                  className="block w-full bg-forest-green text-ivory py-3 px-4 rounded-xl font-bold text-center hover:bg-soft-gold hover:text-forest-green transition-colors"
                 >
-                  Inquire Now
+                  Select Package
                 </Link>
               </div>
             ))}
@@ -184,21 +184,29 @@ export default function EngagementBabyShowerPackagesPage() {
       {/* Terms & Conditions */}
       <TermsAndConditions compact={true} />
 
-      {/* Bottom CTA Section */}
-      <div className="py-20">
+      {/* CTA Section */}
+      <div className="py-20 bg-soft-gold">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
-            Celebrate Every Special Moment Beautifully
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
+            Ready to Capture Your Special Moment?
           </h2>
-          <p className="text-xl text-cream mb-10 max-w-2xl mx-auto">
-            From engagements to baby showers, we capture every milestone with elegance, emotion and timeless storytelling.
+          <p className="text-xl text-forest-green mb-10 max-w-2xl mx-auto">
+            Choose the perfect package for your engagement or baby shower and let us create lasting memories.
           </p>
-          <Link 
-            href="/contact"
-            className="btn-primary bg-soft-gold text-forest-green px-10 py-5 rounded-xl font-bold text-lg hover:bg-opacity-90 transition-all duration-300"
-          >
-            Check Availability
-          </Link>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+            <Link 
+              href="/booking" 
+              className="inline-block bg-forest-green text-ivory px-8 py-4 rounded-xl font-bold hover:bg-soft-gold hover:text-forest-green transition-colors text-lg"
+            >
+              Book Your Package
+            </Link>
+            <Link 
+              href="/portfolio" 
+              className="inline-block bg-transparent border-2 border-forest-green text-forest-green px-8 py-4 rounded-xl font-bold hover:bg-forest-green hover:text-ivory transition-colors text-lg"
+            >
+              View Our Work
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,20 +1,34 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
+import SEO from '../../components/SEO';
+
+export const metadata: Metadata = {
+  title: 'Film Services | The Flash Photofilms',
+  description: 'Explore our cinematic film services capturing life\'s precious moments with storytelling excellence.',
+  openGraph: {
+    title: 'Film Services | The Flash Photofilms',
+    description: 'Explore our cinematic film services capturing life\'s precious moments with storytelling excellence.',
+    type: 'website',
+    url: 'https://www.theflashphotofilms.com/films',
+  },
+  alternates: {
+    canonical: 'https://www.theflashphotofilms.com/films',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default function FilmsPage() {
-  const filmSamples = [
-    { id: 1, title: "Royal Rajasthani Wedding", duration: "28:45", location: "Udaipur Palace", date: "May 2024", thumbnail: "/images/films/film-1.jpg" },
-    { id: 2, title: "Beachside Destination", duration: "22:10", location: "Maldives Resort", date: "April 2024", thumbnail: "/images/films/film-2.jpg" },
-    { id: 3, title: "Heritage Haveli Celebration", duration: "32:15", location: "Jaipur", date: "March 2024", thumbnail: "/images/films/film-3.jpg" },
-    { id: 4, title: "Modern Metropolitan", duration: "25:30", location: "Mumbai", date: "February 2024", thumbnail: "/images/films/film-4.jpg" },
-    { id: 5, title: "Intimate Garden Ceremony", duration: "18:45", location: "Bangalore", date: "January 2024", thumbnail: "/images/films/film-5.jpg" },
-    { id: 6, title: "Traditional Temple Wedding", duration: "35:20", location: "Tamil Nadu", date: "December 2023", thumbnail: "/images/films/film-6.jpg" },
-  ];
-
   return (
-    <div className="min-h-screen bg-forest-green text-ivory">
+    <div className="min-h-screen bg-ivory text-forest-green">
+      <SEO 
+        title="Film Services | The Flash Photofilms" 
+        description="Explore our cinematic film services capturing life's precious moments with storytelling excellence."
+        url="https://www.theflashphotofilms.com/films"
+      />
+      
       {/* Hero Section */}
       <div className="relative py-28">
         <div className="absolute inset-0 bg-forest-green"></div>
@@ -23,144 +37,181 @@ export default function FilmsPage() {
             Cinematic Films
           </h1>
           <p className="text-xl text-soft-gold max-w-3xl mx-auto">
-            Timeless cinematic experiences that tell your love story in motion
+            Bringing your story to life through the art of cinematic filmmaking
           </p>
         </div>
       </div>
 
-      {/* Film Showcase */}
+      {/* Film Philosophy */}
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filmSamples.map((film) => (
-              <div key={film.id} className="luxury-card overflow-hidden rounded-xl">
-                <div className="relative h-64 overflow-hidden">
-                  <Image 
-                    src={film.thumbnail} 
-                    alt={film.title} 
-                    width={400} 
-                    height={300} 
-                    className="w-full h-full object-cover"
-                    priority={film.id <= 2} // Prioritize first 2 images
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest-green/80 to-transparent flex items-center justify-center">
-                    <button className="w-16 h-16 rounded-full bg-soft-gold flex items-center justify-center hover:bg-soft-gold-light transition-colors">
-                      <svg className="w-8 h-8 text-forest-green ml-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                      </svg>
-                    </button>
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
+                Our Cinematic Approach
+              </h2>
+              <p className="text-medium-gray text-lg mb-6">
+                At The Flash Photofilms, we believe that every moment deserves to be captured with cinematic excellence. Our film services go beyond traditional videography to create narrative-driven pieces that tell your unique story with emotional depth and artistic vision.
+              </p>
+              <p className="text-medium-gray text-lg mb-8">
+                Using advanced camera techniques, professional lighting, and cinematic composition, we craft films that feel like feature movies while preserving the authenticity and emotions of your special day.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <div className="bg-forest-green/10 px-4 py-2 rounded-lg">
+                  <span className="text-forest-green font-medium">Storytelling Focus</span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-serif font-bold text-soft-gold mb-2">{film.title}</h3>
-                  <div className="flex justify-between text-cream text-sm mb-4">
-                    <span>{film.duration}</span>
-                    <span>{film.date}</span>
-                  </div>
-                  <p className="text-ivory mb-4">{film.location}</p>
-                  <Link 
-                    href={`/films/${film.id}`}
-                    className="inline-flex items-center text-soft-gold hover:text-ivory transition-colors"
-                  >
-                    Watch Film
-                    <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
+                <div className="bg-forest-green/10 px-4 py-2 rounded-lg">
+                  <span className="text-forest-green font-medium">Cinematic Style</span>
+                </div>
+                <div className="bg-forest-green/10 px-4 py-2 rounded-lg">
+                  <span className="text-forest-green font-medium">Emotional Depth</span>
                 </div>
               </div>
-            ))}
-          </div>
-          
-          <div className="mt-16 text-center">
-            <Link 
-              href="/contact?service=film"
-              className="btn-primary bg-soft-gold text-forest-green px-8 py-4 rounded-pill font-medium"
-            >
-              Commission Your Film
-            </Link>
+            </div>
+            <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96 flex items-center justify-center text-gray-500">
+              Cinematic Film Concept
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Process Section */}
-      <div className="py-20 bg-forest-green/50">
+      {/* Film Features */}
+      <div className="py-20 bg-forest-green/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-16 text-center">Our Cinematic Process</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                title: "Story Consultation",
-                description: "Understanding your love story and vision",
-                icon: (
-                  <svg className="w-10 h-10 text-soft-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                )
-              },
-              {
-                title: "Pre-Production",
-                description: "Planning shots and timeline",
-                icon: (
-                  <svg className="w-10 h-10 text-soft-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                )
-              },
-              {
-                title: "Cinematography",
-                description: "Capturing your story in motion",
-                icon: (
-                  <svg className="w-10 h-10 text-soft-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
-                  </svg>
-                )
-              },
-              {
-                title: "Post Production",
-                description: "Crafting your cinematic experience",
-                icon: (
-                  <svg className="w-10 h-10 text-soft-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                )
-              }
-            ].map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="flex justify-center mb-4">
-                  {step.icon}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
+              What Makes Our Films Special
+            </h2>
+            <p className="text-xl text-medium-gray max-w-3xl mx-auto">
+              Features that set our cinematic films apart from traditional videography
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
+              <div className="text-soft-gold text-4xl font-bold mb-4">01</div>
+              <h3 className="text-xl font-bold text-forest-green mb-3">Narrative Structure</h3>
+              <p className="text-medium-gray">
+                We structure your film with a clear beginning, middle, and end, creating a cohesive story that flows naturally and keeps viewers engaged.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
+              <div className="text-soft-gold text-4xl font-bold mb-4">02</div>
+              <h3 className="text-xl font-bold text-forest-green mb-3">Advanced Techniques</h3>
+              <p className="text-medium-gray">
+                Using cinematic techniques like slow motion, time-lapse, drone footage, and creative angles to add visual interest and dramatic effect.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
+              <div className="text-soft-gold text-4xl font-bold mb-4">03</div>
+              <h3 className="text-xl font-bold text-forest-green mb-3">Color Grading</h3>
+              <p className="text-medium-gray">
+                Professional color grading gives your film a polished, movie-like appearance with consistent and appealing color tones throughout.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
+              <div className="text-soft-gold text-4xl font-bold mb-4">04</div>
+              <h3 className="text-xl font-bold text-forest-green mb-3">Audio Design</h3>
+              <p className="text-medium-gray">
+                Careful attention to audio quality, mixing ceremony audio with music to create an immersive experience that matches the visuals.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
+              <div className="text-soft-gold text-4xl font-bold mb-4">05</div>
+              <h3 className="text-xl font-bold text-forest-green mb-3">Music Integration</h3>
+              <p className="text-medium-gray">
+                Thoughtful selection and integration of music that enhances the emotional impact and pacing of your film.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
+              <div className="text-soft-gold text-4xl font-bold mb-4">06</div>
+              <h3 className="text-xl font-bold text-forest-green mb-3">Story Arc</h3>
+              <p className="text-medium-gray">
+                Each film follows a narrative arc with peaks and valleys of emotion, creating a satisfying and memorable viewing experience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Film Process */}
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
+              Our Film Creation Process
+            </h2>
+            <p className="text-xl text-medium-gray max-w-3xl mx-auto">
+              From consultation to final delivery, we ensure a seamless experience
+            </p>
+          </div>
+          <div className="space-y-12">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="md:w-1/3">
+                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center text-gray-500">
+                  Pre-Production Planning
                 </div>
-                <h3 className="text-xl font-bold text-soft-gold mb-2">{step.title}</h3>
-                <p className="text-ivory">{step.description}</p>
               </div>
-            ))}
+              <div className="md:w-2/3">
+                <div className="text-soft-gold text-2xl font-bold mb-2">Phase 1</div>
+                <h3 className="text-2xl font-bold text-forest-green mb-3">Pre-Production Planning</h3>
+                <p className="text-medium-gray">
+                  We begin with a detailed consultation to understand your vision, preferences, and key moments to capture. This includes timeline planning, shot lists, and coordination with other vendors.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row-reverse items-center gap-8">
+              <div className="md:w-1/3">
+                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center text-gray-500">
+                  Cinematic Capture
+                </div>
+              </div>
+              <div className="md:w-2/3">
+                <div className="text-soft-gold text-2xl font-bold mb-2">Phase 2</div>
+                <h3 className="text-2xl font-bold text-forest-green mb-3">Cinematic Capture</h3>
+                <p className="text-medium-gray">
+                  On your event day, our team uses multiple cameras, specialized equipment, and cinematic techniques to capture not just moments but the story unfolding.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="md:w-1/3">
+                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center text-gray-500">
+                  Post-Production Magic
+                </div>
+              </div>
+              <div className="md:w-2/3">
+                <div className="text-soft-gold text-2xl font-bold mb-2">Phase 3</div>
+                <h3 className="text-2xl font-bold text-forest-green mb-3">Post-Production Magic</h3>
+                <p className="text-medium-gray">
+                  Our editors craft your film with careful attention to pacing, music, and visual storytelling. Multiple rounds of revisions ensure your complete satisfaction.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="py-20">
+      <div className="py-20 bg-forest-green text-ivory">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
-            Ready to Create Your Cinematic Experience?
+            Bring Your Story to Life
           </h2>
-          <p className="text-xl text-cream mb-10">
-            Let's discuss how we can craft your unique love story into a timeless film
+          <p className="text-xl text-soft-gold mb-10 max-w-2xl mx-auto">
+            Experience the difference of cinematic filmmaking for your special occasion.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link 
-              href="/contact"
-              className="btn-primary bg-soft-gold text-forest-green px-8 py-4 rounded-pill font-medium"
+              href="/booking" 
+              className="inline-block bg-soft-gold text-forest-green px-8 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-colors text-lg"
             >
-              Schedule Consultation
+              Book Film Service
             </Link>
             <Link 
-              href="/packages"
-              className="btn-secondary border-2 border-soft-gold text-soft-gold bg-transparent px-8 py-4 rounded-pill font-medium"
+              href="/portfolio" 
+              className="inline-block bg-transparent border-2 border-soft-gold text-soft-gold px-8 py-4 rounded-xl font-bold hover:bg-soft-gold hover:text-forest-green transition-colors text-lg"
             >
-              View Packages
+              Watch Samples
             </Link>
           </div>
         </div>

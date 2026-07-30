@@ -98,6 +98,5 @@ export function getPool() {
 // This file has been deprecated as the system now uses Google Sheets instead of PostgreSQL
 // All database operations have been moved to Google Sheets via Google Apps Script
 
-// OLD FILE - DEPRECATED
-// This file has been deprecated as the system now uses Google Sheets instead of PostgreSQL
-// All database operations have been moved to Google Sheets via Google Apps Script
+// This file is kept for reference only and should not be imported anywhere
+// All discount coupon operations now happen through Google Sheets

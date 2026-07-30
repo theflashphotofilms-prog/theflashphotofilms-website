@@ -53,9 +53,9 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-bold text-soft-gold mb-4">Contact</h3>
+            <h3 className="text-lg font-bold text-soft-gold mb-4">Booking</h3>
             <ul className="space-y-2">
-              <li><Link href="/contact" className="text-ivory hover:text-soft-gold transition-colors">Get in Touch</Link></li>
+              <li><Link href="/booking" className="text-ivory hover:text-soft-gold transition-colors">Book Now</Link></li>
               <li><Link href="/faq" className="text-ivory hover:text-soft-gold transition-colors">FAQ</Link></li>
               <li><Link href="/terms" className="text-ivory hover:text-soft-gold transition-colors">Terms</Link></li>
               <li><Link href="/privacy" className="text-ivory hover:text-soft-gold transition-colors">Privacy Policy</Link></li>
@@ -63,8 +63,11 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="mt-12 pt-8 border-t border-soft-gold/30 text-center">
-          <p className="text-cream text-sm">&copy; {new Date().getFullYear()} The Flash Photofilms. All rights reserved.</p>
+        <div className="mt-12 pt-8 border-t border-soft-gold/30">
+          <p className="text-cream text-center text-sm mb-4">
+            Luxury Wedding Photography & Cinematic Films in Ahmedabad, Surat, Vadodara, Anand and across Gujarat.
+          </p>
+          <p className="text-cream text-center text-sm">&copy; {new Date().getFullYear()} The Flash Photofilms. All rights reserved.</p>
         </div>
       </div>
     </footer>

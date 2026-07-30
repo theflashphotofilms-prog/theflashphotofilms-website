@@ -4,24 +4,24 @@ const ContactSection = () => {
   const phoneNumber = "+91 79849 41331";
 
   return (
-    <section className="py-20 bg-gradient-to-r from-dark-maroon to-black text-white">
+    <section className="py-20 bg-gradient-to-r from-forest-green to-black text-ivory">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-white sm:text-4xl">
+        <h2 className="text-3xl font-bold text-ivory sm:text-4xl">
           Ready to capture your special moments?
         </h2>
-        <p className="mt-4 text-xl text-gold max-w-3xl mx-auto">
-          Contact us today to discuss your photography needs
+        <p className="mt-4 text-xl text-soft-gold max-w-3xl mx-auto">
+          Book your event with us today to secure your date
         </p>
         <div className="mt-10">
           <Link
-            href="/contact"
-            className="inline-block bg-gold text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-dark-maroon transition-colors"
+            href="/booking"
+            className="inline-block bg-soft-gold text-forest-green px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-forest-green transition-colors"
           >
-            Get in Touch
+            Book Now
           </Link>
           <Link
             href="/packages"
-            className="inline-block bg-transparent border-2 border-gold text-gold px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors ml-4"
+            className="inline-block bg-transparent border-2 border-soft-gold text-soft-gold px-8 py-4 rounded-xl font-bold hover:bg-soft-gold hover:text-forest-green transition-colors ml-4"
           >
             View Packages
           </Link>

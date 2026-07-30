@@ -1,18 +1,31 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function PortfolioPage() {
   const portfolioItems = [
-    { id: 1, title: "AHMEDABAD WEDDING", subtitle: "A Story Of Forever", location: "Ahmedabad, India", date: "June 2024", image: "/images/portfolio/portfolio-1.jpg" },
-    { id: 2, title: "RAJASTHAN DESTINATION", subtitle: "Love In The Desert", location: "Udaipur, India", date: "May 2024", image: "/images/portfolio/portfolio-2.jpg" },
-    { id: 3, title: "TRADITIONAL CEREMONY", subtitle: "Timeless Rituals", location: "Delhi, India", date: "April 2024", image: "/images/portfolio/portfolio-3.jpg" },
-    { id: 4, title: "MODERN CELEBRATION", subtitle: "Contemporary Love", location: "Mumbai, India", date: "March 2024", image: "/images/portfolio/portfolio-4.jpg" },
-    { id: 5, title: "PRE-WEDDING SHOOT", subtitle: "Before The Vows", location: "Goa, India", date: "February 2024", image: "/images/portfolio/portfolio-5.jpg" },
-    { id: 6, title: "ENGAGEMENT SESSION", subtitle: "New Beginnings", location: "Bangalore, India", date: "January 2024", image: "/images/portfolio/portfolio-6.jpg" },
-    { id: 7, title: "DESTINATION WEDDING", subtitle: "Island Romance", location: "Maldives", date: "December 2023", image: "/images/portfolio/portfolio-7.jpg" },
-    { id: 8, title: "INTIMATE CEREMONY", subtitle: "Love & Family", location: "Kerala, India", date: "November 2023", image: "/images/portfolio/portfolio-8.jpg" },
+    { id: 1, title: "Royal Destination Wedding", subtitle: "Ahmedabad", caption: "Luxury destination celebration", image: "/images/portfolio/portfolio-1.jpg", category: "destination" },
+    { id: 2, title: "Traditional Gujarati Wedding", subtitle: "Surat", caption: "Cultural heritage celebration", image: "/images/portfolio/portfolio-2.jpg", category: "traditional" },
+    { id: 3, title: "Modern Beachside Ceremony", subtitle: "Goa", caption: "Contemporary beach celebration", image: "/images/portfolio/portfolio-3.jpg", category: "destination" },
+    { id: 4, title: "Intimate Garden Wedding", subtitle: "Vadodara", caption: "Romantic garden celebration", image: "/images/portfolio/portfolio-4.jpg", category: "intimate" },
+    { id: 5, title: "Pre-Wedding Shoot", subtitle: "Udaipur", caption: "Romantic pre-wedding moments", image: "/images/portfolio/portfolio-5.jpg", category: "prewedding" },
+    { id: 6, title: "Candid Wedding Moments", subtitle: "Ahmedabad", caption: "Authentic celebration emotions", image: "/images/portfolio/portfolio-6.jpg", category: "candid" },
+    { id: 7, title: "Ceremony Highlights", subtitle: "Surat", caption: "Sacred ritual moments", image: "/images/portfolio/portfolio-7.jpg", category: "ceremony" },
+    { id: 8, title: "Reception Elegance", subtitle: "Vadodara", caption: "Grand reception celebration", image: "/images/portfolio/portfolio-8.jpg", category: "reception" },
+    { id: 9, title: "Engagement Celebration", subtitle: "Anand", caption: "Joyful engagement moments", image: "/images/portfolio/portfolio-9.jpg", category: "engagement" },
+  ];
+
+  const categories = [
+    { id: 'all', name: 'All' },
+    { id: 'candid', name: 'Candid' },
+    { id: 'traditional', name: 'Traditional' },
+    { id: 'destination', name: 'Destination' },
+    { id: 'prewedding', name: 'Pre-Wedding' },
+    { id: 'intimate', name: 'Intimate' },
+    { id: 'ceremony', name: 'Ceremony' },
+    { id: 'reception', name: 'Reception' },
+    { id: 'engagement', name: 'Engagement' },
   ];
 
   return (
@@ -25,8 +38,28 @@ export default function PortfolioPage() {
             Our Portfolio
           </h1>
           <p className="text-xl text-soft-gold max-w-3xl mx-auto">
-            A curated collection of cinematic wedding stories from around the world
+            A curated collection of timeless moments captured across Gujarat and India
           </p>
+        </div>
+      </div>
+
+      {/* Filter Section */}
+      <div className="py-12 bg-forest-green/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                className={`px-6 py-3 rounded-full font-medium transition-colors ${
+                  category.id === 'all'
+                    ? 'bg-soft-gold text-forest-green'
+                    : 'bg-forest-green text-soft-gold border border-soft-gold hover:bg-soft-gold hover:text-forest-green'
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -36,7 +69,7 @@ export default function PortfolioPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {portfolioItems.map((item) => (
               <div key={item.id} className="luxury-card group overflow-hidden rounded-xl">
-                <div className="relative h-80 overflow-hidden">
+                <div className="relative h-96 overflow-hidden">
                   <Image 
                     src={item.image} 
                     alt={item.title} 
@@ -45,60 +78,93 @@ export default function PortfolioPage() {
                     className="w-full h-full object-cover slow-zoom"
                     priority={item.id <= 3} // Prioritize first 3 images
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest-green/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <div>
-                      <h3 className="text-xl font-serif font-bold text-ivory">{item.title}</h3>
-                      <p className="text-soft-gold">{item.subtitle}</p>
-                      <p className="text-sm text-cream mt-1">{item.location} • {item.date}</p>
-                    </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-green/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-serif font-bold text-ivory mb-2">{item.title}</h3>
+                    <p className="text-xl text-soft-gold mb-2">{item.subtitle}</p>
+                    <p className="text-lg text-cream">{item.caption}</p>
                   </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-serif font-bold text-soft-gold mb-2">{item.title}</h3>
-                  <p className="text-cream mb-4">{item.subtitle}</p>
-                  <Link 
-                    href={`/portfolio/${item.id}`}
-                    className="inline-flex items-center text-soft-gold hover:text-ivory transition-colors"
-                  >
-                    View Story
-                    <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
                 </div>
               </div>
             ))}
           </div>
-          
-          <div className="mt-16 text-center">
-            <button className="btn-primary bg-soft-gold text-forest-green px-8 py-4 rounded-pill font-medium">
-              View More Stories
-            </button>
+        </div>
+      </div>
+
+      {/* Featured Collections Section */}
+      <div className="py-20 bg-forest-green/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-ivory mb-6">
+              Featured Collections
+            </h2>
+            <p className="text-xl text-soft-gold max-w-3xl mx-auto">
+              Curated selections showcasing our diverse photography styles
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Candid Moments",
+                description: "Natural, unposed photography capturing genuine emotions and interactions.",
+                image: "/images/portfolio/collection-1.jpg",
+                count: 48
+              },
+              {
+                title: "Traditional Ceremonies",
+                description: "Respectful documentation of cultural rituals and heritage celebrations.",
+                image: "/images/portfolio/collection-2.jpg",
+                count: 32
+              },
+              {
+                title: "Destination Weddings",
+                description: "Scenic location photography with breathtaking backdrops.",
+                image: "/images/portfolio/collection-3.jpg",
+                count: 24
+              }
+            ].map((collection, index) => (
+              <div key={index} className="luxury-card overflow-hidden rounded-xl">
+                <div className="relative h-64 overflow-hidden">
+                  <Image 
+                    src={collection.image} 
+                    alt={collection.title} 
+                    width={400} 
+                    height={300} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-serif font-bold text-soft-gold mb-4">{collection.title}</h3>
+                  <p className="text-lg text-cream mb-6">{collection.description}</p>
+                  <p className="text-soft-gold font-bold">{collection.count}+ Events</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 bg-forest-green/50">
+      <div className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
             Ready to Start Your Story?
           </h2>
-          <p className="text-xl text-cream mb-10">
-            Let's capture your love story with the same cinematic excellence
+          <p className="text-xl text-soft-gold mb-10 max-w-2xl mx-auto">
+            Every couple has a unique love story. Let us capture yours with artistry and passion.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link 
-              href="/contact"
-              className="btn-primary bg-soft-gold text-forest-green px-8 py-4 rounded-pill font-medium"
+              href="/booking"
+              className="btn-primary bg-soft-gold text-forest-green px-10 py-5 rounded-xl font-bold text-lg hover:bg-opacity-90 transition-all duration-300"
             >
-              Inquire Now
+              Book Your Date
             </Link>
             <Link 
               href="/packages"
-              className="btn-secondary border-2 border-soft-gold text-soft-gold bg-transparent px-8 py-4 rounded-pill font-medium"
+              className="btn-secondary border-2 border-soft-gold text-soft-gold bg-transparent px-10 py-5 rounded-xl font-bold text-lg hover:bg-soft-gold hover:text-forest-green transition-all duration-300"
             >
-              View Collections
+              View Packages
             </Link>
           </div>
         </div>

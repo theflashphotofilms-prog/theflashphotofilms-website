@@ -13,10 +13,33 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://theflashphotofilms.com"),
-  title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films Gujarat',
-  description: 'Luxury wedding photography and cinematic films capturing timeless emotions across Ahmedabad, Surat, Vadodara and Gujarat.',
-  keywords: 'luxury wedding photography, cinematic wedding films, premium wedding photography, Ahmedabad wedding photographer, wedding cinematography',
+  metadataBase: new URL("https://www.theflashphotofilms.com"),
+  title: {
+    default: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films in Gujarat',
+    template: '%s | The Flash Photofilms'
+  },
+  description: 'The Flash Photofilms offers luxury wedding photography, cinematic wedding films, pre wedding shoots, engagement coverage, baby shower photography, and destination wedding photography across Ahmedabad, Surat, Vadodara, Anand, and Gujarat.',
+  keywords: [
+    'Wedding Photographer Gujarat',
+    'Wedding Photography Gujarat',
+    'Best Wedding Photographer Ahmedabad',
+    'Best Wedding Photographer Surat',
+    'Best Wedding Photographer Vadodara',
+    'Wedding Photographer Anand',
+    'Luxury Wedding Photography Gujarat',
+    'Cinematic Wedding Films Gujarat',
+    'Candid Wedding Photographer Gujarat',
+    'Pre Wedding Shoot Gujarat',
+    'Pre Wedding Photographer Ahmedabad',
+    'Destination Wedding Photographer Gujarat',
+    'Wedding Videographer Gujarat',
+    'Wedding Cinematography Gujarat',
+    'Engagement Photographer Gujarat',
+    'Baby Shower Photographer Gujarat',
+    'Traditional Wedding Photography Gujarat',
+    'Drone Wedding Photography Gujarat',
+    'The Flash Photofilms'
+  ],
   authors: [{ name: 'The Flash Photofilms' }],
   creator: 'The Flash Photofilms',
   publisher: 'The Flash Photofilms',
@@ -29,14 +52,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.theflashphotofilms.com',
-    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films Gujarat',
-    description: 'Luxury wedding photography and cinematic films capturing timeless emotions across Ahmedabad, Surat, Vadodara and Gujarat.',
+    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films',
+    description: 'Capturing timeless emotions through luxury wedding photography and cinematic wedding films across Gujarat and India.',
     siteName: 'The Flash Photofilms',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Flash Photofilms - Luxury Wedding Photography & Cinematic Films',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films Gujarat',
-    description: 'Luxury wedding photography and cinematic films capturing timeless emotions across Ahmedabad, Surat, Vadodara and Gujarat.',
+    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films',
+    description: 'Capturing timeless emotions through luxury wedding photography and cinematic wedding films across Gujarat and India.',
+    images: ['/twitter-image.jpg'],
+    site: '@flashphotofilms', // Replace with actual Twitter handle
   },
   robots: {
     index: true,
@@ -50,8 +83,11 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google-site-verification-token',
+    google: process.env.GOOGLE_SITE_VERIFICATION || '', // Use env var for security
   },
+  alternates: {
+    canonical: 'https://www.theflashphotofilms.com',
+  }
 };
 
 export default function RootLayout({
@@ -61,6 +97,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href="/opengraph-image.jpg" />
+        <link rel="preload" as="image" href="/logo.png" />
+      </head>
       <body className={`${inter.variable} ${playfairDisplay.variable} font-sans antialiased bg-forest-green text-ivory`}>
         <Navbar />
         <main>{children}</main>
@@ -73,7 +117,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "PhotographyService",
               "name": "The Flash Photofilms",
-              "image": "/logo.png", // Updated to use the actual logo path
+              "image": "/logo.png",
               "telephone": "+91 79849 41331",
               "email": process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@theflashphotofilms.com",
               "address": {
@@ -84,21 +128,39 @@ export default function RootLayout({
                 "postalCode": "393002",
                 "addressCountry": "IN"
               },
-              "areaServed": {
-                "@type": "City",
-                "name": "Bharuch",
-                "containedInPlace": {
-                  "@type": "State",
-                  "name": "Gujarat"
+              "areaServed": [
+                {
+                  "@type": "City",
+                  "name": "Bharuch"
+                },
+                {
+                  "@type": "City", 
+                  "name": "Ankleshwar"
+                },
+                {
+                  "@type": "City",
+                  "name": "Ahmedabad"
+                },
+                {
+                  "@type": "City",
+                  "name": "Surat"
+                },
+                {
+                  "@type": "City",
+                  "name": "Vadodara"
+                },
+                {
+                  "@type": "City",
+                  "name": "Gandhinagar"
                 }
-              },
+              ],
               "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
                 "opens": "09:00",
                 "closes": "18:00"
               },
-              "description": "Premium luxury wedding photography and cinematic films",
+              "description": "Premium luxury wedding and cinematic films",
               "provider": {
                 "@type": "Person",
                 "name": "Mohit Panchal"

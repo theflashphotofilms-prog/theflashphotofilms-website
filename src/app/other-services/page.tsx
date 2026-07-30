@@ -4,8 +4,21 @@ import Image from 'next/image';
 import TermsAndConditions from '../../components/TermsAndConditions';
 
 export const metadata: Metadata = {
-  title: 'Other Services - The Flash Photofilms',
-  description: 'A collection of professional photography and videography services crafted for life\'s special moments.'
+  title: 'Book Photography Services | The Flash Photofilms',
+  description: 'Easily book our photography services for corporate events, birthdays, maternity, baby photoshoots, and more.',
+  openGraph: {
+    title: 'Book Photography Services | The Flash Photofilms',
+    description: 'Easily book our photography services for corporate events, birthdays, maternity, baby photoshoots, and more.',
+    type: 'website',
+    url: 'https://www.theflashphotofilms.com/other-services',
+  },
+  alternates: {
+    canonical: 'https://www.theflashphotofilms.com/other-services',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function OtherServicesPage() {
@@ -79,7 +92,7 @@ export default function OtherServicesPage() {
                 <p className="text-lg text-cream mb-6">{service.description}</p>
                 
                 <Link 
-                  href="/contact"
+                  href="/booking"
                   className="inline-block w-full text-center py-3 rounded-lg font-bold text-base bg-transparent border-2 border-soft-gold text-soft-gold hover:bg-soft-gold hover:text-forest-green transition-all duration-300"
                 >
                   Inquire Now
@@ -91,19 +104,19 @@ export default function OtherServicesPage() {
       </div>
 
       {/* Terms & Conditions */}
-      <TermsAndConditions compact={true} />
+      <TermsAndConditions />
 
       {/* CTA Section */}
       <div className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
-            Looking For A Custom Photography Package?
+            Ready to Capture Your Memories?
           </h2>
           <p className="text-xl text-cream mb-10 max-w-2xl mx-auto">
-            Contact us for personalized photography and videography solutions tailored to your event and requirements.
+            Book your preferred photography service today and secure your event date with The Flash Photofilms.
           </p>
           <Link 
-            href="/contact"
+            href="/booking"
             className="btn-primary bg-soft-gold text-forest-green px-10 py-5 rounded-xl font-bold text-lg hover:bg-opacity-90 transition-all duration-300"
           >
             Contact Us

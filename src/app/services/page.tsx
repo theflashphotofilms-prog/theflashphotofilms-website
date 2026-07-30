@@ -131,10 +131,10 @@ const ServicesPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
-              href="/contact" 
+              href="/booking" 
               className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
             >
-              Get in Touch
+              Book Now
             </Link>
             <Link 
               href="/packages" 
