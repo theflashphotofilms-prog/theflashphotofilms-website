@@ -14,48 +14,100 @@ const FAQPage = () => {
   const faqs = [
     {
       question: "How can I book The Flash Photofilms for my event?",
-      answer: "You can book us directly through our booking page. Your booking will be confirmed only after the required advance payment is received. We recommend booking as early as possible, especially for weddings and popular dates."
+      answer: "You can contact us through our Contact Form, WhatsApp, or direct phone call. Your booking will be confirmed only after the required advance payment is received."
     },
     {
       question: "How much advance payment is required for booking?",
-      answer: "A 30% advance payment is required to confirm your booking date. The remaining balance can be paid according to the schedule agreed upon during booking."
+      answer: "A 30% advance payment is required to confirm your booking date."
     },
     {
-      question: "Do you provide customized photography packages?",
-      answer: "Yes. We offer customized packages based on your event requirements, location, coverage duration, and deliverables. Contact us to discuss your specific needs and we'll create a tailored package for you."
+      question: "Is the advance payment refundable?",
+      answer: "No. The advance payment is non-refundable under any circumstances."
+    },
+    {
+      question: "Do you provide customised photography packages?",
+      answer: "Yes. We offer customised packages based on your event requirements, location, coverage duration, and deliverables."
     },
     {
       question: "Do you cover events outside Ankleshwar and Bharuch?",
-      answer: "Yes. We provide services across Gujarat and other locations. Travel expenses may apply for locations beyond 50 km from our base in Ankleshwar."
+      answer: "Yes. We provide services across Gujarat and destination wedding locations across India. Travel and accommodation expenses may apply depending on the event location."
     },
     {
-      question: "What equipment do you use for photography and videography?",
-      answer: "We use professional-grade cameras, lenses, lighting equipment, drones, stabilizers, and audio equipment. Our gear includes latest DSLR and mirrorless cameras, prime and zoom lenses, LED panels, and high-quality microphones to ensure optimal results in all conditions."
+      question: "Is travel cost included in the package price?",
+      answer: "No. Travel, accommodation, and logistics expenses are not included in standard package pricing unless specifically mentioned."
     },
     {
-      question: "How long does it take to receive the photos and videos?",
-      answer: "Photos are typically delivered within 3-4 weeks, while highlight videos are ready in 2-3 weeks. Complete video editing may take 4-6 weeks depending on the package. We provide sneak peeks within 48-72 hours of the event."
+      question: "How many days are included in wedding packages?",
+      answer: "All standard wedding packages are designed according to the selected package. Additional days or functions will incur extra charges."
     },
     {
-      question: "Do you provide photo and video editing?",
-      answer: "Yes, all our packages include professional editing. Photos undergo color correction, exposure adjustments, and artistic enhancements. Videos are edited with music, transitions, and effects. We ensure all deliverables meet our quality standards."
+      question: "How many days are included in pre-wedding packages?",
+      answer: "Our standard pre-wedding packages include a 2-day shoot. Additional shoot days will be charged separately."
     },
     {
-      question: "Can I request specific shots or have a shot list?",
-      answer: "Absolutely! We encourage clients to share shot lists, family group photo requirements, and specific moments they want captured. We also provide guidance on must-have shots and work with you to ensure all important moments are documented."
+      question: "Do you provide drone photography and videography?",
+      answer: "Yes. Drone coverage is available in selected packages and can also be added as an extra service."
     },
     {
-      question: "How many photographers and videographers will be present?",
-      answer: "The number depends on your chosen package. Our standard packages include 1-2 photographers and 1-2 videographers. Premium packages may include additional team members. We customize team size based on your event scale and requirements."
+      question: "Do you provide candid photography?",
+      answer: "Yes. Candid photography is one of our specialties. We focus on capturing genuine emotions, natural expressions, and real moments throughout your celebration."
     },
     {
-      question: "Do you travel for destination weddings and events?",
-      answer: "Yes, we travel for destination weddings and events both within India and internationally. Travel expenses may apply for locations beyond 50 km from our base in Ankleshwar, Gujarat. We've covered events across Gujarat and various parts of India."
+      question: "Will we receive all photos?",
+      answer: "Yes. All packages include edited soft-copy photos as mentioned in the package details."
+    },
+    {
+      question: "When will we receive our photos and videos?",
+      answer: "Delivery timelines vary depending on project size and season. Clients typically receive their edited work within the committed timeline discussed during booking."
+    },
+    {
+      question: "When should album selection be completed?",
+      answer: "Album selection should be completed within 30 to 45 days. Delays beyond this period may result in revised album pricing based on current market rates."
+    },
+    {
+      question: "Do you provide raw photos and videos?",
+      answer: "Photos and videos are delivered according to the package inclusions. Raw files are generally not provided unless agreed upon separately."
+    },
+    {
+      question: "Can we request extra reels, videos, albums, or photographers?",
+      answer: "Yes. Additional reels, cinematic films, albums, drone coverage, photographers, videographers, LED screens, and other services can be added at an extra cost."
+    },
+    {
+      question: "Do you cover DJ events and dance performances?",
+      answer: "Yes. DJ coverage is included up to 12:00 AM (midnight). Additional coverage may require extra charges."
+    },
+    {
+      question: "Do you take photos during lunch and dinner?",
+      answer: "By default, lunch and dinner coverage is not included. If required, please inform us during the booking process."
+    },
+    {
+      question: "Can family members suggest poses or photography ideas during the event?",
+      answer: "Absolutely. We welcome creative suggestions from couples and family members while maintaining the overall flow and quality of coverage."
+    },
+    {
+      question: "What happens if weather conditions affect an outdoor shoot?",
+      answer: "In case of unfavorable weather, we will work with you to adjust the schedule, location, or shoot plan to achieve the best possible results."
+    },
+    {
+      question: "Can we reschedule our event date?",
+      answer: "Date changes depend on availability. Please contact us as early as possible to discuss rescheduling options."
+    },
+    {
+      question: "How can we share references or ideas for our shoot?",
+      answer: "You can share inspiration photos, Instagram reels, Pinterest boards, mood boards, or specific concepts with our team before the event."
+    },
+    {
+      question: "Do you provide same-day edits?",
+      answer: "Yes. Same-day editing services are available in selected premium packages or can be added separately."
+    },
+    {
+      question: "Why should we choose The Flash Photofilms?",
+      answer: "We combine creativity, cinematic storytelling, professional equipment, premium albums, drone coverage, and personalised service to create memories that last a lifetime."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-light-gray py-16">
+    <div className="min-h-screen bg-forest-green py-16">
       <SEO 
         title="Frequently Asked Questions - The Flash Photofilms" 
         description="Find answers to frequently asked questions about our photography services, packages, and booking process."
@@ -63,8 +115,8 @@ const FAQPage = () => {
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-dark-maroon mb-4">Frequently Asked Questions</h1>
-          <p className="text-xl text-medium-gray">
+          <h1 className="text-4xl font-bold text-ivory mb-4 font-serif">Frequently Asked Questions (FAQs)</h1>
+          <p className="text-xl text-soft-gold">
             Everything you need to know about our photography services
           </p>
         </div>
@@ -73,19 +125,19 @@ const FAQPage = () => {
           {faqs.map((faq, index) => (
             <div 
               key={index} 
-              className="border border-gray-200 rounded-xl overflow-hidden transition-all duration-300"
+              className="border border-soft-gold/30 rounded-xl overflow-hidden transition-all duration-300 bg-ivory"
             >
               <button
                 className={`w-full p-6 text-left flex justify-between items-center transition-colors duration-300 ${
-                  openIndex === index ? 'bg-gold/5' : 'hover:bg-gray-50'
+                  openIndex === index ? 'bg-soft-gold/10' : 'hover:bg-forest-green/10'
                 }`}
                 onClick={() => toggleAccordion(index)}
                 aria-expanded={openIndex === index}
                 aria-controls={`faq-content-${index}`}
               >
-                <span className="text-lg font-bold text-dark-maroon">{faq.question}</span>
+                <span className="text-lg font-bold text-forest-green">{faq.question}</span>
                 <svg
-                  className={`w-5 h-5 text-gold transform transition-transform duration-300 ${
+                  className={`w-5 h-5 text-soft-gold transform transition-transform duration-300 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                   fill="none"
@@ -101,23 +153,27 @@ const FAQPage = () => {
                   openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <div className="p-6 pt-0 border-t border-gray-100">
-                  <p className="text-medium-gray">{faq.answer}</p>
+                <div className="p-6 pt-0 border-t border-soft-gold/20">
+                  <p className="text-cream">{faq.answer}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <h2 className="text-2xl font-bold text-dark-maroon mb-4">Still have questions?</h2>
-          <p className="text-medium-gray mb-8">
-            Don't hesitate to reach out to us directly for more information about our services.
+        <div className="mt-16 text-center bg-forest-green/10 rounded-xl p-8">
+          <h2 className="text-2xl font-bold text-forest-green mb-4 font-serif">Still Have Questions?</h2>
+          <p className="text-cream mb-8">
+            Call or WhatsApp:<br />
+            <span className="text-soft-gold text-xl font-bold">+91 79849 41331</span>
+          </p>
+          <p className="text-cream mb-8">
+            We would be happy to help you plan your special event.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
               href="/booking" 
-              className="bg-dark-maroon text-white px-8 py-4 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
+              className="bg-soft-gold text-forest-green px-8 py-4 rounded-xl font-bold hover:bg-forest-green hover:text-soft-gold transition-colors"
             >
               Book Now
             </Link>
@@ -125,7 +181,7 @@ const FAQPage = () => {
               href="https://wa.me/7984941331" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
+              className="bg-transparent border-2 border-soft-gold text-soft-gold px-8 py-4 rounded-xl font-bold hover:bg-soft-gold hover:text-forest-green transition-colors"
             >
               WhatsApp Us
             </Link>
