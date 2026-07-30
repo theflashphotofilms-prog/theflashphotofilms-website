@@ -22,18 +22,14 @@ export default function DiscountRegistration() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [couponCode, setCouponCode] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(true);
 
   useEffect(() => {
-    // Check if user has already registered in the past 3 months
-    const registrationData = localStorage.getItem('discountRegistration');
-    if (registrationData) {
-      const { timestamp } = JSON.parse(registrationData);
-      const threeMonthsAgo = new Date();
-      threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-      
-      if (new Date(timestamp) > threeMonthsAgo) {
-        setIsRegistered(true);
-      }
+    // Check if user has already registered in localStorage
+    const hasRegistered = localStorage.getItem('discountRegistered');
+    if (hasRegistered === 'true') {
+      setShowForm(false);
+      setIsRegistered(true);
     }
   }, []);
 
@@ -66,9 +62,6 @@ export default function DiscountRegistration() {
         timestamp: new Date().toISOString(),
       };
 
-      // Store in localStorage to prevent multiple submissions
-      localStorage.setItem('discountRegistration', JSON.stringify(userData));
-
       // Send data to Google Sheets via API route
       const response = await fetch('/api/discount-registration', {
         method: 'POST',
@@ -91,8 +84,12 @@ export default function DiscountRegistration() {
       console.log('Registration successful:', result);
       setCouponCode(result.couponCode);
 
-      // Mark as registered
+      // Mark as registered in localStorage
+      localStorage.setItem('discountRegistered', 'true');
+
+      // Mark as registered and hide form
       setIsRegistered(true);
+      setShowForm(false);
 
       // Redirect to thank you page after a short delay
       setTimeout(() => {
@@ -101,12 +98,27 @@ export default function DiscountRegistration() {
     } catch (err: any) {
       console.error('Registration error:', err);
       setError(err.message || 'An error occurred during registration');
+      
+      // If the error is about duplicate registration, also set the localStorage flag
+      if (err.message && (err.message.includes('already have') || err.message.includes('duplicate'))) {
+        localStorage.setItem('discountRegistered', 'true');
+        setShowForm(false);
+        setIsRegistered(true);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (isRegistered) {
+  const handleReset = () => {
+    // Remove the localStorage flag to allow re-registration
+    localStorage.removeItem('discountRegistered');
+    setShowForm(true);
+    setIsRegistered(false);
+    setError(null);
+  };
+
+  if (!showForm) {
     return (
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-soft-gold/10">
@@ -114,20 +126,17 @@ export default function DiscountRegistration() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-forest-green mt-4">Congratulations!</h3>
+        <h3 className="text-2xl font-bold text-forest-green mt-4">Thank You!</h3>
         <p className="mt-2 text-medium-gray">
-          You are eligible for a <span className="font-bold text-soft-gold">10% launch discount</span> valid for 3 months.
+          Your discount coupon has already been generated. Please check your email for the coupon code and expiry date.
         </p>
-        {couponCode && (
-          <div className="mt-4 p-3 bg-forest-green/10 rounded-lg">
-            <p className="text-medium-gray text-sm">Your coupon code:</p>
-            <p className="text-lg font-bold text-soft-gold">{couponCode}</p>
-          </div>
-        )}
         <div className="mt-6">
-          <p className="text-medium-gray text-sm">
-            Your registration has been recorded. You can use the discount code at checkout.
-          </p>
+          <button
+            onClick={handleReset}
+            className="text-soft-gold hover:underline text-sm"
+          >
+            Use Different Email / Reset
+          </button>
         </div>
       </div>
     );
