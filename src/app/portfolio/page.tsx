@@ -5,27 +5,24 @@ import Link from 'next/link';
 
 export default function PortfolioPage() {
   const portfolioItems = [
-    { id: 1, title: "Royal Destination Wedding", subtitle: "Ahmedabad", caption: "Luxury destination celebration", image: "/images/portfolio/portfolio-1.jpg", category: "destination" },
-    { id: 2, title: "Traditional Gujarati Wedding", subtitle: "Surat", caption: "Cultural heritage celebration", image: "/images/portfolio/portfolio-2.jpg", category: "traditional" },
-    { id: 3, title: "Modern Beachside Ceremony", subtitle: "Goa", caption: "Contemporary beach celebration", image: "/images/portfolio/portfolio-3.jpg", category: "destination" },
-    { id: 4, title: "Intimate Garden Wedding", subtitle: "Vadodara", caption: "Romantic garden celebration", image: "/images/portfolio/portfolio-4.jpg", category: "intimate" },
+    { id: 1, title: "Royal Destination Wedding", subtitle: "Ahmedabad", caption: "Luxury destination celebration", image: "/images/portfolio/portfolio-1.jpg", category: "wedding" },
+    { id: 2, title: "Traditional Gujarati Wedding", subtitle: "Surat", caption: "Cultural heritage celebration", image: "/images/portfolio/portfolio-2.jpg", category: "wedding" },
+    { id: 3, title: "Modern Beachside Ceremony", subtitle: "Goa", caption: "Contemporary beach celebration", image: "/images/portfolio/portfolio-3.jpg", category: "wedding" },
+    { id: 4, title: "Intimate Garden Wedding", subtitle: "Vadodara", caption: "Romantic garden celebration", image: "/images/portfolio/portfolio-4.jpg", category: "wedding" },
     { id: 5, title: "Pre-Wedding Shoot", subtitle: "Udaipur", caption: "Romantic pre-wedding moments", image: "/images/portfolio/portfolio-5.jpg", category: "prewedding" },
-    { id: 6, title: "Candid Wedding Moments", subtitle: "Ahmedabad", caption: "Authentic celebration emotions", image: "/images/portfolio/portfolio-6.jpg", category: "candid" },
-    { id: 7, title: "Ceremony Highlights", subtitle: "Surat", caption: "Sacred ritual moments", image: "/images/portfolio/portfolio-7.jpg", category: "ceremony" },
-    { id: 8, title: "Reception Elegance", subtitle: "Vadodara", caption: "Grand reception celebration", image: "/images/portfolio/portfolio-8.jpg", category: "reception" },
-    { id: 9, title: "Engagement Celebration", subtitle: "Anand", caption: "Joyful engagement moments", image: "/images/portfolio/portfolio-9.jpg", category: "engagement" },
+    { id: 6, title: "Candid Wedding Moments", subtitle: "Ahmedabad", caption: "Authentic celebration emotions", image: "/images/portfolio/portfolio-6.jpg", category: "wedding" },
+    { id: 7, title: "Engagement Celebration", subtitle: "Anand", caption: "Joyful engagement moments", image: "/images/portfolio/portfolio-7.jpg", category: "engagement" },
+    { id: 8, title: "Baby Shower Joy", subtitle: "Ahmedabad", caption: "Delightful baby shower celebration", image: "/images/portfolio/portfolio-8.jpg", category: "babyshower" },
+    { id: 9, title: "Cinematic Wedding Film", subtitle: "Surat", caption: "Elegant cinematic wedding film", image: "/images/portfolio/portfolio-9.jpg", category: "films" },
   ];
 
   const categories = [
     { id: 'all', name: 'All' },
-    { id: 'candid', name: 'Candid' },
-    { id: 'traditional', name: 'Traditional' },
-    { id: 'destination', name: 'Destination' },
-    { id: 'prewedding', name: 'Pre-Wedding' },
-    { id: 'intimate', name: 'Intimate' },
-    { id: 'ceremony', name: 'Ceremony' },
-    { id: 'reception', name: 'Reception' },
+    { id: 'wedding', name: 'Wedding' },
+    { id: 'prewedding', name: 'Pre Wedding' },
     { id: 'engagement', name: 'Engagement' },
+    { id: 'babyshower', name: 'Baby Shower' },
+    { id: 'films', name: 'Films' },
   ];
 
   return (
@@ -105,20 +102,20 @@ export default function PortfolioPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Candid Moments",
-                description: "Natural, unposed photography capturing genuine emotions and interactions.",
+                title: "Wedding Moments",
+                description: "Timeless wedding photography capturing your special day with elegance.",
                 image: "/images/portfolio/collection-1.jpg",
                 count: 48
               },
               {
-                title: "Traditional Ceremonies",
-                description: "Respectful documentation of cultural rituals and heritage celebrations.",
+                title: "Pre-Wedding Stories",
+                description: "Romantic pre-wedding moments filled with love and anticipation.",
                 image: "/images/portfolio/collection-2.jpg",
                 count: 32
               },
               {
-                title: "Destination Weddings",
-                description: "Scenic location photography with breathtaking backdrops.",
+                title: "Engagement & Baby Shower",
+                description: "Joyful celebrations of life's precious milestones.",
                 image: "/images/portfolio/collection-3.jpg",
                 count: 24
               }

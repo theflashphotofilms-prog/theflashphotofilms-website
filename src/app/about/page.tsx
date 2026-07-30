@@ -92,21 +92,72 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Our Philosophy Section */}
-      <div className="py-20">
+      {/* Through My Lens Section */}
+      <div className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block bg-forest-green text-soft-gold px-4 py-1 rounded-full text-sm font-bold mb-6 border border-soft-gold">
-            OUR PHILOSOPHY
-          </span>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-ivory mb-8">
-            Crafting Emotional Narratives
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-forest-green mb-4">
+            Through My Lens
           </h2>
-          <p className="text-xl text-cream max-w-4xl mx-auto">
-            We believe every wedding is a once-in-a-lifetime story. Our vision is to preserve emotions, 
-            traditions, and moments that become treasured family memories for generations. At The Flash Photofilms, 
-            we specialize in luxury wedding photography and cinematic wedding films that capture the essence 
-            of your most precious day.
+          <p className="text-xl text-medium-gray max-w-3xl mx-auto mb-16">
+            A few thoughts that inspire the way I capture memories.
           </p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Note 1 */}
+            <div 
+              className="bg-yellow-100 p-6 rounded-lg shadow-lg transform rotate-1 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
+              style={{ transform: 'rotate(-1deg)' }}
+            >
+              <p className="text-lg italic mb-4">
+                "Duniya mein sirf photographer hi aisa insaan hota hai jo aapko beete hue waqt ko phir se jeene ka mauka deta hai."
+              </p>
+              <p className="text-sm font-normal">— Mohit Panchal</p>
+            </div>
+            
+            {/* Note 2 */}
+            <div 
+              className="bg-pink-100 p-6 rounded-lg shadow-lg transform -rotate-1 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
+              style={{ transform: 'rotate(2deg)' }}
+            >
+              <p className="text-lg italic mb-4">
+                "Aapki wedding mein sirf photographer hi woh shakhs hota hai jo aapko aapki poori shaadi dobara dikha sakta hai."
+              </p>
+              <p className="text-sm font-normal">— Mohit Panchal</p>
+            </div>
+            
+            {/* Note 3 */}
+            <div 
+              className="bg-blue-100 p-6 rounded-lg shadow-lg transform rotate-2 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
+              style={{ transform: 'rotate(-2deg)' }}
+            >
+              <p className="text-lg italic mb-4">
+                "Zindagi dobara nahi milti. Isliye har khoobsurat pal ko camera mein qaid kar lo. Kya pata kal inhi yaadon ko dekhkar phir se jeene ka mann kar jaaye."
+              </p>
+              <p className="text-sm font-normal">— Mohit Panchal</p>
+            </div>
+            
+            {/* Note 4 */}
+            <div 
+              className="bg-green-100 p-6 rounded-lg shadow-lg transform -rotate-2 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
+              style={{ transform: 'rotate(1deg)' }}
+            >
+              <p className="text-lg italic mb-4">
+                "Camera bhi zindagi ka ek sabak sikhata hai — negative cheezon ko delete karo aur achhi yaadon ko hamesha save rakho."
+              </p>
+              <p className="text-sm font-normal">— Mohit Panchal</p>
+            </div>
+            
+            {/* Note 5 */}
+            <div 
+              className="bg-orange-100 p-6 rounded-lg shadow-lg transform rotate-1 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif col-span-2 lg:col-span-1"
+              style={{ transform: 'rotate(-1deg)' }}
+            >
+              <p className="text-lg italic mb-4">
+                "Photography sirf ek art nahi hai. Jab aap photography karte ho, tab aap lamhon ko sirf camera mein nahi, balki apni yaadon mein bhi hamesha ke liye qaid kar lete ho."
+              </p>
+              <p className="text-sm font-normal">— Mohit Panchal</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -146,18 +197,6 @@ export default function AboutPage() {
                 <p className="text-cream">{service.description}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Client Relationship Section */}
-      <div className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-soft-gold text-center">More Than Just a Service</h2>
-            <p className="text-lg text-cream leading-relaxed max-w-4xl mx-auto">
-              At The Flash Photofilms, we don't simply photograph weddings – we build relationships. Our clients aren't just customers; they become part of our extended family. This personal connection allows us to capture authentic emotions and create images that resonate deeply with your unique story.
-            </p>
           </div>
         </div>
       </div>
@@ -213,26 +252,6 @@ export default function AboutPage() {
               <div className="text-xl text-ivory">Coverage</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Closing Message */}
-      <div className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-ivory mb-6">
-            Capturing Your Timeless Story
-          </h2>
-          <p className="text-xl text-cream mb-10 max-w-3xl mx-auto">
-            Every click of our shutter is a testament to Mohit's journey from a mechanical engineer to 
-            Gujarat's premier Wedding Photographer. When you choose The Flash Photofilms, you're not just 
-            hiring a Wedding Photography service – you're partnering with someone who understands that 
-            your wedding day deserves to be preserved with the same passion, dedication, and artistry 
-            that built our brand.
-          </p>
-          <p className="text-xl text-soft-gold italic">
-            "Photography is a way of feeling, of touching, of loving. What you have caught on film is captured forever… 
-            It remembers little things, long after you have forgotten everything." - Mohamed A. Said
-          </p>
         </div>
       </div>
 

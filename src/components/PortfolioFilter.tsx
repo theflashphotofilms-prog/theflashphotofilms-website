@@ -12,9 +12,10 @@ const PortfolioFilter = ({ onFilterChange }: PortfolioFilterProps) => {
   const filters = [
     { id: 'all', label: 'All' },
     { id: 'wedding', label: 'Wedding' },
-    { id: 'portrait', label: 'Portrait' },
-    { id: 'event', label: 'Event' },
-    { id: 'commercial', label: 'Commercial' },
+    { id: 'prewedding', label: 'Pre Wedding' },
+    { id: 'engagement', label: 'Engagement' },
+    { id: 'babyshower', label: 'Baby Shower' },
+    { id: 'films', label: 'Films' },
   ];
 
   const handleFilterClick = (filter: string) => {
