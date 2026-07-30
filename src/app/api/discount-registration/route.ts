@@ -8,6 +8,52 @@ function generateCouponCode(): string {
   return `FLASH10-${randomNumbers}`;
 }
 
+// Helper function to check if email or phone already exists in Google Sheets
+async function checkExistingRegistration(email: string, phone: string): Promise<{exists: boolean, couponCode?: string}> {
+  try {
+    // Check if Google Apps Script URL is configured
+    if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
+      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Cannot check existing registrations.');
+      // In case of misconfiguration, we'll proceed with registration to avoid blocking users
+      return { exists: false };
+    }
+
+    // Call Google Apps Script to query existing registrations
+    const response = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'query_discount_registrations',
+        email: email,
+        phone: phone
+      })
+    });
+
+    if (!response.ok) {
+      console.error('Error querying Google Sheets for existing registration:', await response.text());
+      // In case of query failure, we'll proceed with registration to avoid blocking users
+      return { exists: false };
+    }
+
+    const result = await response.json();
+    
+    if (result && result.exists) {
+      return { 
+        exists: true, 
+        couponCode: result.couponCode 
+      };
+    }
+    
+    return { exists: false };
+  } catch (error) {
+    console.error('Error checking existing registration:', error);
+    // In case of error, we'll proceed with registration to avoid blocking users
+    return { exists: false };
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     console.log('Discount registration received');
@@ -56,7 +102,7 @@ export async function POST(req: NextRequest) {
       // Return existing coupon information
       return NextResponse.json(
         { 
-          message: 'You already have a FLASH10 coupon.',
+          message: 'You already have your discount coupon. Please check your email.',
           couponCode: existingData.couponCode 
         },
         { status: 200 }
@@ -71,52 +117,49 @@ export async function POST(req: NextRequest) {
     const expiresAt = new Date(now);
     expiresAt.setMonth(expiresAt.getMonth() + 3); // 3 months from now
 
+    console.log('Sending to Google Sheets');
+    // Send data to Google Apps Script Web App for Google Sheets storage
+    const googleSheetsResponse = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sheetType: 'discount_leads',
+        name: name,
+        email: email,
+        phone: phone,
+        couponCode: couponCode,
+        dateCreated: new Date().toISOString(),
+        expiresAt: expiresAt.toISOString()
+      })
+    });
 
-    // Check if Google Apps Script URL is configured
-    if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
-      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Discount registration data will not be saved to Google Sheets.');
-    } else {
-      console.log('Sending to Google Sheets');
-      // Send data to Google Apps Script Web App for Google Sheets storage
-      const googleSheetsResponse = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sheetType: 'discount_leads',
-          name: name,
-          email: email,
-          phone: phone,
-          couponCode: couponCode,
-          dateCreated: new Date().toISOString(),
-          expiresAt: expiresAt.toISOString()
-        })
-      });
-
-      if (!googleSheetsResponse.ok) {
-        // Safely handle response that might be HTML instead of JSON
-        const contentType = googleSheetsResponse.headers.get('content-type');
-        let errorData;
-        
-        if (contentType && contentType.includes('application/json')) {
-          errorData = await googleSheetsResponse.json();
-        } else {
-          // If not JSON, get the text content (likely HTML error page)
-          const errorText = await googleSheetsResponse.text();
-          errorData = { 
-            status: googleSheetsResponse.status,
-            statusText: googleSheetsResponse.statusText,
-            body: errorText 
-          };
-        }
-        
-        console.error('Error saving to Google Sheets:', errorData);
-        // Don't expose the actual error to the user, but log it server-side
+    if (!googleSheetsResponse.ok) {
+      // Safely handle response that might be HTML instead of JSON
+      const contentType = googleSheetsResponse.headers.get('content-type');
+      let errorData;
+      
+      if (contentType && contentType.includes('application/json')) {
+        errorData = await googleSheetsResponse.json();
       } else {
-        console.log('Google Sheets save completed');
+        // If not JSON, get the text content (likely HTML error page)
+        const errorText = await googleSheetsResponse.text();
+        errorData = { 
+          status: googleSheetsResponse.status,
+          statusText: googleSheetsResponse.statusText,
+          body: errorText 
+        };
       }
+      
+      console.error('Error saving to Google Sheets:', errorData);
+      // Don't expose the actual error to the user, but log it server-side
+    } else {
+      console.log('Google Sheets save completed');
     }
+
+    // Calculate expiry date in DD-MM-YYYY format for email
+    const formattedExpiryDate = expiresAt.toLocaleDateString('en-GB'); // Format: DD/MM/YYYY -> DD-MM-YYYY
 
     // Create HTML email content for admin notification
     const adminHtmlContent = `
@@ -153,6 +196,7 @@ export async function POST(req: NextRequest) {
             <div class="coupon-section">
               <h3>Generated Coupon Code</h3>
               <div class="field"><strong>Coupon Code:</strong> <span style="font-size: 1.2em; font-weight: bold; color: #D2A97F;">${couponCode}</span></div>
+              <div class="field"><strong>Expires:</strong> ${formattedExpiryDate}</div>
               <p>This customer is eligible for a 10% discount on their booking.</p>
             </div>
           </div>
@@ -196,10 +240,13 @@ export async function POST(req: NextRequest) {
             <div class="coupon-section">
               <h3>Your Coupon Code</h3>
               <div class="field"><strong>Coupon Code:</strong> <span style="font-size: 1.2em; font-weight: bold; color: #D2A97F;">${couponCode}</span></div>
-              <p>Save 10% on your next booking with us! This code is valid for 90 days from today.</p>
+              <div class="field"><strong>Valid till:</strong> <span style="font-size: 1.1em; font-weight: bold;">${formattedExpiryDate}</span></div>
+              <p style="font-size: 1.1em; font-weight: bold; color: #D2A97F;">Your exclusive discount coupon is ${couponCode}. Valid till: ${formattedExpiryDate}</p>
+              <p>Save 10% on your next booking with us! Simply enter this code during the booking process to receive your discount.</p>
             </div>
             
-            <p>Simply enter this code during the booking process to receive your discount.</p>
+            <p><a href="/booking" style="display: inline-block; padding: 12px 24px; background-color: #1E3525; color: white; text-decoration: none; border-radius: 4px; margin-top: 10px;">Book Your Event Now</a></p>
+            
             <p>We look forward to capturing your beautiful memories!</p>
           </div>
           <div class="footer">
@@ -264,15 +311,4 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-// Helper function to check if email or phone already exists in Google Sheets
-async function checkExistingRegistration(email: string, phone: string): Promise<{exists: boolean, couponCode?: string}> {
-  // Since we can't query Google Sheets directly with fetch, we'll return false
-  // In a real scenario, you'd need a separate Google Apps Script endpoint to query data
-  // For now, we'll skip the duplicate check and rely on the Google Sheets script to handle it
-  // Or you could maintain a simple in-memory cache for recent registrations
-  
-  // For now, return false to allow registration
-  return { exists: false };
 }

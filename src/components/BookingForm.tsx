@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 
 interface FormData {
   fullName: string;
@@ -12,24 +12,18 @@ interface FormData {
   eventType: string;
   eventDate: string;
   package: string;
-  couponCode: string;
   notes: string;
   consent: boolean;
 }
 
 const BookingForm = () => {
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors }, watch, setValue, reset } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormData>();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [couponValid, setCouponValid] = useState<boolean | null>(null);
-  const [discountAmount, setDiscountAmount] = useState<number | null>(null);
-  const [validationMessage, setValidationMessage] = useState('');
-  const [finalPrice, setFinalPrice] = useState<number | null>(null);
 
   const watchedEventType = watch('eventType');
   const watchedPackage = watch('package');
-  const watchedCouponCode = watch('couponCode');
 
   // Define packages by category
   const packagesByCategory: Record<string, Array<{name: string, price: number}>> = {
@@ -73,56 +67,6 @@ const BookingForm = () => {
 
   const currentPrice = selectedPackage?.price || 0;
 
-  // Validate coupon code when user stops typing
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (watchedCouponCode && watchedCouponCode.length > 0) {
-        validateCoupon(watchedCouponCode);
-      } else {
-        setCouponValid(null);
-        setDiscountAmount(null);
-        setValidationMessage('');
-        setFinalPrice(currentPrice || null);
-      }
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [watchedCouponCode, watchedPackage, currentPrice]);
-
-  const validateCoupon = async (code: string) => {
-    try {
-      const response = await fetch('/api/coupon-validation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ couponCode: code, action: 'validate' }),
-      });
-
-      const data = await response.json();
-
-      if (data.valid) {
-        setCouponValid(true);
-        setValidationMessage(`✓ FLASH10 Coupon Applied - 10% Discount Unlocked`);
-        
-        const originalPrice = currentPrice || 0;
-        const discount = originalPrice * (data.discount / 100);
-        setDiscountAmount(discount);
-        setFinalPrice(originalPrice - discount);
-      } else {
-        setCouponValid(false);
-        setValidationMessage(data.error || 'Invalid or expired coupon code');
-        setDiscountAmount(null);
-        setFinalPrice(currentPrice || null);
-      }
-    } catch (error) {
-      console.error('Error validating coupon:', error);
-      setCouponValid(false);
-      setValidationMessage('Error validating coupon. Please try again.');
-      setDiscountAmount(null);
-      setFinalPrice(currentPrice || null);
-    }
-  };
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsSubmitting(true);
@@ -133,13 +77,10 @@ const BookingForm = () => {
         pkg => pkg.name === data.package
       );
       
-      // Prepare booking data with price info
+      // Prepare booking data without coupon validation
       const bookingData = {
         ...data,
         originalPrice: selectedPackageForSubmission?.price || 0,
-        discountApplied: discountAmount,
-        finalPrice: finalPrice,
-        couponValid: couponValid,
       };
 
       // Send data to booking API
@@ -316,56 +257,6 @@ const BookingForm = () => {
           </div>
         </div>
 
-        <div>
-          <label htmlFor="couponCode" className="block text-medium-gray mb-2">
-            Coupon Code
-          </label>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              id="couponCode"
-              {...register('couponCode')}
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-soft-gold focus:border-forest-green focus:outline-none transition-colors bg-white text-black placeholder:text-gray-500"
-              placeholder="Enter FLASH10-XXXX"
-            />
-            {couponValid !== null && (
-              <div className={`flex items-center px-3 rounded-lg ${
-                couponValid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
-                {couponValid ? <FaCheck className="mr-1" /> : <FaTimes className="mr-1" />}
-                {couponValid ? 'Valid' : 'Invalid'}
-              </div>
-            )}
-          </div>
-          {validationMessage && (
-            <p className={`mt-1 text-sm ${
-              couponValid ? 'text-green-600' : 'text-red-500'
-            }`}>
-              {validationMessage}
-            </p>
-          )}
-          
-          {(originalPrice > 0 || finalPrice !== null) && (
-            <div className="mt-2 p-3 bg-gray-50 rounded-lg">
-              <div className="flex justify-between">
-                <span>Original Price:</span>
-                <span className="font-medium">₹{originalPrice.toLocaleString()}</span>
-              </div>
-              {discountAmount && discountAmount > 0 && (
-                <div className="flex justify-between text-green-600">
-                  <span>Discount:</span>
-                  <span>-₹{discountAmount.toLocaleString()}</span>
-                </div>
-              )}
-              {finalPrice !== null && (
-                <div className="flex justify-between font-bold mt-1 pt-1 border-t border-gray-200">
-                  <span>Final Price:</span>
-                  <span>₹{finalPrice.toLocaleString()}</span>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
 
         <div>
           <label htmlFor="notes" className="block text-medium-gray mb-2">

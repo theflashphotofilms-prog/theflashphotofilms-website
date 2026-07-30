@@ -11,12 +11,8 @@ export async function POST(req: NextRequest) {
       eventType, 
       eventDate, 
       package: pkg, 
-      couponCode, 
       notes,
-      originalPrice,
-      discountApplied,
-      finalPrice,
-      couponValid
+      originalPrice
     } = body;
 
     // Validate required fields
@@ -45,19 +41,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // If a coupon code is provided, validate it again server-side and mark as used
-    let updatedCouponValid = couponValid;
-    if (couponCode) {
-      const couponValidationResult = await useCoupon(couponCode);
-      if (!couponValidationResult.valid) {
-        return NextResponse.json(
-          { error: couponValidationResult.errorMessage },
-          { status: 400 }
-        );
-      }
-      updatedCouponValid = true;
-    }
-
     // Check if Google Apps Script URL is configured
     if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
       console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Booking data will not be saved to Google Sheets.');
@@ -77,12 +60,8 @@ export async function POST(req: NextRequest) {
           eventType: eventType,
           eventDate: eventDate,
           package: pkg,
-          couponCode: couponCode || 'N/A',
           notes: notes || 'N/A',
           originalPrice: originalPrice || 0,
-          discountApplied: discountApplied || 0,
-          finalPrice: finalPrice || 0,
-          couponValid: updatedCouponValid,
           timestamp: new Date().toISOString()
         })
       });
@@ -144,15 +123,11 @@ export async function POST(req: NextRequest) {
             <div class="field"><strong>Event Type:</strong> ${eventType}</div>
             <div class="field"><strong>Event Date:</strong> ${new Date(eventDate).toLocaleDateString()}</div>
             <div class="field"><strong>Package:</strong> ${pkg}</div>
-            <div class="field"><strong>Coupon Code:</strong> ${couponCode || 'N/A'}</div>
             <div class="field"><strong>Notes:</strong> ${notes || 'N/A'}</div>
             
             <div class="price-summary">
               <h3>Price Summary</h3>
               <div class="field"><strong>Original Price:</strong> ₹${(originalPrice || 0).toLocaleString()}</div>
-              <div class="field"><strong>Discount Applied:</strong> ₹${(discountApplied || 0).toLocaleString()}</div>
-              <div class="field"><strong>Final Price:</strong> ₹${(finalPrice || 0).toLocaleString()}</div>
-              <div class="field"><strong>Coupon Valid:</strong> ${updatedCouponValid ? 'Yes' : 'No'}</div>
             </div>
           </div>
           <div class="footer">
@@ -201,58 +176,5 @@ export async function POST(req: NextRequest) {
       { error: 'Internal server error' },
       { status: 500 }
     );
-  }
-}
-
-// Helper function to validate and mark coupon as used in Google Sheets
-async function useCoupon(couponCode: string) {
-  try {
-    // First validate the coupon format
-    if (!couponCode || !couponCode.startsWith('FLASH10-')) {
-      return {
-        valid: false,
-        errorMessage: 'Invalid coupon code format. Must be FLASH10-XXXX'
-      };
-    }
-
-    // Call the coupon validation API with 'use' action to validate and mark as used
-    try {
-      const useResponse = await fetch('/api/coupon-validation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          couponCode: couponCode, 
-          action: 'use' 
-        }),
-      });
-
-      const useData = await useResponse.json();
-
-      if (!useResponse.ok || !useData.valid) {
-        return {
-          valid: false,
-          errorMessage: useData.error || 'Invalid or expired coupon code'
-        };
-      }
-
-      return {
-        valid: true,
-        errorMessage: null
-      };
-    } catch (useError) {
-      console.error('Error using coupon:', useError);
-      return {
-        valid: false,
-        errorMessage: 'Error processing coupon. Please try again.'
-      };
-    }
-  } catch (error) {
-    console.error('Error validating coupon:', error);
-    return {
-      valid: false,
-      errorMessage: 'Error validating coupon'
-    };
   }
 }

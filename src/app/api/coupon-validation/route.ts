@@ -14,27 +14,121 @@ function isValidMobile(mobile: string): boolean {
 
 // Helper function to check if email or phone already exists in Google Sheets
 async function checkExistingRegistrationInSheets(email: string, mobile: string): Promise<{exists: boolean, couponCode?: string}> {
-  // Since we can't query Google Sheets directly with fetch in a simple way, we'll return false
-  // In a real implementation, you would need a dedicated Google Apps Script endpoint to query data
-  // For now, we'll return false to allow registration
-  return { exists: false };
+  try {
+    // Check if Google Apps Script URL is configured
+    if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
+      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Cannot check existing registrations.');
+      // In case of misconfiguration, we'll proceed with registration to avoid blocking users
+      return { exists: false };
+    }
+
+    // Call Google Apps Script to query existing registrations
+    const response = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'query_discount_registrations',
+        email: email,
+        phone: mobile
+      })
+    });
+
+    if (!response.ok) {
+      console.error('Error querying Google Sheets for existing registration:', await response.text());
+      // In case of query failure, we'll proceed with registration to avoid blocking users
+      return { exists: false };
+    }
+
+    const result = await response.json();
+    
+    if (result && result.exists) {
+      return { 
+        exists: true, 
+        couponCode: result.couponCode 
+      };
+    }
+    
+    return { exists: false };
+  } catch (error) {
+    console.error('Error checking existing registration:', error);
+    // In case of error, we'll proceed with registration to avoid blocking users
+    return { exists: false };
+  }
 }
 
 // Helper function to get coupon data from Google Sheets
 async function getCouponFromSheets(couponCode: string): Promise<any> {
-  // Since we can't query Google Sheets directly with fetch in a simple way, we'll return null
-  // In a real implementation, you would need a dedicated Google Apps Script endpoint to query data
-  // For now, we'll return null indicating the coupon wasn't found
-  return null;
+  try {
+    // Check if Google Apps Script URL is configured
+    if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
+      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Cannot validate coupon.');
+      return null;
+    }
+
+    // Call Google Apps Script to query coupon details
+    const response = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'query_coupon',
+        couponCode: couponCode
+      })
+    });
+
+    if (!response.ok) {
+      console.error('Error querying Google Sheets for coupon:', await response.text());
+      return null;
+    }
+
+    const result = await response.json();
+    
+    if (result && result.coupon) {
+      return result.coupon;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Error getting coupon from sheets:', error);
+    return null;
+  }
 }
 
 // Helper function to update coupon as used in Google Sheets
 async function updateCouponAsUsedInSheets(couponCode: string): Promise<boolean> {
-  // In a real implementation, you would need a dedicated Google Apps Script endpoint to update data
-  // For now, we'll return true to indicate success
-  // This would involve calling your Google Apps Script with a special action to update the "used" status
-  console.log(`Would update coupon ${couponCode} as used in Google Sheets`);
-  return true;
+  try {
+    // Check if Google Apps Script URL is configured
+    if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
+      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Cannot update coupon status.');
+      return false;
+    }
+
+    // Call Google Apps Script to update coupon status
+    const response = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'update_coupon_used',
+        couponCode: couponCode
+      })
+    });
+
+    if (!response.ok) {
+      console.error('Error updating coupon as used in Google Sheets:', await response.text());
+      return false;
+    }
+
+    const result = await response.json();
+    return result.success || false;
+  } catch (error) {
+    console.error('Error updating coupon as used:', error);
+    return false;
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -78,7 +172,7 @@ export async function POST(request: NextRequest) {
       
       if (existingData.exists) {
         return Response.json(
-          { error: 'A coupon has already been issued for this email or mobile number' },
+          { error: 'You already have your discount coupon. Please check your email.' },
           { status: 409 }
         );
       }
