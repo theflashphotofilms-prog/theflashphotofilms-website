@@ -63,9 +63,9 @@ const Navbar = () => {
                 Packages
                 <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/packages' ? 'w-full' : ''}`}></span>
               </Link>
-              <Link href="/booking" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/booking' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
-                Book Now
-                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/booking' ? 'w-full' : ''}`}></span>
+              <Link href="/feedback" className={`px-3 py-2 rounded-md text-sm font-medium relative ${pathname === '/feedback' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'} group`}>
+                Feedback
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-soft-gold transition-all duration-300 group-hover:w-full ${pathname === '/feedback' ? 'w-full' : ''}`}></span>
               </Link>
               <Link href="/booking" className="ml-4 px-4 py-2 rounded-full bg-soft-gold text-forest-green text-sm font-bold hover:bg-opacity-90 transition-all duration-300">
                 Book Now
@@ -119,6 +119,9 @@ const Navbar = () => {
           </Link>
           <Link href="/packages" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/packages' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
             Packages
+          </Link>
+          <Link href="/feedback" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/feedback' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
+            Feedback
           </Link>
           <Link href="/booking" className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === '/booking' ? 'text-soft-gold' : 'text-ivory hover:text-soft-gold'}`}>
             Book Now

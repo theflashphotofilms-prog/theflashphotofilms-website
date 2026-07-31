@@ -7,6 +7,7 @@ import ClientReviews from '../components/ClientReviews';
 import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
 import LocationMap from '../components/LocationMap';
+import ClientLove from '../components/ClientLove';
 
 export const metadata: Metadata = {
   title: 'The Flash Photofilms - Professional Wedding Photography & Cinematic Films',
@@ -104,6 +105,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+        <ClientLove />
         <ClientReviews />
         <div className="py-16 bg-ivory text-forest-green">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
