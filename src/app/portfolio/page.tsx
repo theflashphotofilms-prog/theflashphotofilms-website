@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import InstagramFeed from '../../components/InstagramFeed'; // Import the new Instagram feed component
 
 export default function PortfolioPage() {
   const categories = [
@@ -87,9 +86,6 @@ export default function PortfolioPage() {
           </div>
         </div>
       </div>
-
-      {/* Instagram Feed Section */}
-      <InstagramFeed />
 
       {/* CTA Section */}
       <div className="py-20">
