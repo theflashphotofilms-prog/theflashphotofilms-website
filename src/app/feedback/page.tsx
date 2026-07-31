@@ -154,6 +154,21 @@ export default function FeedbackPage() {
                 </div>
               </div>
               
+              {/* Name */}
+              <div>
+                <label htmlFor="name" className="block text-soft-gold font-bold mb-2">Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-3 rounded-lg border border-forest-green bg-ivory text-forest-green focus:outline-none focus:ring-2 focus:ring-soft-gold"
+                  placeholder="Enter your name"
+                />
+              </div>
+              
               {/* Feedback Message */}
               <div>
                 <label htmlFor="feedbackMessage" className="block text-soft-gold font-bold mb-2">Feedback Message *</label>
