@@ -1,22 +1,48 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Helper function to check if email or phone already exists in Google Sheets
-async function checkExistingRegistration(email: string, phone: string): Promise<{exists: boolean, couponCode?: string}> {
-  // Since we can't query Google Sheets directly with fetch, we'll return false
-  // In a real scenario, you'd need a separate Google Apps Script endpoint to query data
-  // For now, we'll skip the duplicate check and rely on the Google Sheets script to handle it
-  // Or you could maintain a simple in-memory cache for recent registrations
-  
-  // For now, return false to allow registration
-  return { exists: false };
-}
+async function checkExistingRegistration(email: string, phone: string): Promise<{exists: boolean}> {
+  try {
+    // Check if Google Apps Script URL is configured
+    if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
+      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Cannot check existing registrations.');
+      // In case of misconfiguration, we'll proceed with registration to avoid blocking users
+      return { exists: false };
+    }
 
-// Helper function to generate a unique coupon code
-function generateCouponCode(): string {
-  const array = new Uint32Array(1);
-  crypto.getRandomValues(array);
-  const randomNumbers = (array[0] % 9000) + 1000; // Generate 4 random digits
-  return `FLASH10-${randomNumbers}`;
+    // Call Google Apps Script to query existing registrations
+    const response = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'get_registration_by_email_or_phone',
+        email: email,
+        phone: phone
+      })
+    });
+
+    if (!response.ok) {
+      console.error('Error querying Google Sheets for existing registration:', await response.text());
+      // In case of query failure, we'll proceed with registration to avoid blocking users
+      return { exists: false };
+    }
+
+    const result = await response.json();
+    
+    if (result && result.exists) {
+      return { 
+        exists: true
+      };
+    }
+    
+    return { exists: false };
+  } catch (error) {
+    console.error('Error checking existing registration:', error);
+    // In case of error, we'll proceed with registration to avoid blocking users
+    return { exists: false };
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -51,7 +77,7 @@ export async function POST(request: NextRequest) {
 
     // Check if Google Apps Script URL is configured
     if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
-      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Discount registration data will not be saved to Google Sheets.');
+      console.error('GOOGLE_APPS_SCRIPT_URL is not configured. Registration data will not be saved to Google Sheets.');
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 }
@@ -62,23 +88,19 @@ export async function POST(request: NextRequest) {
     const existingData = await checkExistingRegistration(email, phone);
     
     if (existingData.exists) {
-      // Return existing coupon information
+      // Return duplicate registration response
       return NextResponse.json(
         { 
-          message: 'You already have a FLASH10 coupon.',
-          couponCode: existingData.couponCode 
+          success: false,
+          duplicate: true,
+          message: 'You have already registered with us using this email address or phone number.'
         },
         { status: 200 }
       );
     }
 
-    // Generate unique coupon code
-    const couponCode = generateCouponCode();
-    
-    // Calculate expiry date (3 months from now)
-    const now = new Date();
-    const expiresAt = new Date(now);
-    expiresAt.setMonth(expiresAt.getMonth() + 3); // 3 months from now
+    // Calculate registration date
+    const registrationDate = new Date().toISOString();
 
     // Send data to Google Apps Script Web App for Google Sheets storage
     const googleSheetsResponse = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
@@ -91,15 +113,27 @@ export async function POST(request: NextRequest) {
         name: name,
         email: email,
         phone: phone,
-        couponCode: couponCode,
-        dateCreated: new Date().toISOString(),
-        expiresAt: expiresAt.toISOString(),
-        used: false
+        registrationDate: registrationDate
       })
     });
 
     if (!googleSheetsResponse.ok) {
-      const errorData = await googleSheetsResponse.json();
+      // Safely handle response that might be HTML instead of JSON
+      const contentType = googleSheetsResponse.headers.get('content-type');
+      let errorData;
+      
+      if (contentType && contentType.includes('application/json')) {
+        errorData = await googleSheetsResponse.json();
+      } else {
+        // If not JSON, get the text content (likely HTML error page)
+        const errorText = await googleSheetsResponse.text();
+        errorData = { 
+          status: googleSheetsResponse.status,
+          statusText: googleSheetsResponse.statusText,
+          body: errorText 
+        };
+      }
+      
       console.error('Error saving to Google Sheets:', errorData);
       return NextResponse.json(
         { error: 'Failed to save registration data' },
@@ -107,92 +141,63 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create HTML email content for admin notification
-    const adminHtmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .header { background-color: #1E3525; padding: 20px; text-align: center; }
-            .header h2 { color: #D2A97F; margin: 0; }
-            .content { padding: 20px; }
-            .field { margin-bottom: 15px; }
-            .field strong { color: #1E3525; display: inline-block; width: 150px; }
-            .coupon-section { 
-              background-color: #f9f9f9; 
-              padding: 15px; 
-              border-radius: 5px; 
-              margin: 15px 0; 
-              border-left: 4px solid #D2A97F;
-            }
-            .footer { background-color: #1E3525; padding: 10px; text-align: center; color: #D2A97F; }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <h2>New Discount Registration</h2>
-          </div>
-          <div class="content">
-            <div class="field"><strong>Name:</strong> ${name}</div>
-            <div class="field"><strong>Email:</strong> ${email}</div>
-            <div class="field"><strong>Phone:</strong> ${phone}</div>
-            <div class="field"><strong>Date Created:</strong> ${new Date().toLocaleString()}</div>
-            
-            <div class="coupon-section">
-              <h3>Generated Coupon Code</h3>
-              <div class="field"><strong>Coupon Code:</strong> <span style="font-size: 1.2em; font-weight: bold; color: #D2A97F;">${couponCode}</span></div>
-              <p>This customer is eligible for a 10% discount on their booking.</p>
-            </div>
-          </div>
-          <div class="footer">
-            <p>Discount Registration - The Flash Photofilms</p>
-          </div>
-        </body>
-      </html>
-    `;
-
     // Create HTML email content for customer notification
     const customerHtmlContent = `
       <!DOCTYPE html>
       <html>
         <head>
           <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .header { background-color: #1E3525; padding: 20px; text-align: center; }
-            .header h2 { color: #D2A97F; margin: 0; }
-            .content { padding: 20px; }
-            .field { margin-bottom: 15px; }
-            .field strong { color: #1E3525; display: inline-block; width: 150px; }
-            .coupon-section { 
-              background-color: #f9f9f9; 
-              padding: 15px; 
-              border-radius: 5px; 
-              margin: 15px 0; 
-              border-left: 4px solid #D2A97F;
+            body { 
+              font-family: Arial, sans-serif; 
+              line-height: 1.6; 
+              color: #333; 
+              background-color: #ffffff;
+              margin: 0;
+              padding: 20px;
             }
-            .footer { background-color: #1E3525; padding: 10px; text-align: center; color: #D2A97F; }
+            .container {
+              max-width: 600px;
+              margin: 0 auto;
+              background-color: #ffffff;
+              padding: 20px;
+              border: 1px solid #eaeaea;
+              border-radius: 4px;
+            }
+            .header {
+              text-align: left;
+              margin-bottom: 20px;
+            }
+            .content {
+              padding: 0;
+            }
+            .footer {
+              margin-top: 20px;
+              padding-top: 10px;
+              border-top: 1px solid #eee;
+              text-align: left;
+              font-size: 14px;
+              color: #666;
+            }
           </style>
         </head>
         <body>
-          <div class="header">
-            <h2>Your Exclusive Discount</h2>
-          </div>
-          <div class="content">
-            <p>Dear ${name},</p>
-            <p>Thank you for registering with The Flash Photofilms! We're excited to offer you an exclusive discount on your booking.</p>
-            
-            <div class="coupon-section">
-              <h3>Your Coupon Code</h3>
-              <div class="field"><strong>Coupon Code:</strong> <span style="font-size: 1.2em; font-weight: bold; color: #D2A97F;">${couponCode}</span></div>
-              <p>Save 10% on your next booking with us! This code is valid for 90 days from today.</p>
+          <div class="container">
+            <div class="header">
+              <h2>Registration Confirmation</h2>
             </div>
-            
-            <p>Simply enter this code during the booking process to receive your discount.</p>
-            <p>We look forward to capturing your beautiful memories!</p>
-          </div>
-          <div class="footer">
-            <p>The Flash Photofilms Team</p>
+            <div class="content">
+              <p>Hello ${name},</p>
+              <p>Thank you for registering with The Flash Photofilms.</p>
+              
+              <p>Your registration has been received successfully.</p>
+              
+              <p>If you make your first online booking within 30 days, you may be eligible for a 10% discount. Eligibility will be verified using your registered email address and phone number.</p>
+              
+              <p>If you have any questions, please contact us.</p>
+            </div>
+            <div class="footer">
+              <p>Regards,<br>The Flash Photofilms</p>
+            </div>
           </div>
         </body>
       </html>
@@ -200,6 +205,7 @@ export async function POST(request: NextRequest) {
 
     // Send email notifications
     if (process.env.EMAIL_USER && process.env.EMAIL_APP_PASSWORD) {
+      console.log('Creating transporter');
       const nodemailer = await import('nodemailer');
       const transporter = nodemailer.default.createTransport({
         service: 'gmail',
@@ -209,39 +215,46 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // Send notification to admin
-      const adminMailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.DISCOUNT_EMAIL_RECIPIENT || 'theflashphotofilms@gmail.com',
-        subject: `New Discount Registration - ${name}`,
-        html: adminHtmlContent,
-      };
+      // Verify transporter configuration
+      console.log('Transporter created, attempting verification...');
+      try {
+        await transporter.verify();
+        console.log('Transporter verification successful - SMTP connection OK');
+      } catch (verifyError) {
+        console.error('Transporter verification failed:', verifyError);
+      }
 
-      await transporter.sendMail(adminMailOptions);
-
-      // Send coupon code to customer
+      // Send welcome email to customer
       const customerMailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Your Exclusive 10% Discount - The Flash Photofilms',
+        replyTo: process.env.EMAIL_USER,
+        subject: 'Registration Confirmation',
         html: customerHtmlContent,
       };
 
-      await transporter.sendMail(customerMailOptions);
+      console.log('Sending email to:', email);
+      console.log('From:', process.env.EMAIL_USER);
+      
+      const info = await transporter.sendMail(customerMailOptions);
+
+      console.log('Message ID:', info.messageId);
+      console.log('Accepted:', info.accepted);
+      console.log('Rejected:', info.rejected);
+      console.log('Response:', info.response);
     } else {
       console.warn('Email credentials not configured, skipping email notifications');
     }
 
     // Return success response
     return NextResponse.json({ 
-      message: 'Registration successful', 
-      couponCode: couponCode,
-      discountEligibility: 'You are eligible for a 10% launch discount valid for 3 months.'
+      success: true,
+      message: 'Registration successful!'
     });
   } catch (error: any) {
-    console.error('Error registering for discount:', error);
+    console.error('Error processing registration:', error);
     return NextResponse.json(
-      { error: 'Failed to register for discount' },
+      { error: 'Failed to register' },
       { status: 500 }
     );
   }

@@ -5,6 +5,7 @@ import Services from '../components/Services';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
+import LocationMap from '../components/LocationMap';
 import SEO from '../components/SEO';
 import DiscountPopup from '../components/DiscountPopup';
 
@@ -122,6 +123,7 @@ export default function HomePage() {
         </div>
         <FAQ />
         <ContactSection />
+        <LocationMap />
       </main>
       {/* Discount Popup */}
       <DiscountPopup />

@@ -29,7 +29,7 @@ async function checkExistingRegistrationInSheets(email: string, mobile: string):
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        action: 'query_discount_registrations',
+        action: 'get_registration_by_email_or_phone',
         email: email,
         phone: mobile
       })
@@ -135,86 +135,7 @@ export async function POST(request: NextRequest) {
   try {
     const { name, email, mobile, action, couponCode } = await request.json();
 
-    if (action === 'create') {
-      // Validate inputs
-      if (!name || !email || !mobile) {
-        return Response.json(
-          { error: 'Name, email, and mobile number are required' },
-          { status: 400 }
-        );
-      }
-
-      if (!isValidEmail(email)) {
-        return Response.json(
-          { error: 'Invalid email format' },
-          { status: 400 }
-        );
-      }
-
-      if (!isValidMobile(mobile)) {
-        return Response.json(
-          { error: 'Invalid mobile number format' },
-          { status: 400 }
-        );
-      }
-
-      // Check if Google Apps Script URL is configured
-      if (!process.env.GOOGLE_APPS_SCRIPT_URL) {
-        console.error('GOOGLE_APPS_SCRIPT_URL is not configured.');
-        return Response.json(
-          { error: 'Server configuration error' },
-          { status: 500 }
-        );
-      }
-
-      // Check if email or mobile already exists in Google Sheets
-      const existingData = await checkExistingRegistrationInSheets(email, mobile);
-      
-      if (existingData.exists) {
-        return Response.json(
-          { error: 'You already have your discount coupon. Please check your email.' },
-          { status: 409 }
-        );
-      }
-
-      // Generate new coupon code
-      const newCouponCode = `FLASH10-${Math.floor(1000 + Math.random() * 9000)}`;
-      const now = new Date();
-      const expiresAt = new Date(now);
-      expiresAt.setDate(expiresAt.getDate() + 90); // 90 days from now
-
-      // Store the new registration in Google Sheets
-      const googleSheetsResponse = await fetch(`${process.env.GOOGLE_APPS_SCRIPT_URL}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sheetType: 'discount_leads',
-          name: name,
-          email: email,
-          phone: mobile,
-          couponCode: newCouponCode,
-          dateCreated: new Date().toISOString(),
-          expiresAt: expiresAt.toISOString(),
-          used: false
-        })
-      });
-
-      if (!googleSheetsResponse.ok) {
-        console.error('Error saving to Google Sheets:', await googleSheetsResponse.text());
-        return Response.json(
-          { error: 'Failed to save registration data' },
-          { status: 500 }
-        );
-      }
-
-      return Response.json({ 
-        message: 'Coupon created successfully', 
-        couponCode: newCouponCode,
-        expiresAt: expiresAt.toISOString()
-      });
-    } else if (action === 'validate') {
+    if (action === 'validate') {
       if (!couponCode) {
         return Response.json(
           { error: 'Coupon code is required' },

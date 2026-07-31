@@ -1,40 +1,42 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import InstagramFeed from '../../components/InstagramFeed'; // Import the new Instagram feed component
 
 export default function PortfolioPage() {
-  const portfolioItems = [
-    { id: 1, title: "Luxury Wedding", subtitle: "Ahmedabad", caption: "Elegant wedding celebration", image: "/images/portfolio/wedding-1.jpg", category: "wedding" },
-    { id: 2, title: "Traditional Wedding", subtitle: "Surat", caption: "Heritage celebration", image: "/images/portfolio/wedding-2.jpg", category: "wedding" },
-    { id: 3, title: "Beachside Ceremony", subtitle: "Goa", caption: "Contemporary celebration", image: "/images/portfolio/wedding-3.jpg", category: "wedding" },
-    { id: 4, title: "Garden Wedding", subtitle: "Vadodara", caption: "Romantic celebration", image: "/images/portfolio/wedding-4.jpg", category: "wedding" },
-    { id: 5, title: "Pre-Wedding Shoot", subtitle: "Udaipur", caption: "Romantic moments", image: "/images/portfolio/prewedding-1.jpg", category: "prewedding" },
-    { id: 6, title: "Couple's Photoshoot", subtitle: "Rajkot", caption: "Love story moments", image: "/images/portfolio/prewedding-2.jpg", category: "prewedding" },
-    { id: 7, title: "Engagement Celebration", subtitle: "Anand", caption: "Joyful moments", image: "/images/portfolio/engagement-1.jpg", category: "engagement" },
-    { id: 8, title: "Ring Ceremony", subtitle: "Baroda", caption: "Special moment", image: "/images/portfolio/engagement-2.jpg", category: "engagement" },
-    { id: 9, title: "Baby Shower Joy", subtitle: "Ahmedabad", caption: "Delightful celebration", image: "/images/portfolio/babyshower-1.jpg", category: "babyshower" },
-    { id: 10, title: "Blessing Celebration", subtitle: "Mumbai", caption: "Family gathering", image: "/images/portfolio/babyshower-2.jpg", category: "babyshower" },
-    { id: 11, title: "Cinematic Wedding Film", subtitle: "Surat", caption: "Elegant film", image: "/images/portfolio/films-1.jpg", category: "films" },
-    { id: 12, title: "Storytelling Video", subtitle: "Delhi", caption: "Emotional journey", image: "/images/portfolio/films-2.jpg", category: "films" },
-  ];
-
   const categories = [
-    { id: 'all', name: 'All' },
-    { id: 'wedding', name: 'Wedding' },
-    { id: 'prewedding', name: 'Pre Wedding' },
-    { id: 'engagement', name: 'Engagement' },
-    { id: 'babyshower', name: 'Baby Shower' },
-    { id: 'films', name: 'Films' },
+    { 
+      id: 'wedding', 
+      name: 'Wedding', 
+      image: '/images/portfolio/wedding-landing.jpg',
+      description: 'Elegant wedding celebrations'
+    },
+    { 
+      id: 'prewedding', 
+      name: 'Pre-Wedding', 
+      image: '/images/portfolio/prewedding-landing.jpg',
+      description: 'Romantic pre-wedding moments'
+    },
+    { 
+      id: 'engagement', 
+      name: 'Engagement', 
+      image: '/images/portfolio/engagement-landing.jpg',
+      description: 'Joyful engagement celebrations'
+    },
+    { 
+      id: 'babyshower', 
+      name: 'Baby Shower', 
+      image: '/images/portfolio/babyshower-landing.jpg',
+      description: 'Delightful baby shower moments'
+    },
+    { 
+      id: 'films', 
+      name: 'Films', 
+      image: '/images/portfolio/films-landing.jpg',
+      description: 'Cinematic wedding films'
+    },
   ];
-
-  const [activeCategory, setActiveCategory] = useState('all');
-
-  // Filter items based on active category
-  const filteredItems = activeCategory === 'all' 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-forest-green text-ivory">
@@ -51,53 +53,43 @@ export default function PortfolioPage() {
         </div>
       </div>
 
-      {/* Filter Section */}
-      <div className="py-12 bg-forest-green/50">
+      {/* Category Cards Grid */}
+      <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {categories.map((category) => (
-              <button
+              <Link 
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-full font-medium transition-colors ${
-                  activeCategory === category.id
-                    ? 'bg-soft-gold text-forest-green'
-                    : 'bg-forest-green text-soft-gold border border-soft-gold hover:bg-soft-gold hover:text-forest-green'
-                }`}
+                href={`/portfolio/${category.id}`}
+                className="luxury-card group overflow-hidden rounded-xl block transition-transform duration-300 hover:scale-105"
               >
-                {category.name}
-              </button>
+                <div className="relative h-80 overflow-hidden">
+                  <Image 
+                    src={category.image} 
+                    alt={category.name} 
+                    width={400} 
+                    height={320} 
+                    className="w-full h-full object-cover slow-zoom group-hover:scale-110 transition-transform duration-500"
+                    priority={category.id === 'wedding'} // Prioritize the first image
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-green/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                    <h3 className="text-3xl font-serif font-bold text-ivory mb-2">{category.name}</h3>
+                    <p className="text-lg text-soft-gold">{category.description}</p>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="bg-soft-gold text-forest-green px-8 py-3 rounded-full font-bold text-lg">
+                      View Gallery
+                    </div>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Portfolio Grid */}
-      <div className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item) => (
-              <div key={item.id} className="luxury-card group overflow-hidden rounded-xl">
-                <div className="relative h-96 overflow-hidden">
-                  <Image 
-                    src={item.image} 
-                    alt={item.title} 
-                    width={400} 
-                    height={300} 
-                    className="w-full h-full object-cover slow-zoom"
-                    priority={item.id <= 3} // Prioritize first 3 images
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest-green/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                    <h3 className="text-2xl font-serif font-bold text-ivory mb-2">{item.title}</h3>
-                    <p className="text-xl text-soft-gold mb-2">{item.subtitle}</p>
-                    <p className="text-lg text-cream">{item.caption}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Instagram Feed Section */}
+      <InstagramFeed />
 
       {/* CTA Section */}
       <div className="py-20">
