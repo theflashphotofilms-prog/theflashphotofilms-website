@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/', '/private/', '/thank-you'],
     },
-    sitemap: 'https://www.theflashphotofilms.com/sitemap.xml',
-    host: 'https://www.theflashphotofilms.com',
+    sitemap: 'https://theflashphotofilms.in/sitemap.xml',
+    host: 'https://theflashphotofilms.in',
   };
 }

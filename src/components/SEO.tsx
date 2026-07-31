@@ -14,7 +14,7 @@ const SEO = ({
   title = 'The Flash Photofilms - Professional Photography & Videography Services',
   description = 'Premium wedding, event, and commercial photography & videography services by Mohit Panchal. Capturing memories with artistic excellence.',
   keywords = 'photography, videography, wedding photography, event photography, commercial photography, portrait, Ahmedabad, Gujarat',
-  url = typeof window !== 'undefined' ? window.location.href : 'https://www.theflashphotofilms.com',
+  url = typeof window !== 'undefined' ? window.location.href : 'https://theflashphotofilms.in',
   image = '/og-image.jpg',
 }: SEOProps) => {
   const siteName = 'The Flash Photofilms';

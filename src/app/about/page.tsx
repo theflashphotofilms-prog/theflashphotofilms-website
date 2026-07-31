@@ -1,6 +1,13 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Dancing_Script } from 'next/font/google';
+
+const dancingScript = Dancing_Script({ 
+  subsets: ['latin'], 
+  weight: ['400', '500', '600', '700'],
+  display: 'swap'
+});
 
 export const metadata: Metadata = {
   title: 'About The Flash Photofilms | Luxury Wedding Photographers in Gujarat',
@@ -92,70 +99,60 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Through My Lens Section */}
-      <div className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-forest-green mb-4">
-            Through My Lens
-          </h2>
-          <p className="text-xl text-medium-gray max-w-3xl mx-auto mb-16">
-            A few thoughts that inspire the way I capture memories.
-          </p>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {/* Note 1 */}
-            <div 
-              className="bg-yellow-100 p-6 rounded-lg shadow-lg transform rotate-1 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
-              style={{ transform: 'rotate(-1deg)' }}
-            >
-              <p className="text-lg italic mb-4">
-                "Duniya mein sirf photographer hi aisa insaan hota hai jo aapko beete hue waqt ko phir se jeene ka mauka deta hai."
+      {/* Core Values Section */}
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green text-center mb-16">Our Core Values</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="luxury-card p-8 rounded-xl border border-soft-gold/30 text-center">
+              <div className="text-4xl font-serif text-soft-gold mb-4">01</div>
+              <h3 className="text-xl font-bold text-soft-gold mb-3">Excellence</h3>
+              <p className="text-cream">
+                We strive for perfection in every frame, ensuring each photograph meets our highest standards of quality.
               </p>
-              <p className="text-sm font-normal">— Mohit Panchal</p>
             </div>
-            
-            {/* Note 2 */}
-            <div 
-              className="bg-pink-100 p-6 rounded-lg shadow-lg transform -rotate-1 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
-              style={{ transform: 'rotate(2deg)' }}
-            >
-              <p className="text-lg italic mb-4">
-                "Aapki wedding mein sirf photographer hi woh shakhs hota hai jo aapko aapki poori shaadi dobara dikha sakta hai."
+            <div className="luxury-card p-8 rounded-xl border border-soft-gold/30 text-center">
+              <div className="text-4xl font-serif text-soft-gold mb-4">02</div>
+              <h3 className="text-xl font-bold text-soft-gold mb-3">Authenticity</h3>
+              <p className="text-cream">
+                We capture genuine emotions and moments as they naturally unfold, preserving your true story.
               </p>
-              <p className="text-sm font-normal">— Mohit Panchal</p>
             </div>
-            
-            {/* Note 3 */}
-            <div 
-              className="bg-blue-100 p-6 rounded-lg shadow-lg transform rotate-2 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
-              style={{ transform: 'rotate(-2deg)' }}
-            >
-              <p className="text-lg italic mb-4">
-                "Zindagi dobara nahi milti. Isliye har khoobsurat pal ko camera mein qaid kar lo. Kya pata kal inhi yaadon ko dekhkar phir se jeene ka mann kar jaaye."
+            <div className="luxury-card p-8 rounded-xl border border-soft-gold/30 text-center">
+              <div className="text-4xl font-serif text-soft-gold mb-4">03</div>
+              <h3 className="text-xl font-bold text-soft-gold mb-3">Innovation</h3>
+              <p className="text-cream">
+                We embrace cutting-edge techniques and technology to deliver unique and memorable experiences.
               </p>
-              <p className="text-sm font-normal">— Mohit Panchal</p>
             </div>
-            
-            {/* Note 4 */}
-            <div 
-              className="bg-green-100 p-6 rounded-lg shadow-lg transform -rotate-2 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif"
-              style={{ transform: 'rotate(1deg)' }}
-            >
-              <p className="text-lg italic mb-4">
-                "Camera bhi zindagi ka ek sabak sikhata hai — negative cheezon ko delete karo aur achhi yaadon ko hamesha save rakho."
-              </p>
-              <p className="text-sm font-normal">— Mohit Panchal</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Journey Section */}
+      <div className="py-20 bg-forest-green/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1">
+              <Image 
+                src="/images/about/founder.jpg" 
+                alt="Our Journey Timeline" 
+                width={600} 
+                height={400} 
+                className="rounded-xl shadow-xl w-full h-auto"
+              />
             </div>
-            
-            {/* Note 5 */}
-            <div 
-              className="bg-orange-100 p-6 rounded-lg shadow-lg transform rotate-1 hover:shadow-xl transition-shadow duration-300 text-center text-black font-serif col-span-2 lg:col-span-1"
-              style={{ transform: 'rotate(-1deg)' }}
-            >
-              <p className="text-lg italic mb-4">
-                "Photography sirf ek art nahi hai. Jab aap photography karte ho, tab aap lamhon ko sirf camera mein nahi, balki apni yaadon mein bhi hamesha ke liye qaid kar lete ho."
+            <div className="order-1 lg:order-2">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">Our Journey</h2>
+              <p className="text-lg text-cream mb-6 leading-relaxed">
+                From our humble beginnings to becoming one of Gujarat's most trusted photography studios, our journey has been filled with incredible experiences, countless smiles, and memories that we've had the privilege to preserve.
               </p>
-              <p className="text-sm font-normal">— Mohit Panchal</p>
+              <p className="text-lg text-cream mb-6 leading-relaxed">
+                Each year brings new challenges and opportunities to grow, learn, and refine our craft. We've covered weddings in grand palaces and intimate ceremonies, corporate events, and personal milestones – each with the same dedication and attention to detail.
+              </p>
+              <p className="text-lg text-cream">
+                As we continue to evolve, our core philosophy remains the same: to capture the essence of your most important moments with creativity, professionalism, and genuine care.
+              </p>
             </div>
           </div>
         </div>
@@ -197,6 +194,18 @@ export default function AboutPage() {
                 <p className="text-cream">{service.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Client Relationship Section */}
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-soft-gold text-center">More Than Just a Service</h2>
+            <p className="text-lg text-cream leading-relaxed max-w-4xl mx-auto">
+              At The Flash Photofilms, we don't simply photograph weddings – we build relationships. Our clients aren't just customers; they become part of our extended family. This personal connection allows us to capture authentic emotions and create images that resonate deeply with your unique story.
+            </p>
           </div>
         </div>
       </div>
@@ -250,6 +259,93 @@ export default function AboutPage() {
             <div className="p-8">
               <div className="text-6xl font-bold text-soft-gold mb-4">Gujarat<br />To Worldwide</div>
               <div className="text-xl text-ivory">Coverage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Through My Lens Section */}
+      <div className="py-20 bg-forest-green/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-ivory mb-6">
+              Through My Lens
+            </h2>
+            <p className="text-xl text-soft-gold max-w-3xl mx-auto">
+              Insights and reflections from our founder, Mohit Panchal
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+            <div className="relative w-full max-w-xs mx-auto">
+              <div className={`p-6 rounded-lg shadow-lg transform rotate-1 transition-transform duration-300 hover:rotate-0 hover:shadow-xl ${dancingScript.className}`} style={{ backgroundColor: '#EAD8B1', backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px)', clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))' }}>
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center z-10">
+                  <div className="w-6 h-0.5 bg-gray-800 rotate-45"></div>
+                  <div className="absolute w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                <p className="text-forest-green font-medium mb-4 text-lg leading-relaxed">
+                  "Duniya mein sirf photographer hi aisa insaan hota hai jo aapko beete hue waqt ko phir se jeene ka mauka deta hai."
+                </p>
+                <div className="text-right mt-4">
+                  <p className="text-forest-green font-semibold">— Mohit Panchal</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative w-full max-w-xs mx-auto">
+              <div className={`p-6 rounded-lg shadow-lg transform -rotate-1 transition-transform duration-300 hover:rotate-0 hover:shadow-xl ${dancingScript.className}`} style={{ backgroundColor: '#D8E2C8', backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px)', clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))' }}>
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center z-10">
+                  <div className="w-6 h-0.5 bg-gray-800 rotate-45"></div>
+                  <div className="absolute w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                <p className="text-forest-green font-medium mb-4 text-lg leading-relaxed">
+                  "Aapki wedding mein sirf photographer hi woh shakhs hota hai jo aapko aapki poori shaadi dobara dikha sakta hai."
+                </p>
+                <div className="text-right mt-4">
+                  <p className="text-forest-green font-semibold">— Mohit Panchal</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative w-full max-w-xs mx-auto">
+              <div className={`p-6 rounded-lg shadow-lg transform rotate-2 transition-transform duration-300 hover:rotate-0 hover:shadow-xl ${dancingScript.className}`} style={{ backgroundColor: '#E8D0C5', backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px)', clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))' }}>
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center z-10">
+                  <div className="w-6 h-0.5 bg-gray-800 rotate-45"></div>
+                  <div className="absolute w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                <p className="text-forest-green font-medium mb-4 text-lg leading-relaxed">
+                  "Zindagi dobara nahi milti. Isliye har khoobsurat pal ko camera mein qaid kar lo. Kya pata kal inhi yaadon ko dekhkar phir se jeene ka mann kar jaaye."
+                </p>
+                <div className="text-right mt-4">
+                  <p className="text-forest-green font-semibold">— Mohit Panchal</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative w-full max-w-xs mx-auto lg:col-span-2">
+              <div className={`p-6 rounded-lg shadow-lg transform -rotate-1 transition-transform duration-300 hover:rotate-0 hover:shadow-xl ${dancingScript.className}`} style={{ backgroundColor: '#EFE3CC', backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px)', clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))' }}>
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center z-10">
+                  <div className="w-6 h-0.5 bg-gray-800 rotate-45"></div>
+                  <div className="absolute w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                <p className="text-forest-green font-medium mb-4 text-lg leading-relaxed">
+                  "Camera bhi zindagi ka ek sabak sikhata hai — negative cheezon ko delete karo aur achhi yaadon ko hamesha save rakho."
+                </p>
+                <div className="text-right mt-4">
+                  <p className="text-forest-green font-semibold">— Mohit Panchal</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative w-full max-w-xs mx-auto lg:col-span-1">
+              <div className={`p-6 rounded-lg shadow-lg transform rotate-1 transition-transform duration-300 hover:rotate-0 hover:shadow-xl ${dancingScript.className}`} style={{ backgroundColor: '#E6C98D', backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 20px)', clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))' }}>
+                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center z-10">
+                  <div className="w-6 h-0.5 bg-gray-800 rotate-45"></div>
+                  <div className="absolute w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                <p className="text-forest-green font-medium mb-4 text-lg leading-relaxed">
+                  "Photography sirf ek art nahi hai. Jab aap photography karte ho, tab aap lamhon ko sirf camera mein nahi, balki apni yaadon mein bhi hamesha ke liye qaid kar lete ho."
+                </p>
+                <div className="text-right mt-4">
+                  <p className="text-forest-green font-semibold">— Mohit Panchal</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

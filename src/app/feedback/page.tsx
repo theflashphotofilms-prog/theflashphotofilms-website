@@ -1,131 +1,187 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import WhatsAppCTA from '../../components/WhatsAppCTA';
-import SEO from '../../components/SEO';
 
-const FeedbackPage = () => {
-  return (
-    <div className="min-h-screen bg-light-gray py-16">
-      <SEO 
-        title="Share Your Feedback - The Flash Photofilms" 
-        description="Share your feedback about our photography services. Help us improve and serve you better."
-        url="https://www.theflashphotofilms.com/feedback"
-      />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-dark-maroon mb-4">We Value Your Feedback</h1>
-          <p className="text-xl text-medium-gray">
-            Your opinion matters to us. Share your experience with our photography services.
-          </p>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <form className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-medium-gray mb-2 font-medium">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
-                placeholder="Enter your full name"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="block text-medium-gray mb-2 font-medium">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
-                placeholder="Enter your email address"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="service" className="block text-medium-gray mb-2 font-medium">Service Received</label>
-              <select
-                id="service"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
-              >
-                <option value="">Select a service</option>
-                <option value="wedding">Wedding Photography</option>
-                <option value="event">Event Photography</option>
-                <option value="portrait">Portrait Session</option>
-                <option value="commercial">Commercial Photography</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="rating" className="block text-medium-gray mb-2 font-medium">Overall Rating</label>
-              <div className="flex space-x-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    className="text-gray-300 hover:text-gold focus:outline-none"
-                  >
-                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="feedback" className="block text-medium-gray mb-2 font-medium">Your Feedback</label>
-              <textarea
-                id="feedback"
-                rows={5}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
-                placeholder="Please share your detailed feedback about our services..."
-              ></textarea>
-            </div>
-
-            <div>
-              <label htmlFor="improvements" className="block text-medium-gray mb-2 font-medium">Suggestions for Improvement</label>
-              <textarea
-                id="improvements"
-                rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-dark-maroon focus:outline-none transition-colors"
-                placeholder="How can we improve our services?"
-              ></textarea>
-            </div>
-
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="contact"
-                className="h-4 w-4 text-gold focus:ring-gold border-gray-300 rounded"
-              />
-              <label htmlFor="contact" className="ml-2 block text-medium-gray">
-                I agree to be contacted regarding my feedback
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-dark-maroon text-white py-4 px-6 rounded-xl font-bold hover:bg-gold hover:text-dark-maroon transition-colors"
-            >
-              Submit Feedback
-            </button>
-          </form>
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link 
-            href="/" 
-            className="inline-block bg-transparent border-2 border-dark-maroon text-dark-maroon px-8 py-4 rounded-xl font-bold hover:bg-dark-maroon hover:text-white transition-colors"
-          >
-            Back to Home
-          </Link>
-        </div>
-      </div>
-      <WhatsAppCTA />
-    </div>
-  );
+export const metadata: Metadata = {
+  title: 'Share Your Feedback | The Flash Photofilms',
+  description: 'Share your feedback and experience with The Flash Photofilms wedding photography and cinematography services.',
+  openGraph: {
+    title: 'Share Your Feedback | The Flash Photofilms',
+    description: 'Share your feedback and experience with The Flash Photofilms wedding photography and cinematography services.',
+    url: 'https://theflashphotofilms.in/feedback',
+    siteName: 'The Flash Photofilms',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Flash Photofilms - Share Your Feedback',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Share Your Feedback | The Flash Photofilms',
+    description: 'Share your feedback and experience with The Flash Photofilms wedding photography and cinematography services.',
+    images: ['/opengraph-image.jpg'],
+  },
+  alternates: {
+    canonical: 'https://theflashphotofilms.in/feedback',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
-export default FeedbackPage;
+export default function FeedbackPage() {
+  return (
+    <div className="min-h-screen bg-forest-green text-ivory">
+      {/* Hero Section */}
+      <div className="relative py-28">
+        <div className="absolute inset-0 bg-forest-green"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-ivory mb-6">
+            Share Your Experience
+          </h1>
+          <p className="text-xl text-soft-gold max-w-3xl mx-auto">
+            Your feedback helps us improve and serve others better
+          </p>
+        </div>
+      </div>
+
+      {/* Feedback Content */}
+      <div className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-ivory text-forest-green rounded-xl p-10 shadow-xl">
+            <h2 className="text-2xl font-bold text-soft-gold mb-6 text-center">We Value Your Opinion</h2>
+            <p className="text-cream mb-8 text-center">
+              Thank you for choosing The Flash Photofilms. Your feedback is important to us as it helps us continuously improve our services and better serve couples like you.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="luxury-card p-6 rounded-xl border border-soft-gold/30">
+                <h3 className="text-xl font-bold text-soft-gold mb-3">How did we do?</h3>
+                <p className="text-cream text-sm">
+                  Rate your experience with our photography and cinematography services
+                </p>
+                <div className="flex mt-4">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button key={star} className="text-2xl text-soft-gold hover:text-forest-green focus:outline-none">
+                      ★
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="luxury-card p-6 rounded-xl border border-soft-gold/30">
+                <h3 className="text-xl font-bold text-soft-gold mb-3">Would you recommend us?</h3>
+                <p className="text-cream text-sm">
+                  How likely are you to recommend our services to others?
+                </p>
+                <div className="mt-4">
+                  <input type="range" min="0" max="10" defaultValue="10" className="w-full accent-soft-gold" />
+                  <div className="flex justify-between text-xs text-cream mt-1">
+                    <span>Not Likely</span>
+                    <span>Extremely Likely</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <form className="space-y-6">
+              <div>
+                <label htmlFor="event-type" className="block text-soft-gold font-bold mb-2">Event Type</label>
+                <select id="event-type" className="w-full p-3 rounded-lg border border-forest-green bg-forest-green text-ivory focus:outline-none focus:ring-2 focus:ring-soft-gold">
+                  <option value="">Select an event type</option>
+                  <option value="wedding">Wedding</option>
+                  <option value="pre-wedding">Pre-Wedding</option>
+                  <option value="engagement">Engagement</option>
+                  <option value="baby-shower">Baby Shower</option>
+                  <option value="corporate">Corporate Event</option>
+                  <option value="birthday">Birthday</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div>
+                <label htmlFor="comments" className="block text-soft-gold font-bold mb-2">Your Comments</label>
+                <textarea 
+                  id="comments" 
+                  rows={4} 
+                  placeholder="Tell us about your experience..." 
+                  className="w-full p-3 rounded-lg border border-forest-green bg-forest-green text-ivory focus:outline-none focus:ring-2 focus:ring-soft-gold"
+                ></textarea>
+              </div>
+              
+              <div>
+                <label htmlFor="improvements" className="block text-soft-gold font-bold mb-2">What Could We Improve?</label>
+                <textarea 
+                  id="improvements" 
+                  rows={3} 
+                  placeholder="Any suggestions for improvement?" 
+                  className="w-full p-3 rounded-lg border border-forest-green bg-forest-green text-ivory focus:outline-none focus:ring-2 focus:ring-soft-gold"
+                ></textarea>
+              </div>
+              
+              <div>
+                <label htmlFor="best-moments" className="block text-soft-gold font-bold mb-2">Favorite Moments</label>
+                <textarea 
+                  id="best-moments" 
+                  rows={3} 
+                  placeholder="Which moments did we capture best?" 
+                  className="w-full p-3 rounded-lg border border-forest-green bg-forest-green text-ivory focus:outline-none focus:ring-2 focus:ring-soft-gold"
+                ></textarea>
+              </div>
+              
+              <div className="flex items-center">
+                <input 
+                  type="checkbox" 
+                  id="consent" 
+                  className="mr-2 accent-soft-gold h-5 w-5 text-soft-gold focus:ring-soft-gold border-forest-green rounded"
+                />
+                <label htmlFor="consent" className="text-cream text-sm">
+                  I agree to share my feedback publicly as testimonials
+                </label>
+              </div>
+              
+              <button 
+                type="submit" 
+                className="w-full bg-soft-gold text-forest-green py-3 px-4 rounded-xl font-bold hover:bg-opacity-90 transition-colors"
+              >
+                Submit Feedback
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
+            Thank You for Your Feedback!
+          </h2>
+          <p className="text-xl text-soft-gold mb-10 max-w-2xl mx-auto">
+            Your insights help us create even more beautiful memories for future couples.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+            <Link 
+              href="/portfolio"
+              className="btn-primary bg-soft-gold text-forest-green px-10 py-5 rounded-xl font-bold text-lg hover:bg-opacity-90 transition-all duration-300"
+            >
+              View Our Work
+            </Link>
+            <Link 
+              href="/contact"
+              className="btn-secondary border-2 border-soft-gold text-soft-gold bg-transparent px-10 py-5 rounded-xl font-bold text-lg hover:bg-soft-gold hover:text-forest-green transition-all duration-300"
+            >
+              Get In Touch
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

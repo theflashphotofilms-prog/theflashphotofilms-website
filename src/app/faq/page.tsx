@@ -1,16 +1,41 @@
-'use client';
-
-import { useState } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import SEO from '../../components/SEO';
 
-const FAQPage = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+export const metadata: Metadata = {
+  title: 'Frequently Asked Questions | The Flash Photofilms',
+  description: 'Find answers to frequently asked questions about our wedding photography and cinematography services in Ahmedabad.',
+  openGraph: {
+    title: 'Frequently Asked Questions | The Flash Photofilms',
+    description: 'Find answers to frequently asked questions about our wedding photography and cinematography services in Ahmedabad.',
+    url: 'https://theflashphotofilms.in/faq',
+    siteName: 'The Flash Photofilms',
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Flash Photofilms - FAQ',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Frequently Asked Questions | The Flash Photofilms',
+    description: 'Find answers to frequently asked questions about our wedding photography and cinematography services in Ahmedabad.',
+    images: ['/opengraph-image.jpg'],
+  },
+  alternates: {
+    canonical: 'https://theflashphotofilms.in/faq',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
-  const toggleAccordion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
+export default function FAQPage() {
   const faqs = [
     {
       question: "How can I book The Flash Photofilms for my event?",
@@ -107,89 +132,59 @@ const FAQPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-forest-green py-16">
-      <SEO 
-        title="Frequently Asked Questions - The Flash Photofilms" 
-        description="Find answers to frequently asked questions about our photography services, packages, and booking process."
-        url="https://www.theflashphotofilms.com/faq"
-      />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-ivory mb-4 font-serif">Frequently Asked Questions (FAQs)</h1>
-          <p className="text-xl text-soft-gold">
-            Everything you need to know about our photography services
+    <div className="min-h-screen bg-forest-green text-ivory">
+      {/* Hero Section */}
+      <div className="relative py-28">
+        <div className="absolute inset-0 bg-forest-green"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-ivory mb-6">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-xl text-soft-gold max-w-3xl mx-auto">
+            Everything you need to know about our photography and cinematography services
           </p>
         </div>
+      </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div 
-              key={index} 
-              className="border border-soft-gold/30 rounded-xl overflow-hidden transition-all duration-300 bg-ivory"
-            >
-              <button
-                className={`w-full p-6 text-left flex justify-between items-center transition-colors duration-300 ${
-                  openIndex === index ? 'bg-soft-gold/10' : 'hover:bg-forest-green/10'
-                }`}
-                onClick={() => toggleAccordion(index)}
-                aria-expanded={openIndex === index}
-                aria-controls={`faq-content-${index}`}
-              >
-                <span className="text-lg font-bold text-forest-green">{faq.question}</span>
-                <svg
-                  className={`w-5 h-5 text-soft-gold transform transition-transform duration-300 ${
-                    openIndex === index ? 'rotate-180' : ''
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div
-                id={`faq-content-${index}`}
-                className={`transition-all duration-300 overflow-hidden ${
-                  openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="p-6 pt-0 border-t border-soft-gold/20">
-                  <p className="text-cream">{faq.answer}</p>
-                </div>
+      {/* FAQ Content */}
+      <div className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <div key={index} className="luxury-card bg-ivory text-forest-green rounded-xl p-6 border border-soft-gold/30">
+                <h3 className="text-xl font-bold text-soft-gold mb-3">{faq.question}</h3>
+                <p className="text-cream">{faq.answer}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+      </div>
 
-        <div className="mt-16 text-center bg-forest-green/10 rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-forest-green mb-4 font-serif">Still Have Questions?</h2>
-          <p className="text-cream mb-8">
-            Call or WhatsApp:<br />
-            <span className="text-soft-gold text-xl font-bold">+91 79849 41331</span>
+      {/* CTA Section */}
+      <div className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
+            Still Have Questions?
+          </h2>
+          <p className="text-xl text-soft-gold mb-10 max-w-2xl mx-auto">
+            Don't hesitate to reach out to us for any additional inquiries.
           </p>
-          <p className="text-cream mb-8">
-            We would be happy to help you plan your special event.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link 
-              href="/booking" 
-              className="bg-soft-gold text-forest-green px-8 py-4 rounded-xl font-bold hover:bg-forest-green hover:text-soft-gold transition-colors"
+              href="/contact"
+              className="btn-primary bg-soft-gold text-forest-green px-10 py-5 rounded-xl font-bold text-lg hover:bg-opacity-90 transition-all duration-300"
             >
-              Book Now
+              Contact Us
             </Link>
             <Link 
-              href="https://wa.me/7984941331" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-transparent border-2 border-soft-gold text-soft-gold px-8 py-4 rounded-xl font-bold hover:bg-soft-gold hover:text-forest-green transition-colors"
+              href="/booking"
+              className="btn-secondary border-2 border-soft-gold text-soft-gold bg-transparent px-10 py-5 rounded-xl font-bold text-lg hover:bg-soft-gold hover:text-forest-green transition-all duration-300"
             >
-              WhatsApp Us
+              Book Now
             </Link>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default FAQPage;
+}

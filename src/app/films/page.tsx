@@ -1,18 +1,34 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import SEO from '../../components/SEO';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Film Services | The Flash Photofilms',
-  description: 'Explore our cinematic film services capturing life\'s precious moments with storytelling excellence.',
+  title: 'Cinematic Films | The Flash Photofilms',
+  description: 'Premium cinematic wedding films and video services by The Flash Photofilms. Beautifully crafted memories for your special day.',
   openGraph: {
-    title: 'Film Services | The Flash Photofilms',
-    description: 'Explore our cinematic film services capturing life\'s precious moments with storytelling excellence.',
+    title: 'Cinematic Films | The Flash Photofilms',
+    description: 'Premium cinematic wedding films and video services by The Flash Photofilms. Beautifully crafted memories for your special day.',
+    url: 'https://theflashphotofilms.in/films',
+    siteName: 'The Flash Photofilms',
+    locale: 'en_IN',
     type: 'website',
-    url: 'https://www.theflashphotofilms.com/films',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Flash Photofilms - Cinematic Films',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cinematic Films | The Flash Photofilms',
+    description: 'Premium cinematic wedding films and video services by The Flash Photofilms. Beautifully crafted memories for your special day.',
+    images: ['/opengraph-image.jpg'],
   },
   alternates: {
-    canonical: 'https://www.theflashphotofilms.com/films',
+    canonical: 'https://theflashphotofilms.in/films',
   },
   robots: {
     index: true,
@@ -22,13 +38,7 @@ export const metadata: Metadata = {
 
 export default function FilmsPage() {
   return (
-    <div className="min-h-screen bg-ivory text-forest-green">
-      <SEO 
-        title="Film Services | The Flash Photofilms" 
-        description="Explore our cinematic film services capturing life's precious moments with storytelling excellence."
-        url="https://www.theflashphotofilms.com/films"
-      />
-      
+    <div className="min-h-screen bg-forest-green text-ivory">
       {/* Hero Section */}
       <div className="relative py-28">
         <div className="absolute inset-0 bg-forest-green"></div>
@@ -37,181 +47,149 @@ export default function FilmsPage() {
             Cinematic Films
           </h1>
           <p className="text-xl text-soft-gold max-w-3xl mx-auto">
-            Bringing your story to life through the art of cinematic filmmaking
+            Beautifully crafted memories that tell your unique love story
           </p>
         </div>
       </div>
 
-      {/* Film Philosophy */}
+      {/* Films Showcase */}
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
-                Our Cinematic Approach
-              </h2>
-              <p className="text-medium-gray text-lg mb-6">
-                At The Flash Photofilms, we believe that every moment deserves to be captured with cinematic excellence. Our film services go beyond traditional videography to create narrative-driven pieces that tell your unique story with emotional depth and artistic vision.
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-soft-gold mb-6">Our Cinematic Approach</h2>
+              <p className="text-lg text-cream mb-6 leading-relaxed">
+                At The Flash Photofilms, we believe that your love story deserves to be told through the art of cinema. Our cinematic films go beyond traditional wedding videos – they are carefully crafted narratives that capture the emotions, moments, and magic of your special day.
               </p>
-              <p className="text-medium-gray text-lg mb-8">
-                Using advanced camera techniques, professional lighting, and cinematic composition, we craft films that feel like feature movies while preserving the authenticity and emotions of your special day.
+              <p className="text-lg text-cream mb-6 leading-relaxed">
+                With a keen eye for detail and a passion for storytelling, we create films that transport you back to the feelings of your wedding day, every time you watch.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <div className="bg-forest-green/10 px-4 py-2 rounded-lg">
-                  <span className="text-forest-green font-medium">Storytelling Focus</span>
-                </div>
-                <div className="bg-forest-green/10 px-4 py-2 rounded-lg">
-                  <span className="text-forest-green font-medium">Cinematic Style</span>
-                </div>
-                <div className="bg-forest-green/10 px-4 py-2 rounded-lg">
-                  <span className="text-forest-green font-medium">Emotional Depth</span>
-                </div>
+              <div className="mt-8">
+                <h3 className="text-xl font-bold text-soft-gold mb-4">What Makes Our Films Special</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start">
+                    <span className="text-soft-gold mr-3 text-xl">✓</span>
+                    <span className="text-cream">Cinematic storytelling approach</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-soft-gold mr-3 text-xl">✓</span>
+                    <span className="text-cream">Professional audio recording</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-soft-gold mr-3 text-xl">✓</span>
+                    <span className="text-cream">Stunning drone footage</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-soft-gold mr-3 text-xl">✓</span>
+                    <span className="text-cream">Expert color grading and sound design</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-soft-gold mr-3 text-xl">✓</span>
+                    <span className="text-cream">Personalized narrative structure</span>
+                  </li>
+                </ul>
               </div>
             </div>
-            <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96 flex items-center justify-center text-gray-500">
-              Cinematic Film Concept
+            <div className="relative">
+              <Image 
+                src="/images/films/film-showcase.jpg" 
+                alt="Cinematic Film Showcase" 
+                width={600} 
+                height={400} 
+                className="rounded-xl shadow-xl w-full h-auto"
+                priority
+              />
+              <div className="absolute -bottom-6 -right-6 bg-soft-gold text-forest-green p-6 rounded-xl shadow-lg max-w-xs">
+                <p className="text-sm italic">"Transforming moments into memories through the art of cinema"</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Film Features */}
-      <div className="py-20 bg-forest-green/10">
+      {/* Film Styles */}
+      <div className="py-20 bg-forest-green/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
-              What Makes Our Films Special
-            </h2>
-            <p className="text-xl text-medium-gray max-w-3xl mx-auto">
-              Features that set our cinematic films apart from traditional videography
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
-              <div className="text-soft-gold text-4xl font-bold mb-4">01</div>
-              <h3 className="text-xl font-bold text-forest-green mb-3">Narrative Structure</h3>
-              <p className="text-medium-gray">
-                We structure your film with a clear beginning, middle, and end, creating a cohesive story that flows naturally and keeps viewers engaged.
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory text-center mb-16">Our Film Styles</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="luxury-card p-8 rounded-xl border border-soft-gold/30 text-center">
+              <div className="text-4xl font-serif text-soft-gold mb-4">🎬</div>
+              <h3 className="text-xl font-bold text-soft-gold mb-3">Documentary Style</h3>
+              <p className="text-cream mb-4">
+                Natural, unobtrusive filming that captures authentic moments as they unfold, giving you a genuine representation of your special day.
               </p>
+              <div className="text-soft-gold font-bold">✓ Real Emotions</div>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
-              <div className="text-soft-gold text-4xl font-bold mb-4">02</div>
-              <h3 className="text-xl font-bold text-forest-green mb-3">Advanced Techniques</h3>
-              <p className="text-medium-gray">
-                Using cinematic techniques like slow motion, time-lapse, drone footage, and creative angles to add visual interest and dramatic effect.
+            <div className="luxury-card p-8 rounded-xl border border-soft-gold/30 text-center">
+              <div className="text-4xl font-serif text-soft-gold mb-4">🎥</div>
+              <h3 className="text-xl font-bold text-soft-gold mb-3">Cinematic Style</h3>
+              <p className="text-cream mb-4">
+                Artistic and romantic approach with carefully planned shots, beautiful lighting, and cinematic editing for a movie-like experience.
               </p>
+              <div className="text-soft-gold font-bold">✓ Artistic Vision</div>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
-              <div className="text-soft-gold text-4xl font-bold mb-4">03</div>
-              <h3 className="text-xl font-bold text-forest-green mb-3">Color Grading</h3>
-              <p className="text-medium-gray">
-                Professional color grading gives your film a polished, movie-like appearance with consistent and appealing color tones throughout.
+            <div className="luxury-card p-8 rounded-xl border border-soft-gold/30 text-center">
+              <div className="text-4xl font-serif text-soft-gold mb-4">📽️</div>
+              <h3 className="text-xl font-bold text-soft-gold mb-3">Highlight Reel</h3>
+              <p className="text-cream mb-4">
+                Short, engaging films focusing on the most important and emotional moments of your celebration, perfect for sharing with loved ones.
               </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
-              <div className="text-soft-gold text-4xl font-bold mb-4">04</div>
-              <h3 className="text-xl font-bold text-forest-green mb-3">Audio Design</h3>
-              <p className="text-medium-gray">
-                Careful attention to audio quality, mixing ceremony audio with music to create an immersive experience that matches the visuals.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
-              <div className="text-soft-gold text-4xl font-bold mb-4">05</div>
-              <h3 className="text-xl font-bold text-forest-green mb-3">Music Integration</h3>
-              <p className="text-medium-gray">
-                Thoughtful selection and integration of music that enhances the emotional impact and pacing of your film.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-forest-green/20">
-              <div className="text-soft-gold text-4xl font-bold mb-4">06</div>
-              <h3 className="text-xl font-bold text-forest-green mb-3">Story Arc</h3>
-              <p className="text-medium-gray">
-                Each film follows a narrative arc with peaks and valleys of emotion, creating a satisfying and memorable viewing experience.
-              </p>
+              <div className="text-soft-gold font-bold">✓ Emotional Impact</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Film Process */}
+      {/* Process Section */}
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest-green mb-6">
-              Our Film Creation Process
-            </h2>
-            <p className="text-xl text-medium-gray max-w-3xl mx-auto">
-              From consultation to final delivery, we ensure a seamless experience
-            </p>
-          </div>
-          <div className="space-y-12">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="md:w-1/3">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center text-gray-500">
-                  Pre-Production Planning
-                </div>
-              </div>
-              <div className="md:w-2/3">
-                <div className="text-soft-gold text-2xl font-bold mb-2">Phase 1</div>
-                <h3 className="text-2xl font-bold text-forest-green mb-3">Pre-Production Planning</h3>
-                <p className="text-medium-gray">
-                  We begin with a detailed consultation to understand your vision, preferences, and key moments to capture. This includes timeline planning, shot lists, and coordination with other vendors.
-                </p>
-              </div>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory text-center mb-16">Our Film Process</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="bg-soft-gold text-forest-green w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-6">1</div>
+              <h3 className="text-lg font-bold text-soft-gold mb-3">Consultation</h3>
+              <p className="text-cream text-sm">Understanding your vision and preferences</p>
             </div>
-            <div className="flex flex-col md:flex-row-reverse items-center gap-8">
-              <div className="md:w-1/3">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center text-gray-500">
-                  Cinematic Capture
-                </div>
-              </div>
-              <div className="md:w-2/3">
-                <div className="text-soft-gold text-2xl font-bold mb-2">Phase 2</div>
-                <h3 className="text-2xl font-bold text-forest-green mb-3">Cinematic Capture</h3>
-                <p className="text-medium-gray">
-                  On your event day, our team uses multiple cameras, specialized equipment, and cinematic techniques to capture not just moments but the story unfolding.
-                </p>
-              </div>
+            <div className="text-center">
+              <div className="bg-soft-gold text-forest-green w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-6">2</div>
+              <h3 className="text-lg font-bold text-soft-gold mb-3">Planning</h3>
+              <p className="text-cream text-sm">Creating a detailed filming schedule</p>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="md:w-1/3">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center text-gray-500">
-                  Post-Production Magic
-                </div>
-              </div>
-              <div className="md:w-2/3">
-                <div className="text-soft-gold text-2xl font-bold mb-2">Phase 3</div>
-                <h3 className="text-2xl font-bold text-forest-green mb-3">Post-Production Magic</h3>
-                <p className="text-medium-gray">
-                  Our editors craft your film with careful attention to pacing, music, and visual storytelling. Multiple rounds of revisions ensure your complete satisfaction.
-                </p>
-              </div>
+            <div className="text-center">
+              <div className="bg-soft-gold text-forest-green w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-6">3</div>
+              <h3 className="text-lg font-bold text-soft-gold mb-3">Filming</h3>
+              <p className="text-cream text-sm">Capturing your special moments</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-soft-gold text-forest-green w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-6">4</div>
+              <h3 className="text-lg font-bold text-soft-gold mb-3">Editing</h3>
+              <p className="text-cream text-sm">Crafting your cinematic masterpiece</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 bg-forest-green text-ivory">
+      <div className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-ivory mb-6">
-            Bring Your Story to Life
+            Ready to Tell Your Story?
           </h2>
           <p className="text-xl text-soft-gold mb-10 max-w-2xl mx-auto">
-            Experience the difference of cinematic filmmaking for your special occasion.
+            Let us create a cinematic film that captures the essence of your special day.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link 
-              href="/booking" 
-              className="inline-block bg-soft-gold text-forest-green px-8 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-colors text-lg"
+              href="/booking"
+              className="btn-primary bg-soft-gold text-forest-green px-10 py-5 rounded-xl font-bold text-lg hover:bg-opacity-90 transition-all duration-300"
             >
-              Book Film Service
+              Book Our Services
             </Link>
             <Link 
-              href="/portfolio" 
-              className="inline-block bg-transparent border-2 border-soft-gold text-soft-gold px-8 py-4 rounded-xl font-bold hover:bg-soft-gold hover:text-forest-green transition-colors text-lg"
+              href="/contact"
+              className="btn-secondary border-2 border-soft-gold text-soft-gold bg-transparent px-10 py-5 rounded-xl font-bold text-lg hover:bg-soft-gold hover:text-forest-green transition-all duration-300"
             >
-              Watch Samples
+              Get In Touch
             </Link>
           </div>
         </div>

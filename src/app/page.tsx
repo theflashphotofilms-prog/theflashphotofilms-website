@@ -1,25 +1,40 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import Testimonials from '../components/Testimonials';
+import ClientReviews from '../components/ClientReviews';
 import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
 import LocationMap from '../components/LocationMap';
-import SEO from '../components/SEO';
-import DiscountPopup from '../components/DiscountPopup';
 
 export const metadata: Metadata = {
   title: 'The Flash Photofilms - Professional Wedding Photography & Cinematic Films',
   description: 'Professional wedding photography and cinematic films in Gujarat. Expert team capturing life\'s precious moments with artistic excellence.',
   openGraph: {
-    title: 'The Flash Photofilms - Professional Wedding Photography & Cinematic Films',
-    description: 'Professional wedding photography and cinematic films in Gujarat. Expert team capturing life\'s precious moments with artistic excellence.',
+    title: 'The Flash Photofilms - Premium Wedding Photography & Cinematic Films in Ahmedabad',
+    description: 'Capture your special moments with our premium wedding photography and cinematic films in Ahmedabad. Professional service with artistic excellence.',
+    url: 'https://theflashphotofilms.in',
+    siteName: 'The Flash Photofilms',
+    locale: 'en_IN',
     type: 'website',
-    url: 'https://www.theflashphotofilms.com',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Flash Photofilms - Premium Wedding Photography',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Flash Photofilms - Premium Wedding Photography & Cinematic Films in Ahmedabad',
+    description: 'Capture your special moments with our premium wedding photography and cinematic films in Ahmedabad. Professional service with artistic excellence.',
+    images: ['/opengraph-image.jpg'],
   },
   alternates: {
-    canonical: 'https://www.theflashphotofilms.com',
+    canonical: 'https://theflashphotofilms.in',
   },
   robots: {
     index: true,
@@ -30,11 +45,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-ivory">
-      <SEO 
-        title="The Flash Photofilms - Professional Wedding Photography & Cinematic Films" 
-        description="Professional wedding photography and cinematic films in Gujarat. Expert team capturing life's precious moments with artistic excellence."
-        url="https://www.theflashphotofilms.com"
-      />
       <Hero />
       <main>
         <Services />
@@ -45,8 +55,8 @@ export default function HomePage() {
                 Why Choose The Flash Photofilms?
               </h2>
               <p className="text-xl text-soft-gold max-w-3xl mx-auto">
-                  We combine creativity, professional equipment, cinematic storytelling, premium albums, drone coverage, and personalized service to create memories that last a lifetime.
-                </p>
+                We combine creativity, professional equipment, cinematic storytelling, premium albums, drone coverage, and personalized service to create memories that last a lifetime.
+              </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               <div className="luxury-card p-8 rounded-xl text-center group hover:transform hover:scale-105 transition-all duration-300 border border-soft-gold/30 overflow-hidden">
@@ -94,7 +104,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <Testimonials />
+        <ClientReviews />
         <div className="py-16 bg-ivory text-forest-green">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -125,8 +135,6 @@ export default function HomePage() {
         <ContactSection />
         <LocationMap />
       </main>
-      {/* Discount Popup */}
-      <DiscountPopup />
     </div>
   );
 };

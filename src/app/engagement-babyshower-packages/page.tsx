@@ -1,12 +1,9 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
-import type { Metadata } from 'next';
+import { engagementBabyShowerMetadata } from './metadata';
 import TermsAndConditions from '../../components/TermsAndConditions';
-import SEO from '../../components/SEO';
 
-
+export const metadata = engagementBabyShowerMetadata;
 
 export default function EngagementBabyShowerPackagesPage() {
   const packages = [

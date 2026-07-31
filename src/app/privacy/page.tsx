@@ -8,7 +8,7 @@ const PrivacyPage = () => {
       <SEO 
         title="Privacy Policy - The Flash Photofilms" 
         description="Privacy policy for The Flash Photofilms photography services and website usage."
-        url="https://www.theflashphotofilms.com/privacy"
+        url="https://theflashphotofilms.in/privacy"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">

@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     title: 'Thank You | The Flash Photofilms',
     description: 'Thank you for contacting The Flash Photofilms. We appreciate your interest in our photography services.',
     type: 'website',
-    url: 'https://www.theflashphotofilms.com/thank-you',
+    url: 'https://theflashphotofilms.in/thank-you',
   },
   alternates: {
-    canonical: 'https://www.theflashphotofilms.com/thank-you',
+    canonical: 'https://theflashphotofilms.in/thank-you',
   },
   robots: {
     index: true,
@@ -27,7 +27,7 @@ export default function ThankYouPage() {
       <SEO 
         title="Thank You | The Flash Photofilms" 
         description="Thank you for contacting The Flash Photofilms. We appreciate your interest in our photography services."
-        url="https://www.theflashphotofilms.com/thank-you"
+        url="https://theflashphotofilms.in/thank-you"
       />
       
       {/* Hero Section */}

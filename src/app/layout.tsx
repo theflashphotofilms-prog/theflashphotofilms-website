@@ -13,12 +13,12 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.theflashphotofilms.com"),
+  metadataBase: new URL("https://theflashphotofilms.in"),
   title: {
-    default: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films in Gujarat',
+    default: 'The Flash Photofilms - Premium Wedding Photography & Cinematic Films',
     template: '%s | The Flash Photofilms'
   },
-  description: 'The Flash Photofilms offers luxury wedding photography, cinematic wedding films, pre wedding shoots, engagement coverage, baby shower photography, and destination wedding photography across Ahmedabad, Surat, Vadodara, Anand, and Gujarat.',
+  description: 'Premium wedding photography and cinematic films in Ahmedabad. Capturing timeless moments with artistic excellence.',
   keywords: [
     'Wedding Photographer Gujarat',
     'Wedding Photography Gujarat',
@@ -40,36 +40,35 @@ export const metadata: Metadata = {
     'Drone Wedding Photography Gujarat',
     'The Flash Photofilms'
   ],
-  authors: [{ name: 'The Flash Photofilms' }],
+  authors: [{ name: 'The Flash Photofilms', url: 'https://theflashphotofilms.in' }],
   creator: 'The Flash Photofilms',
   publisher: 'The Flash Photofilms',
   formatDetection: {
     email: false,
     address: false,
-    telephone: false,
+    telephone: true,
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://www.theflashphotofilms.com',
-    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films',
-    description: 'Capturing timeless emotions through luxury wedding photography and cinematic wedding films across Gujarat and India.',
+    title: 'The Flash Photofilms - Premium Wedding Photography & Cinematic Films',
+    description: 'Premium wedding photography and cinematic films in Ahmedabad. Capturing timeless moments with artistic excellence.',
+    url: 'https://theflashphotofilms.in',
     siteName: 'The Flash Photofilms',
+    locale: 'en_IN',
+    type: 'website',
     images: [
       {
         url: '/opengraph-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'The Flash Photofilms - Luxury Wedding Photography & Cinematic Films',
+        alt: 'The Flash Photofilms - Premium Wedding Photography',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Flash Photofilms | Luxury Wedding Photography & Cinematic Films',
-    description: 'Capturing timeless emotions through luxury wedding photography and cinematic wedding films across Gujarat and India.',
-    images: ['/twitter-image.jpg'],
-    site: '@flashphotofilms', // Replace with actual Twitter handle
+    title: 'The Flash Photofilms - Premium Wedding Photography & Cinematic Films',
+    description: 'Premium wedding photography and cinematic films in Ahmedabad. Capturing timeless moments with artistic excellence.',
+    images: ['/opengraph-image.jpg'],
   },
   robots: {
     index: true,
@@ -83,10 +82,18 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || '', // Use env var for security
+    google: 'your-google-site-verification-code',
+    yandex: 'your-yandex-verification-code',
+    yahoo: 'your-yahoo-verification-code',
   },
-  alternates: {
-    canonical: 'https://www.theflashphotofilms.com',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  other: {
+    'google-site-verification': 'your-google-site-verification-code'
   }
 };
 

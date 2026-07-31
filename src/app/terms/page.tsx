@@ -8,7 +8,7 @@ const TermsPage = () => {
       <SEO 
         title="Terms of Service - The Flash Photofilms" 
         description="Terms of service for The Flash Photofilms photography services and website usage."
-        url="https://www.theflashphotofilms.com/terms"
+        url="https://theflashphotofilms.in/terms"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">

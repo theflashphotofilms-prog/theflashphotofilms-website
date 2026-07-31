@@ -17,7 +17,7 @@ export default function PreWeddingPackagesPage() {
       <SEO 
         title="Pre-Wedding Photography Packages | The Flash Photofilms" 
         description="Explore our elegant pre-wedding photography packages to capture your love story before the big day."
-        url="https://www.theflashphotofilms.com/pre-wedding-packages"
+        url="https://theflashphotofilms.in/pre-wedding-packages"
       />
       
       {/* Hero Section */}

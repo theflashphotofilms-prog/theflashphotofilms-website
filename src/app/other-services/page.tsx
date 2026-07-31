@@ -9,11 +9,27 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Book Photography Services | The Flash Photofilms',
     description: 'Easily book our photography services for corporate events, birthdays, maternity, baby photoshoots, and more.',
+    url: 'https://theflashphotofilms.in/other-services',
+    siteName: 'The Flash Photofilms',
+    locale: 'en_IN',
     type: 'website',
-    url: 'https://www.theflashphotofilms.com/other-services',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Book Photography Services - The Flash Photofilms',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Book Photography Services | The Flash Photofilms',
+    description: 'Easily book our photography services for corporate events, birthdays, maternity, baby photoshoots, and more.',
+    images: ['/opengraph-image.jpg'],
   },
   alternates: {
-    canonical: 'https://www.theflashphotofilms.com/other-services',
+    canonical: 'https://theflashphotofilms.in/other-services',
   },
   robots: {
     index: true,
